@@ -1,0 +1,530 @@
+.dashboard-container {
+  text-align: left;
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: #f5f7f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.dashboard-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.dashboard-select {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #34495e;
+  color: white;
+}
+
+.dashboard-time {
+  font-size: 14px;
+  color: #ddd;
+}
+
+.edit-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dashboard-grid {
+  display: flex;
+  flex: 1;
+}
+
+.dashboard-panel {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  margin: 10px;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.home-button {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #3498db;
+  font-weight: 500;
+}
+
+.home-icon {
+  font-size: 18px;
+}
+
+.last-update {
+  padding: 10px;
+  font-size: 12px;
+  color: #777;
+  margin-top: 10px;
+}
+
+.status-box {
+  margin-top: 10px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-box h2 {
+  font-size: 32px;
+  margin: 0;
+  font-weight: 500;
+  color: #333;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+}
+
+.panel {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.alarms-panel {
+  grid-column: span 4;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.panel-header.with-icon {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.panel-icon {
+  font-size: 14px;
+  color: #3498db;
+}
+
+.panel-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.realtime {
+  font-size: 12px;
+  color: #777;
+}
+
+.alarms-table {
+  padding: 10px;
+}
+
+.alarms-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.alarms-table th {
+  text-align: left;
+  font-weight: 500;
+  color: #555;
+  padding: 8px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.no-alarms {
+  padding: 20px;
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}
+
+.gauges-row {
+  grid-column: span 4;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+}
+
+.gauge-panel {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.temperature {
+  color: #e74c3c;
+}
+
+.pressure {
+  color: #3498db;
+}
+
+.fuel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fuel-container {
+  width: 60px;
+  height: 80px;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.fuel-level {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #2ecc71;
+  transition: height 0.3s;
+}
+
+.fuel-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  font-weight: bold;
+}
+
+.battery-container {
+  width: 70px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.battery-text {
+  color: white;
+  font-weight: bold;
+}
+
+.temp-icon, .pressure-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.gauge-title {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.gauge-value {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.rpm-panel {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+  padding: 15px;
+}
+
+.rpm-gauge {
+  grid-column: span 1;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rpm-title {
+  font-size: 16px;
+  color: #555;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.frequency-box, .starts-box {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-title {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.metric-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.metrics-panel {
+  grid-column: span 4;
+}
+
+.voltage-gauges, .power-gauges {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+
+.gauge-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%;
+}
+
+.gauge-group h4 {
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+.gauge-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.voltage-gauge {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.gauge-display {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  background-color: #f8f9fa;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.gauge-labels, .gauge-values {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.gauge-labels div, .gauge-values div, .phase-values div, .phase-current-values div {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.phase-values, .phase-current-values {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.power-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.power-gauge h4 {
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  text-align: center;
+}
+
+.power-values {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.power-labels, .power-numbers {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.power-labels div, .power-numbers div {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+}
+
+.energy-panel, .power-factor-panel {
+  grid-column: span 2;
+}
+
+.energy-data, .power-factor-data {
+  padding: 15px;
+}
+
+.energy-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.energy-table th, .energy-table td {
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.energy-table th {
+  font-weight: 500;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+.power-factor-labels, .power-factor-values {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.power-factor-labels div, .power-factor-values div {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.dashboard-footer {
+  text-align: right;
+  font-size: 12px;
+  color: #777;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+  .dashboard-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .alarms-panel, .metrics-panel {
+    grid-column: span 2;
+  }
+  
+  .gauges-row {
+    grid-column: span 2;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-grid {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: auto;
+  }
+  
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .alarms-panel, .metrics-panel, .rpm-panel, .energy-panel, .power-factor-panel {
+    grid-column: span 1;
+  }
+  
+  .gauges-row {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+  }
+  
+  .voltage-gauges, .power-gauges {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .gauge-group, .power-gauge {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+}
