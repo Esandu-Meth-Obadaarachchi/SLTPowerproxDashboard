@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup,OAuthProvider } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { app } from "./../../firebase";
 import "./Login.css";
 import logoimage from "./../../assets/logo.png";
+
 const Login = () => {
   const navigate = useNavigate();
   const auth = getAuth(app);
@@ -84,19 +85,70 @@ const Login = () => {
     }
   };
 
-  // const handleMicrosoftLogin = async () => {
-  //   setIsLoading(true);
-  //   setError("");
+  const handleMicrosoftLogin = async () => {
+    setIsLoading(true);
+    setError("");
     
-  //   try {
-  //     // Microsoft authentication logic would go here
-  //     setError("Microsoft authentication is not yet implemented");
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     setError("Microsoft login failed: " + error.message);
-  //     setIsLoading(false);
-  //   }
-  // };
+    try {
+      // Create Microsoft authentication provider
+      const provider = new OAuthProvider('microsoft.com');
+      
+      // Add scopes for Microsoft authentication
+      provider.addScope('user.read');
+      provider.addScope('openid');
+      provider.addScope('profile');
+      provider.addScope('email');
+      
+      // Set custom parameters for Microsoft login
+      provider.setCustomParameters({
+        prompt: 'consent',
+        tenant: 'common' // Use 'common' for any Microsoft account or your tenant ID for specific organization
+      });
+      
+      // Sign in with popup
+      const result = await signInWithPopup(auth, provider);
+      
+      // Get OAuth access token and ID token
+      //const credential = OAuthProvider.credentialFromResult(result);
+      // const accessToken = credential.accessToken;
+      // const idToken = credential.idToken;
+      
+      // Get user info
+      const user = result.user;
+      
+      // Save user info based on rememberMe
+      const storage = rememberMe ? localStorage : sessionStorage;
+      storage.setItem("user", JSON.stringify({
+        username: user.displayName,
+        email: user.email,
+        role: determineUserRole(user.email),
+        isAuthenticated: true
+      }));
+      
+      // Store the "remember me" preference
+      localStorage.setItem("rememberMe", rememberMe.toString());
+      
+      // Redirect to dashboard
+      navigate("/overview");
+    } catch (error) {
+      console.error("Microsoft auth error:", error);
+      
+      // Handle specific errors
+      if (error.code === 'auth/account-exists-with-different-credential') {
+        setError("An account already exists with the same email address but different sign-in credentials.");
+      } else if (error.code === 'auth/popup-closed-by-user') {
+        setError("The sign-in popup was closed before completing the sign-in.");
+      } else if (error.code === 'auth/cancelled-popup-request') {
+        setError("The sign-in operation was cancelled.");
+      } else if (error.code === 'auth/popup-blocked') {
+        setError("The sign-in popup was blocked by the browser.");
+      } else {
+        setError("Microsoft login failed: " + error.message);
+      }
+      
+      setIsLoading(false);
+    }
+  };
 
   // Helper function to determine user role
   const determineUserRole = (email) => {
@@ -193,6 +245,14 @@ const Login = () => {
             
             
           </div>
+          <button 
+            onClick={handleMicrosoftLogin} 
+            className="social-button microsoft"
+            disabled={isLoading}
+          >
+            <img src="microsoft-icon.png" alt="" className="social-icon" />
+            Login with Microsoft
+          </button>
           
           <button 
             type="submit" 

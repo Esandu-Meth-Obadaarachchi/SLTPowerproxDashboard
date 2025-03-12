@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile, OAuthProvider  } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { app } from "./../../firebase";
 import "./Login.css";
@@ -69,6 +69,71 @@ const Signup = () => {
         default:
           setError("Failed to create account: " + error.message);
       }
+      setIsLoading(false);
+    }
+  };
+
+  const handleMicrosoftSignup = async () => {
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      // Create Microsoft authentication provider
+      const provider = new OAuthProvider('microsoft.com');
+      
+      // Add scopes for Microsoft authentication
+      provider.addScope('user.read');
+      provider.addScope('openid');
+      provider.addScope('profile');
+      provider.addScope('email');
+      
+      // Set custom parameters for Microsoft signup
+      provider.setCustomParameters({
+        prompt: 'consent',
+        tenant: 'common' // Use 'common' for any Microsoft account or your tenant ID for specific organization
+      });
+      
+      // Sign in with popup (same method is used for signup)
+      const result = await signInWithPopup(auth, provider);
+      
+      // Get OAuth access token and ID token
+      //const credential = OAuthProvider.credentialFromResult(result);
+      // const accessToken = credential.accessToken;
+      // const idToken = credential.idToken;
+      
+      // Get user info
+      const user = result.user;
+      
+      // Check if this is a new user (just created)
+      const isNewUser = result._tokenResponse.isNewUser;
+      
+      // Store user info in sessionStorage
+      sessionStorage.setItem("user", JSON.stringify({
+        username: user.displayName,
+        email: user.email,
+        role: "user", // Default role for new users
+        isAuthenticated: true,
+        isNewUser: isNewUser
+      }));
+      
+      // Redirect to dashboard
+      navigate("/overview");
+    } catch (error) {
+      console.error("Microsoft auth error:", error);
+      
+      // Handle specific errors
+      if (error.code === 'auth/account-exists-with-different-credential') {
+        setError("An account already exists with the same email address but different sign-in credentials.");
+      } else if (error.code === 'auth/popup-closed-by-user') {
+        setError("The sign-up popup was closed before completing the process.");
+      } else if (error.code === 'auth/cancelled-popup-request') {
+        setError("The sign-up operation was cancelled.");
+      } else if (error.code === 'auth/popup-blocked') {
+        setError("The sign-up popup was blocked by the browser.");
+      } else {
+        setError("Microsoft sign-up failed: " + error.message);
+      }
+      
       setIsLoading(false);
     }
   };
@@ -244,6 +309,15 @@ const Signup = () => {
             </svg>
             Sign up with Google
           </button>
+
+          <button 
+              onClick={handleMicrosoftSignup} 
+              className="social-button microsoft"
+              disabled={isLoading}
+            >
+              <img src="microsoft-icon.png" alt="Microsoft" className="social-icon" />
+              Sign up with Microsoft
+            </button>
         </div>
 
         <div className="signup-link">
