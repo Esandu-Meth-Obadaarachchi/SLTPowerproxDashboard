@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/SLTPowerproxDashboard/static/css/main.4e2b11b2.css",
+    "main.js": "/SLTPowerproxDashboard/static/js/main.0e3b43bb.js",
+    "static/js/453.51b20bab.chunk.js": "/SLTPowerproxDashboard/static/js/453.51b20bab.chunk.js",
+    "static/media/slide2.jpeg": "/SLTPowerproxDashboard/static/media/slide2.734617fd5a04e9b2941c.jpeg",
+    "static/media/logo.png": "/SLTPowerproxDashboard/static/media/logo.e6bacd0172ed7ab35f8c.png",
+    "static/media/slide1.jpeg": "/SLTPowerproxDashboard/static/media/slide1.2d6fbd6bbb4a68c3709e.jpeg",
+    "index.html": "/SLTPowerproxDashboard/index.html",
+    "main.4e2b11b2.css.map": "/SLTPowerproxDashboard/static/css/main.4e2b11b2.css.map",
+    "main.0e3b43bb.js.map": "/SLTPowerproxDashboard/static/js/main.0e3b43bb.js.map",
+    "453.51b20bab.chunk.js.map": "/SLTPowerproxDashboard/static/js/453.51b20bab.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e2b11b2.css",
+    "static/js/main.0e3b43bb.js"
+  ]
+}
