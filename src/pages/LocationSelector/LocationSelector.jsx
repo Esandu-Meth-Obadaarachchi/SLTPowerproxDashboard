@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LocationSelector.css";
 
+const LocationSelector = () => {
+  const navigate = useNavigate();
+  const [expandedLocation, setExpandedLocation] = useState(null);
+
+   // Mock data - replace with your actual data source
 const locationsData = [
   {
     id: 1,
@@ -23,13 +28,45 @@ const locationsData = [
       { id: 203, name: "Gen_OTS_3", status: "Offline", lastChecked: "1 day ago" },
     ],
   },
+  {
+    id: 3,
+    name: "SLT WELIKADA A",
+    description: " - Welikada A Power Distribution Station",
+    assets: [
+      { id: 301, name: "Gen_WA_1", status: "Running", lastChecked: "1 hour ago" },
+      { id: 302, name: "Gen_WA_2", status: "Running", lastChecked: "1 hour ago" },
+      { id: 303, name: "Gen_WA_3", status: "Running", lastChecked: "1 hour ago" },
+    ],
+  },
+  {
+    id: 4,
+    name: "SLT WELIKADA B",
+    description: " - Welikada B Power Distribution Station",
+    assets: [
+      { id: 401, name: "Gen_WB_1", status: "Standby", lastChecked: "5 hours ago" },
+      { id: 402, name: "Gen_WB_2", status: "Offline", lastChecked: "1 day ago" },
+    ],
+  },
+  {
+    id: 5,
+    name: "SLT Thalawathugoda RSU",
+    description: " - Thalawathugoda Remote Service Unit",
+    assets: [
+      { id: 501, name: "Gen_TR_1", status: "Standby", lastChecked: "6 hours ago" },
+    ],
+  },
+  {
+    id: 6,
+    name: "SLT MATTAKKULIYA TELESHOP",
+    description: " - Mattakkuliya Teleshop Backup Station",
+    assets: [
+      { id: 601, name: "Gen_MT_1", status: "Standby", lastChecked: "12 hours ago" },
+    ],
+  },
+  
 ];
 
-const LocationSelector = () => {
-  const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [expandedLocation, setExpandedLocation] = useState(null);
-
+  // Function to handle navigation to generator dashboard
   const handleSelectAsset = (assetId) => {
     navigate(`/dashboard/${assetId}`);
   };
@@ -38,129 +75,74 @@ const LocationSelector = () => {
     setExpandedLocation(expandedLocation === locationId ? null : locationId);
   };
 
-  const getStatusColor = (status) => {
-    switch (status.toLowerCase()) {
-      case "running":
-        return "#4caf50"; // Green
-      case "standby":
-        return "#2196f3"; // Blue
-      case "offline":
-        return "#f44336"; // Red
-      default:
-        return "#ff9800"; // Orange
-    }
+  // Get status counts for a specific location
+  const getLocationStatusCounts = (location) => {
+    const running = location.assets.filter(asset => asset.status === "Running").length;
+    const standby = location.assets.filter(asset => asset.status === "Standby").length;
+    const offline = location.assets.filter(asset => asset.status === "Offline").length;
+    
+    return { running, standby, offline };
   };
 
-  const filteredLocations = locationsData.filter((location) => {
-    return (
-      location.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      location.assets.some((asset) =>
-        asset.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  });
-
   return (
-    <div className="location-container">
-      <div className="location-header-bar">
+    <div className="simplified-dashboard">
+      <div className="simplified-header">
         <h1>Generator Monitoring System</h1>
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search locations or generators..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-          <span className="search-icon">🔍</span>
+        <div className="search-box">
+          <input type="text" placeholder="Search..." />
         </div>
       </div>
-
-      <div className="location-summary">
-        <div className="summary-card">
-          <div className="summary-title">Total Generators</div>
-          <div className="summary-value">{locationsData.reduce((sum, loc) => sum + loc.assets.length, 0)}</div>
-        </div>
-        <div className="summary-card">
-          <div className="summary-title">Running</div>
-          <div className="summary-value running">
-            {locationsData.reduce(
-              (sum, loc) => sum + loc.assets.filter(a => a.status === "Running").length, 
-              0
-            )}
-          </div>
-        </div>
-        <div className="summary-card">
-          <div className="summary-title">Standby</div>
-          <div className="summary-value standby">
-            {locationsData.reduce(
-              (sum, loc) => sum + loc.assets.filter(a => a.status === "Standby").length, 
-              0
-            )}
-          </div>
-        </div>
-        <div className="summary-card">
-          <div className="summary-title">Offline</div>
-          <div className="summary-value offline">
-            {locationsData.reduce(
-              (sum, loc) => sum + loc.assets.filter(a => a.status === "Offline").length, 
-              0
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="location-list">
-        {filteredLocations.length === 0 ? (
-          <div className="no-results">No locations or generators found matching "{searchTerm}"</div>
-        ) : (
-          filteredLocations.map((location) => (
-            <div key={location.id} className="location-card">
-              <div 
-                className="location-card-header" 
-                onClick={() => handleToggleLocation(location.id)}
-              >
-                <div className="location-title-container">
-                  <h2 className="location-title">{location.name}</h2>
-                  <span className="location-description">{location.description}</span>
-                </div>
-                <div className="location-stats">
-                  <span className="asset-count">{location.assets.length} Generators</span>
-                  <span className={`expand-icon ${expandedLocation === location.id ? 'expanded' : ''}`}>
-                    ▼
-                  </span>
+      
+      <div className="simplified-locations-grid">
+        {locationsData.map((location) => {
+          const statusCounts = getLocationStatusCounts(location);
+          
+          return (
+            <div key={location.id} className="simplified-location-card">
+              <div className="simplified-location-header">
+                <h2>{location.name + " "+ location.description}</h2>
+                <div className="simplified-status-indicators">
+                  {statusCounts.running > 0 && (
+                    <div className="simplified-status running">
+                      <span>⚡</span>
+                      <span>{statusCounts.running}</span>
+                    </div>
+                  )}
+                  {statusCounts.standby > 0 && (
+                    <div className="simplified-status standby">
+                      <span>⏱️</span>
+                      <span>{statusCounts.standby}</span>
+                    </div>
+                  )}
+                  {statusCounts.offline > 0 && (
+                    <div className="simplified-status offline">
+                      <span>⚠️</span>
+                      <span>{statusCounts.offline}</span>
+                    </div>
+                  )}
                 </div>
               </div>
-
-              <div className={`asset-list ${expandedLocation === location.id ? 'expanded' : ''}`}>
+              
+              {/* Asset slots shown directly as in your sketch - now clickable */}
+              <div className="simplified-asset-slots">
                 {location.assets.map((asset) => (
                   <div 
                     key={asset.id} 
-                    className="asset-card" 
+                    className={`simplified-asset-slot ${asset.status.toLowerCase()}`}
                     onClick={() => handleSelectAsset(asset.id)}
                   >
-                    <div className="asset-card-content">
-                      <div className="asset-info">
-                        <h3 className="asset-name">{asset.name}</h3>
-                        <span className="asset-last-checked">Last check: {asset.lastChecked}</span>
-                      </div>
-                      <div className="asset-status-container">
-                        <span 
-                          className="asset-status-indicator" 
-                          style={{ backgroundColor: getStatusColor(asset.status) }}
-                        ></span>
-                        <span className="asset-status">{asset.status}</span>
-                      </div>
-                    </div>
-                    <div className="view-dashboard-button">
-                      View Dashboard →
-                    </div>
+                    {asset.name}
+                    <span className="view-indicator">→</span>
                   </div>
+                ))}
+                {/* Add empty slots to maintain grid */}
+                {Array(3 - location.assets.length).fill().map((_, i) => (
+                  <div key={`empty-${i}`} className="simplified-asset-slot empty"></div>
                 ))}
               </div>
             </div>
-          ))
-        )}
+          );
+        })}
       </div>
     </div>
   );

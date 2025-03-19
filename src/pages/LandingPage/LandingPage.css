@@ -97,17 +97,12 @@
 
 .carousel-content {
   width: 80%; /* 80% of parent width to match Flutter */
-  height: 100%;
+  height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Custom styles for react-responsive-carousel */
-.custom-carousel {
-  width: 100%;
-  height: 100%;
-}
 
 .custom-carousel .carousel .slide {
   background: transparent;
@@ -115,49 +110,50 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.6; /* Make non-active slides more visible but slightly transparent */
+  transition: opacity 0.5s ease;
 }
-
+/* Reduce the size of the slide images */
 .custom-carousel .carousel .slide img {
-  max-height: 50vh;
+  max-height: 60vh; /* Reduced from 50vh */
+  max-width: 100%; /* Limit width of images */
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Center slide animation */
 .custom-carousel .carousel .slide.selected {
-  transform: scale(1.1);
-  transition: transform 0.5s ease;
+  opacity: 1;
+  transform: scale(1.05); /* Slightly reduced scale to make side images more visible */
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-/* Control arrows */
+/* Remove control arrows styles since we're hiding them */
 .custom-carousel .carousel .control-arrow {
-  opacity: 0.8;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 10px;
+  display: none;
+}
+
+/* Add visual indicators that suggest swiping */
+.custom-carousel::before,
+.custom-carousel::after {
+  content: '';
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  width: 20px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
   z-index: 10;
+  transform: translateY(-50%);
 }
 
-.custom-carousel .carousel .control-prev {
-  left: 10px;
+.custom-carousel::before {
+  left: 5px;
 }
 
-.custom-carousel .carousel .control-next {
-  right: 10px;
-}
-
-.custom-carousel .carousel .control-arrow:hover {
-  background: rgba(0, 0, 0, 0.4);
+.custom-carousel::after {
+  right: 5px;
 }
 /* Bottom navigation buttons */
 .nav-buttons-container {

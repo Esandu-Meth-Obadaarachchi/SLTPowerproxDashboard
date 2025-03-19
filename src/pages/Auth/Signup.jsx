@@ -315,7 +315,6 @@ const Signup = () => {
               className="social-button microsoft"
               disabled={isLoading}
             >
-              <img src="microsoft-icon.png" alt="Microsoft" className="social-icon" />
               Sign up with Microsoft
             </button>
         </div>
