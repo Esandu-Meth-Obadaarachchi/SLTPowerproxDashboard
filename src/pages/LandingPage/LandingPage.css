@@ -10,13 +10,14 @@
 }
 
 /* Header stats section */
-.stats-container {
+.stats-container-landing-page {
   display: flex;
   justify-content: center;
   gap: 2rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem; /* Reduced margin */
   z-index: 2;
+  
 }
 
 .stat-card {

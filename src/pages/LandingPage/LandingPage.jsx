@@ -58,7 +58,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       {/* Top stats section */}
-      <div className="stats-container">
+      <div className="stats-container-landing-page">
         <StatCard 
           title="Number of Generators" 
           value={stats.generators} 
@@ -93,10 +93,7 @@ const LandingPage = () => {
             <div>
               <img src={slideshowImage1} alt="Slide 1" />
             </div>
-            <div>
-              <img src={slideshowImage2} alt="Slide 2" />
-            </div>
-            
+
             <div>
               <img 
                 src={onlineImage1} 
@@ -104,6 +101,12 @@ const LandingPage = () => {
                 onError={handleImageError} 
               />
             </div>
+            
+            <div>
+              <img src={slideshowImage2} alt="Slide 2" />
+            </div>
+            
+            
             <div>
               <img 
                 src={onlineImage2} 

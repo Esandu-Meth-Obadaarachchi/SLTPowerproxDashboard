@@ -5,12 +5,12 @@ import { auth } from "./firebase"; // Import auth from your firebase.js file
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup"; // Import the new Signup component
 import ForgotPassword from "./pages/Auth/ForgotPassword"; // Optional - if you implement this
-import EnergyAnalyticsOverview from "./pages/LandingPage/LandingPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import LocationSelector from "./pages/LocationSelector/LocationSelector";
 import GeneratorDashboard from "./pages/Dashboard/Dashboard";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
-
+import Overview from "./pages/Overview/Overview";
 // Placeholder for Alarms component
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
 
@@ -82,19 +82,29 @@ const App = () => {
     <Router>
       {isAuthenticated && <Navbar />}
       <Routes>
-        <Route path="/login" element={isAuthenticated ? <Navigate to="/overview" replace /> : <Login />} />
-        <Route path="/signup" element={isAuthenticated ? <Navigate to="/overview" replace /> : <Signup />} />
-        <Route path="/forgot-password" element={isAuthenticated ? <Navigate to="/overview" replace /> : <ForgotPassword />} />
-        <Route path="/" element={<Navigate to="/overview" replace />} />
+        <Route path="/login" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <Login />} />
+        <Route path="/signup" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <Signup />} />
+        <Route path="/forgot-password" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <ForgotPassword />} />
+        <Route path="/" element={<Navigate to="/LandingPage" replace />} />
         
+        <Route 
+          path="/LandingPage" 
+          element={
+            <ProtectedRoute>
+              <LandingPage />
+            </ProtectedRoute>
+          } 
+        />
+
         <Route 
           path="/overview" 
           element={
             <ProtectedRoute>
-              <EnergyAnalyticsOverview />
+              <Overview />
             </ProtectedRoute>
           } 
         />
+
         
         <Route 
           path="/locations" 
