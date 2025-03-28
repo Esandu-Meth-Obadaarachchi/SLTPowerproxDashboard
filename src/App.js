@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase"; // Import auth from your firebase.js file
+import { auth } from "./firebase"; 
 import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup"; // Import the new Signup component
-import ForgotPassword from "./pages/Auth/ForgotPassword"; // Optional - if you implement this
+import Signup from "./pages/Auth/Signup"; 
+import ForgotPassword from "./pages/Auth/ForgotPassword"; 
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LocationSelector from "./pages/LocationSelector/LocationSelector";
 import GeneratorDashboard from "./pages/Dashboard/Dashboard";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
+import Location from "./pages/LocationPage/Location";
 import Overview from "./pages/Overview/Overview";
+import LocationDetail from "./pages/LocationDetail/LocationDetail";
+
 // Placeholder for Alarms component
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
 
@@ -110,6 +113,15 @@ const App = () => {
           path="/locations" 
           element={
             <ProtectedRoute>
+              <Location />
+            </ProtectedRoute>
+          } 
+        />
+
+        <Route 
+          path="/generator" 
+          element={
+            <ProtectedRoute>
               <LocationSelector />
             </ProtectedRoute>
           } 
@@ -123,12 +135,14 @@ const App = () => {
             </ProtectedRoute>
           } 
         />
+        <Route path="/location/:id" element={<LocationDetail />} />
+        <Route path="/location" element={<Location />} />
         
         <Route 
           path="/location/:id" 
           element={
             <ProtectedRoute>
-              <LocationSelector />
+              <Location />
             </ProtectedRoute>
           } 
         />

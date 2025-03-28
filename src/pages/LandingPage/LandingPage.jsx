@@ -8,29 +8,48 @@ import StatCard from './../../components/StatCard/StatCard';
 // Import images
 import slideshowImage1 from '../../assets/slideshow/slide1.jpeg';
 import slideshowImage2 from '../../assets/slideshow/slide2.jpeg';
-
+// Import InfluxDB service
+import { fetchOverallStats } from '../../services/influxApiService';
 
 const LandingPage = () => {
   const navigate = useNavigate();
   
-  // Hardcoded data for now
-  const stats = {
-    generators: 42,
-    locations: 16
-  };
+  // State to store stats from InfluxDB
+  const [stats, setStats] = useState({
+    generators: 0,
+    locations: 0
+  });
   
   // Online images with placeholders in case they fail to load
   const onlineImage1 = 'https://raw.githubusercontent.com/AchithaPS/image-hosting/main/asset1.jpg';
   const onlineImage2 = 'https://raw.githubusercontent.com/AchithaPS/image-hosting/main/asset4.jpg';
   
   const handleGeneratorClick = () => {
-    navigate('/locations');
+    navigate('/generator');
   };
   
   const handleLocationClick = () => {
     navigate('/locations');
   };
   
+  // Fetch stats when component mounts
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const overallStats = await fetchOverallStats();
+        setStats({
+          generators: parseInt(overallStats.numberOfGenerators, 10),
+          locations: parseInt(overallStats.numberOfLocations, 10)
+        });
+      } catch (error) {
+        console.error('Failed to load stats:', error);
+        // Optionally set some default values or show an error message
+      }
+    };
+
+    loadStats();
+  }, []);
+
   // SVG icons for the stat cards
   const generatorIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

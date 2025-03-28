@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://Esandu-Meth-Obadaarachchi.github.io/SLTPowerproxDashboard",
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.35.0",
+    "@react-google-maps/api": "^2.20.6",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",

@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Overview.css';
 import StatCard from './../../components/StatCard/StatCard';
 import { Bolt, MapPin, AlertCircle, Battery, Activity, Clock } from 'lucide-react';
 
 const Overview = () => {
+  const navigate = useNavigate();
+  //5foIlVThkUQK6wlKmtPaX_VBdRcdw44xTi5aqiO-97VZWyeG78rV7zMpT8L83ksWXWT7VjOZB1ZWWhdZ8D1mog==
   // Sample data with all locations
   const overviewData = {
     totalConsumption: '4250 kWh',
@@ -135,6 +138,11 @@ const Overview = () => {
     ]
   };
 
+  // Handler to navigate to location detail page
+  const handleLocationClick = (locationId) => {
+    navigate(`/location/${locationId}`);
+  };
+
   return (
     <div className="energy-dashboard-container">
       <h1 className="energy-dashboard-title">Energy Analytics Overview</h1>
@@ -199,7 +207,12 @@ const Overview = () => {
       
       <div className="energy-locations-grid">
         {overviewData.locations.map((location, index) => (
-          <div key={index} className="energy-location-card">
+          <div 
+            key={index} 
+            className="energy-location-card"
+            onClick={() => handleLocationClick(location.id)}
+            style={{ cursor: 'pointer' }} // Add pointer cursor to indicate clickability
+          >
             <div className="energy-location-header">
               <div className="energy-location-title">
                 <h3>{location.name}</h3>
