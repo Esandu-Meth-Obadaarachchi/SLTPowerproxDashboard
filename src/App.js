@@ -1,35 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase"; 
-import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup"; 
-import ForgotPassword from "./pages/Auth/ForgotPassword"; 
-import LandingPage from "./pages/LandingPage/LandingPage";
-import LocationSelector from "./pages/LocationSelector/LocationSelector";
-import GeneratorDashboard from "./pages/Dashboard/Dashboard";
+import AppRouter from "./features/app/router";
+import Navbar from "./../src/features/shared/components/navbar/Navbar";
 import "./App.css";
-import Navbar from "./components/navbar/Navbar";
-import Location from "./pages/LocationPage/Location";
-import Overview from "./pages/Overview/Overview";
-import LocationDetail from "./pages/LocationDetail/LocationDetail";
-
-// Placeholder for Alarms component
-const Alarms = () => <div>Alarms Page (Placeholder)</div>;
-
-// Protected route component to handle authentication
-const ProtectedRoute = ({ children }) => {
-  // Check if user is authenticated
-  const userString = localStorage.getItem("user") || sessionStorage.getItem("user");
-  const isAuthenticated = userString ? JSON.parse(userString).isAuthenticated : false;
-  
-  if (!isAuthenticated) {
-    // Redirect to login page if not authenticated
-    return <Navigate to="/login" replace />;
-  }
-  
-  return children;
-};
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -84,81 +59,7 @@ const App = () => {
   return (
     <Router>
       {isAuthenticated && <Navbar />}
-      <Routes>
-        <Route path="/login" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <Login />} />
-        <Route path="/signup" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <Signup />} />
-        <Route path="/forgot-password" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <ForgotPassword />} />
-        <Route path="/" element={<Navigate to="/LandingPage" replace />} />
-        
-        <Route 
-          path="/LandingPage" 
-          element={
-            <ProtectedRoute>
-              <LandingPage />
-            </ProtectedRoute>
-          } 
-        />
-
-        <Route 
-          path="/overview" 
-          element={
-            <ProtectedRoute>
-              <Overview />
-            </ProtectedRoute>
-          } 
-        />
-
-        
-        <Route 
-          path="/locations" 
-          element={
-            <ProtectedRoute>
-              <Location />
-            </ProtectedRoute>
-          } 
-        />
-
-        <Route 
-          path="/generator" 
-          element={
-            <ProtectedRoute>
-              <LocationSelector />
-            </ProtectedRoute>
-          } 
-        />
-        
-        <Route 
-          path="/dashboard/:assetId" 
-          element={
-            <ProtectedRoute>
-              <GeneratorDashboard />
-            </ProtectedRoute>
-          } 
-        />
-        <Route path="/location/:id" element={<LocationDetail />} />
-        <Route path="/location" element={<Location />} />
-        
-        <Route 
-          path="/location/:id" 
-          element={
-            <ProtectedRoute>
-              <Location />
-            </ProtectedRoute>
-          } 
-        />
-        
-        <Route 
-          path="/alarms" 
-          element={
-            <ProtectedRoute>
-              <Alarms />
-            </ProtectedRoute>
-          } 
-        />
-        
-        {/* Catch-all route */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <AppRouter isAuthenticated={isAuthenticated} />
     </Router>
   );
 };
