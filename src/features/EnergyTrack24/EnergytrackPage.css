@@ -1,3 +1,281 @@
-.energy-track-container{
-    color: #000;
-}
+.energy-track-container {
+    padding: 0;
+    height: 100vh;
+    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+  }
+  
+  .energy-track-header {
+    padding: 1rem 2rem;
+    background: white;
+    border-bottom: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .energy-track-header h1 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  /* Sub Navigation Bar */
+  .sub-nav-bar {
+    display: flex;
+    background: white;
+    border-bottom: 1px solid #e9ecef;
+    padding: 0 2rem;
+    gap: 0;
+  }
+  
+  .sub-nav-item {
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #6c757d;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .sub-nav-item:hover {
+    color: #495057;
+    background-color: #f8f9fa;
+  }
+  
+  .sub-nav-item.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+    background-color: #f8f9fa;
+  }
+  
+  .sub-nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+  }
+  
+  /* Section Container */
+  .section-container {
+    padding: 2rem;
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .section-content h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  /* Cards Grid */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .info-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .info-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .info-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .info-card .metric {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+  }
+  
+  /* Alarms List */
+  .alarms-list {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+  }
+  
+  .alarm-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #f1f3f4;
+    transition: background-color 0.2s ease;
+  }
+  
+  .alarm-item:last-child {
+    border-bottom: none;
+  }
+  
+  .alarm-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .alarm-item.warning {
+    border-left: 4px solid #ffc107;
+  }
+  
+  .alarm-item.info {
+    border-left: 4px solid #17a2b8;
+  }
+  
+  .alarm-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+  
+  .alarm-details h4 {
+    margin: 0 0 0.25rem 0;
+    color: #2c3e50;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .alarm-details p {
+    margin: 0 0 0.25rem 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+  
+  .alarm-details small {
+    color: #adb5bd;
+    font-size: 0.8rem;
+  }
+  
+  /* Maintenance Timeline */
+  .maintenance-timeline {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+  }
+  
+  .maintenance-item {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f3f4;
+    transition: background-color 0.2s ease;
+  }
+  
+  .maintenance-item:last-child {
+    border-bottom: none;
+  }
+  
+  .maintenance-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .maintenance-date {
+    min-width: 120px;
+    margin-right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .maintenance-date .date {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .maintenance-date .status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .status.upcoming {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .status.scheduled {
+    background-color: #d1ecf1;
+    color: #0c5460;
+  }
+  
+  .maintenance-details h4 {
+    margin: 0 0 0.5rem 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .maintenance-details p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .energy-track-header {
+      padding: 1rem;
+    }
+    
+    .sub-nav-bar {
+      padding: 0 1rem;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    
+    .sub-nav-item {
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .section-container {
+      padding: 1rem;
+    }
+    
+    .cards-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .maintenance-item {
+      flex-direction: column;
+    }
+    
+    .maintenance-date {
+      margin-right: 0;
+      margin-bottom: 1rem;
+      align-items: flex-start;
+    }
+  }
