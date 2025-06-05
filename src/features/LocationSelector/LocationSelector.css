@@ -31,6 +31,7 @@ body {
   height: 100vh;
   max-height: 100vh;
   overflow-y: auto; /* Changed from overflow: hidden */
+  background-color: var(--primary-dark);
 }
 
 .simplified-header {

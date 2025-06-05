@@ -138,9 +138,9 @@ const Overview = () => {
     ]
   };
 
-  // Handler to navigate to location detail page
-  const handleLocationClick = (locationId) => {
-    navigate(`/location/${locationId}`);
+  const handleLocationClick = (locationName) => {
+  // Navigate to the location detail page with the location name as ID
+  navigate(`/app/location/${encodeURIComponent(locationName)}`);
   };
 
   return (
@@ -208,11 +208,11 @@ const Overview = () => {
       <div className="energy-locations-grid">
         {overviewData.locations.map((location, index) => (
           <div 
-            key={index} 
-            className="energy-location-card"
-            onClick={() => handleLocationClick(location.id)}
-            style={{ cursor: 'pointer' }} // Add pointer cursor to indicate clickability
-          >
+  key={index} 
+  className="energy-location-card"
+  onClick={() => handleLocationClick(location.name)} // Use location.name instead of location.id
+  style={{ cursor: 'pointer' }}
+>
             <div className="energy-location-header">
               <div className="energy-location-title">
                 <h3>{location.name}</h3>

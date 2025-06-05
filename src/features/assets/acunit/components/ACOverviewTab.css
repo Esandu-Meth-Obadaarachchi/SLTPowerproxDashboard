@@ -1,0 +1,284 @@
+/* ACOverviewTab.css */
+.ac-overview-tab {
+  padding: 1rem 0;
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.chart-section {
+  background-color: var(--card-background, #1a2235);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.chart-title {
+  color: var(--text-color, #ffffff);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.chart-wrapper {
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .chart-section {
+    padding: 1rem;
+  }
+}
+
+/* ACCoolingTab.css */
+.ac-cooling-tab {
+  padding: 1rem 0;
+}
+
+.cooling-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cooling-charts .chart-section {
+  background-color: var(--card-background, #1a2235);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.cooling-charts .chart-title {
+  color: var(--text-color, #ffffff);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.cooling-charts .chart-wrapper {
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .cooling-charts {
+    gap: 1rem;
+  }
+  
+  .cooling-charts .chart-section {
+    padding: 1rem;
+  }
+}
+
+/* ACElectricalTab.css */
+.ac-electrical-tab {
+  padding: 1rem 0;
+}
+
+.electrical-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.electrical-charts .chart-section {
+  background-color: var(--card-background, #1a2235);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.electrical-charts .chart-title {
+  color: var(--text-color, #ffffff);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.electrical-charts .chart-wrapper {
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .electrical-charts {
+    gap: 1rem;
+  }
+  
+  .electrical-charts .chart-section {
+    padding: 1rem;
+  }
+}
+
+/* ACAlarmsTab.css */
+.ac-alarms-tab {
+  padding: 1rem 0;
+}
+
+.alarms-list {
+  background-color: var(--card-background, #1a2235);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.alarm-item {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.3s ease;
+}
+
+.alarm-item:last-child {
+  border-bottom: none;
+}
+
+.alarm-item:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.alarm-icon {
+  margin-right: 1rem;
+}
+
+.warning-icon {
+  color: #f59e0b;
+  font-size: 1.5rem;
+}
+
+.alarm-content {
+  flex: 1;
+}
+
+.alarm-title {
+  color: var(--text-color, #ffffff);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.alarm-location {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.875rem;
+}
+
+.alarm-status {
+  margin-left: 1rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border: 1px solid #f59e0b;
+}
+
+@media (max-width: 768px) {
+  .alarm-item {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .alarm-icon {
+    margin-right: 0;
+  }
+  
+  .alarm-status {
+    margin-left: 0;
+  }
+}
+
+/* ACUnitsList.css */
+.ac-units-list {
+  background-color: var(--card-background, #1a2235);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.list-title {
+  color: var(--text-color, #ffffff);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.units-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.unit-item {
+  padding: 1rem 0;
+}
+
+.unit-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.unit-id {
+  color: var(--text-color, #ffffff);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.unit-details {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.875rem;
+}
+
+.unit-status {
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+.unit-status.normal {
+  color: #10b981;
+}
+
+.unit-status.warning {
+  color: #f59e0b;
+}
+
+.unit-status.critical {
+  color: #ef4444;
+}
+
+.unit-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.05);
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .ac-units-list {
+    padding: 1rem;
+  }
+  
+  .unit-item {
+    padding: 0.75rem 0;
+  }
+}

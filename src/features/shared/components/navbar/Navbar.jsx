@@ -1,19 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../firebase";
 import "./navbar.css";
 import logo from "../../images/logo.png"; 
+
 const Navbar = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(() => {
-    // Set active tab based on current path
-    const path = window.location.pathname;
-    if (path.includes("/overview")) return "overview";
-    if (path.includes("/locations")) return "locations";
-    if (path.includes("/alarms")) return "alarms";
-    return "overview"; // Default
-  });
+  const location = useLocation();
   
   const handleLogout = async () => {
     try {
@@ -32,27 +26,30 @@ const Navbar = () => {
     }
   };
   
-  const handleNavigation = (path, tab) => {
-    setActiveTab(tab);
+  const handleNavigation = (path) => {
     navigate(path);
+  };
+
+  const isActive = (path) => {
+    return location.pathname === path;
   };
   
   return (
     <nav className="navbar">
       <div className="navbar-container">
-      <div className="navbar-logo">
-  <img 
-    src={logo} 
-    alt="PowerProx Logo" 
-    className="logo-icon" 
-  />
-  <span>PowerProx Dashboard</span>
-</div>
+        <div className="navbar-logo">
+          <img 
+            src={logo} 
+            alt="PowerProx Logo" 
+            className="logo-icon" 
+          />
+          <span>PowerProx Dashboard</span>
+        </div>
 
         <div className="navbar-links">
           <div 
-            className={`nav-item ${activeTab === "overview" ? "active" : ""}`}
-            onClick={() => handleNavigation("/overview", "overview")}
+            className={`nav-item ${isActive("/app/overview") ? "active" : ""}`}
+            onClick={() => handleNavigation("/app/overview")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="7" height="7"></rect>
@@ -64,19 +61,20 @@ const Navbar = () => {
           </div>
 
           <div 
-            className={`nav-item ${activeTab === "Generators" ? "active" : ""}`}
-            onClick={() => handleNavigation("/generator", "Generators")}
+            className={`nav-item ${isActive("/app/generator") ? "active" : ""}`}
+            onClick={() => handleNavigation("/app/generator")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
             </svg>
             <span>Generators</span>
           </div>
 
           <div 
-            className={`nav-item ${activeTab === "locations" ? "active" : ""}`}
-            onClick={() => handleNavigation("/locations", "locations")}
+            className={`nav-item ${isActive("/app/locations") ? "active" : ""}`}
+            onClick={() => handleNavigation("/app/locations")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -86,8 +84,8 @@ const Navbar = () => {
           </div>
 
           <div 
-            className={`nav-item ${activeTab === "alarms" ? "active" : ""}`}
-            onClick={() => handleNavigation("/alarms", "alarms")}
+            className={`nav-item ${isActive("/app/alarms") ? "active" : ""}`}
+            onClick={() => handleNavigation("/app/alarms")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -98,7 +96,6 @@ const Navbar = () => {
         </div>
 
         <div className="user-section">
-          
           <div className="logout-button" onClick={handleLogout}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>

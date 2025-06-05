@@ -14,112 +14,78 @@ import LocationDetail from "../LocationDetail/LocationDetail";
 import LocationSelector from "../LocationSelector/LocationSelector";
 import GeneratorDashboard from "../assets/generator/components/Dashboard";
 
+// Layout component
+import Layout from "../shared/components/Layout/Layout";
+
 // Placeholder for future components
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
 
-// Protected route component to handle authentication
-const ProtectedRoute = ({ children }) => {
+// Protected route component with cleaner implementation
+const ProtectedRoute = ({ children, redirectTo = "/login" }) => {
   // Check if user is authenticated
   const userString = localStorage.getItem("user") || sessionStorage.getItem("user");
   const isAuthenticated = userString ? JSON.parse(userString).isAuthenticated : false;
   
   if (!isAuthenticated) {
-    // Redirect to login page if not authenticated
-    return <Navigate to="/login" replace />;
+    return <Navigate to={redirectTo} replace />;
   }
   
   return children;
 };
 
 /**
- * Application router configuration
- * @param {boolean} isAuthenticated - Whether the user is currently authenticated
- * @returns {JSX.Element} The configured routes
+ * Application router configuration with cleaner nested structure
+ * Uses ONLY the routes from the original router.js file
  */
-const AppRouter = ({ isAuthenticated }) => {
+const AppRouter = () => {
+  // Check authentication status
+  const userString = localStorage.getItem("user") || sessionStorage.getItem("user");
+  const isAuthenticated = userString ? JSON.parse(userString).isAuthenticated : false;
+
   return (
     <Routes>
-      {/* Auth Routes */}
-      <Route path="/login" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <Login />} />
-      <Route path="/signup" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <Signup />} />
-      <Route path="/forgot-password" element={isAuthenticated ? <Navigate to="/LandingPage" replace /> : <ForgotPassword />} />
-      <Route path="/" element={<Navigate to="/LandingPage" replace />} />
-      
-      {/* Protected Routes */}
+      {/* Public Auth Routes */}
       <Route 
-        path="/LandingPage" 
-        element={
-          <ProtectedRoute>
-            <LandingPage />
-          </ProtectedRoute>
-        } 
+        path="/login" 
+        element={isAuthenticated ? <Navigate to="/app/landing" replace /> : <Login />} 
       />
-
       <Route 
-        path="/overview" 
-        element={
-          <ProtectedRoute>
-            <Overview />
-          </ProtectedRoute>
-        } 
+        path="/signup" 
+        element={isAuthenticated ? <Navigate to="/app/landing" replace /> : <Signup />} 
       />
-
       <Route 
-        path="/locations" 
-        element={
-          <ProtectedRoute>
-            <Location />
-          </ProtectedRoute>
-        } 
-      />
-
-      <Route 
-        path="/generator" 
-        element={
-          <ProtectedRoute>
-            <LocationSelector />
-          </ProtectedRoute>
-        } 
+        path="/forgot-password" 
+        element={isAuthenticated ? <Navigate to="/app/landing" replace /> : <ForgotPassword />} 
       />
       
+      {/* Protected App Routes - All routes from original router.js */}
       <Route 
-        path="/dashboard/:assetId" 
+        path="/app" 
         element={
           <ProtectedRoute>
-            <GeneratorDashboard />
+            <Layout />
           </ProtectedRoute>
-        } 
-      /> 
-
-      <Route 
-        path="/location/:id" 
-        element={
-          <ProtectedRoute>
-            <LocationDetail />
-          </ProtectedRoute>
-        } 
-      />
-
-      <Route 
-        path="/location" 
-        element={
-          <ProtectedRoute>
-            <Location />
-          </ProtectedRoute>
-        } 
-      />
+        }
+      >
+        {/* Default redirect to landing page */}
+        <Route index element={<Navigate to="/app/landing" replace />} />
+        
+        {/* Main App Routes - Exact same routes as original router.js */}
+        <Route path="landing" element={<LandingPage />} />
+        <Route path="overview" element={<Overview />} />
+        <Route path="locations" element={<Location />} />
+        <Route path="location" element={<Location />} />
+        <Route path="location/:id" element={<LocationDetail />} />
+        <Route path="generator" element={<LocationSelector />} />
+        <Route path="dashboard/:assetId" element={<GeneratorDashboard />} />
+        <Route path="alarms" element={<Alarms />} />
+      </Route>
       
-      <Route 
-        path="/alarms" 
-        element={
-          <ProtectedRoute>
-            <Alarms />
-          </ProtectedRoute>
-        } 
-      />
+      {/* Root redirect - matches original behavior */}
+      <Route path="/" element={<Navigate to="/app/landing" replace />} />
       
       {/* Catch-all route */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 };

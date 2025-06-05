@@ -7,7 +7,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #121212; /* Dark background matching screenshot */
+  background-color: #121212; 
   color: #ffffff;
   line-height: 1.5;
 }
@@ -20,7 +20,7 @@ body {
 
 .dashboard-content {
   padding: 1rem;
-  background-color: #121212; /* Match the dark background in screenshot */
+  background-color: #121212; 
 }
 
 .dashboard-grid {
