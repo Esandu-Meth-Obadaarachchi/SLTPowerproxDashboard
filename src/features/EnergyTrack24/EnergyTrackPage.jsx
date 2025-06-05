@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import './EnergytrackPage.css';
 import { powerData } from './EnergyTrackData';
+import PowerUsageSection from './PowerUsageSection';
+import EfficiencySection from './EfficiencySection';
+import MaintenanceSection from './MaintenanceSection';
 
 const EnergyTrack = () => {
   const [activeSection, setActiveSection] = useState('power-usage');
@@ -13,7 +15,7 @@ const EnergyTrack = () => {
     { id: 'power-usage', label: 'Power Usage' },
     { id: 'efficiency', label: 'Efficiency' },
     { id: 'alarms', label: 'Alarms' },
-    { id: 'maintenance', label: 'maintenance' }
+    { id: 'maintenance', label: 'Maintenance' }
   ];
 
   const timeRangeOptions = [
@@ -24,284 +26,103 @@ const EnergyTrack = () => {
     { value: 'year', label: 'Past Year' }
   ];
 
-  const reportTypes = [
-    'Power Usage',
-    'Efficiency Report',
-    'Maintenance Log',
-    'Alarm History'
-  ];
-
-  const reportTimeRanges = [
-    'Last 24 Hours',
-    'Last 7 Days',
-    'Last 30 Days',
-    'Last 3 Months',
-    'Last Year'
-  ];
-
   const getCurrentData = () => {
     return powerData[timeRange] || powerData.live;
   };
 
-  const renderPowerUsageSection = () => {
-    const data = getCurrentData();
-    
-    return (
-      <div className="power-usage-section">
-        {/* Three Graph Containers */}
-        <div className="graphs-container">
-          {/* Power Consumption Graph */}
-          <div className="graph-card">
-            <h3>Power Consumption (Last 12 Months)</h3>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={data.consumption}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis 
-                    dataKey="time" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#94a3b8', fontSize: 12 }}
-                  />
-                  <YAxis 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#94a3b8', fontSize: 12 }}
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                      border: 'none',
-                      borderRadius: '8px',
-                      color: '#fff'
-                    }}
-                  />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="hq" 
-                    stroke="#3b82f6" 
-                    strokeWidth={2}
-                    dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
-                    name="HQ"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="east" 
-                    stroke="#06b6d4" 
-                    strokeWidth={2}
-                    dot={{ fill: '#06b6d4', strokeWidth: 2, r: 4 }}
-                    name="East"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="west" 
-                    stroke="#8b5cf6" 
-                    strokeWidth={2}
-                    dot={{ fill: '#8b5cf6', strokeWidth: 2, r: 4 }}
-                    name="West"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="north" 
-                    stroke="#f59e0b" 
-                    strokeWidth={2}
-                    dot={{ fill: '#f59e0b', strokeWidth: 2, r: 4 }}
-                    name="North"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+  // Mock data for efficiency and maintenance sections
+  const getMockEfficiencyData = () => ({
+    pueByLocation: [
+      { time: 'Jan', hq: 1.2, east: 1.3, west: 1.1, north: 1.4 },
+      { time: 'Feb', hq: 1.1, east: 1.2, west: 1.0, north: 1.3 },
+      { time: 'Mar', hq: 1.3, east: 1.4, west: 1.2, north: 1.5 },
+      { time: 'Apr', hq: 1.2, east: 1.3, west: 1.1, north: 1.4 },
+      { time: 'May', hq: 1.4, east: 1.5, west: 1.3, north: 1.6 },
+      { time: 'Jun', hq: 1.3, east: 1.4, west: 1.2, north: 1.5 }
+    ],
+    upsEfficiency: [
+      { time: 'Jan', hq: 95, east: 94, west: 96, north: 93 },
+      { time: 'Feb', hq: 96, east: 95, west: 97, north: 94 },
+      { time: 'Mar', hq: 94, east: 93, west: 95, north: 92 },
+      { time: 'Apr', hq: 95, east: 94, west: 96, north: 93 },
+      { time: 'May', hq: 93, east: 92, west: 94, north: 91 },
+      { time: 'Jun', hq: 94, east: 93, west: 95, north: 92 }
+    ],
+    coolingEfficiency: [
+      { time: 'Jan', hq: 85, east: 84, west: 86, north: 83 },
+      { time: 'Feb', hq: 86, east: 85, west: 87, north: 84 },
+      { time: 'Mar', hq: 84, east: 83, west: 85, north: 82 },
+      { time: 'Apr', hq: 85, east: 84, west: 86, north: 83 },
+      { time: 'May', hq: 83, east: 82, west: 84, north: 81 },
+      { time: 'Jun', hq: 84, east: 83, west: 85, north: 82 }
+    ]
+  });
 
-          {/* Power Consumption by Location */}
-          <div className="graph-card">
-            <h3>Power Consumption by Location</h3>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={data.byLocation}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis 
-                    dataKey="time" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#94a3b8', fontSize: 12 }}
-                  />
-                  <YAxis 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#94a3b8', fontSize: 12 }}
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                      border: 'none',
-                      borderRadius: '8px',
-                      color: '#fff'
-                    }}
-                  />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="hq" 
-                    stroke="#3b82f6" 
-                    strokeWidth={2}
-                    dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
-                    name="HQ"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="east" 
-                    stroke="#06b6d4" 
-                    strokeWidth={2}
-                    dot={{ fill: '#06b6d4', strokeWidth: 2, r: 4 }}
-                    name="East"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="west" 
-                    stroke="#8b5cf6" 
-                    strokeWidth={2}
-                    dot={{ fill: '#8b5cf6', strokeWidth: 2, r: 4 }}
-                    name="West"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="north" 
-                    stroke="#f59e0b" 
-                    strokeWidth={2}
-                    dot={{ fill: '#f59e0b', strokeWidth: 2, r: 4 }}
-                    name="North"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Power Consumption by Asset Type */}
-          <div className="graph-card">
-            <h3>Power Consumption by Asset Type</h3>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={data.byAssetType}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis 
-                    dataKey="time" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#94a3b8', fontSize: 12 }}
-                  />
-                  <YAxis 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#94a3b8', fontSize: 12 }}
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                      border: 'none',
-                      borderRadius: '8px',
-                      color: '#fff'
-                    }}
-                  />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="hq" 
-                    stroke="#3b82f6" 
-                    strokeWidth={2}
-                    dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
-                    name="HQ"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="east" 
-                    stroke="#06b6d4" 
-                    strokeWidth={2}
-                    dot={{ fill: '#06b6d4', strokeWidth: 2, r: 4 }}
-                    name="East"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="west" 
-                    stroke="#8b5cf6" 
-                    strokeWidth={2}
-                    dot={{ fill: '#8b5cf6', strokeWidth: 2, r: 4 }}
-                    name="West"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="north" 
-                    stroke="#f59e0b" 
-                    strokeWidth={2}
-                    dot={{ fill: '#f59e0b', strokeWidth: 2, r: 4 }}
-                    name="North"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-
-        {/* Generate Report Section */}
-        <div className="generate-report-section">
-          <h3>Generate A Report</h3>
-          <div className="report-controls">
-            <div className="report-control">
-              <label>Report Type</label>
-              <select 
-                value={reportType} 
-                onChange={(e) => setReportType(e.target.value)}
-                className="report-select"
-              >
-                {reportTypes.map(type => (
-                  <option key={type} value={type}>{type}</option>
-                ))}
-              </select>
-            </div>
-            <div className="report-control">
-              <label>Time Range</label>
-              <select 
-                value={reportTimeRange} 
-                onChange={(e) => setReportTimeRange(e.target.value)}
-                className="report-select"
-              >
-                {reportTimeRanges.map(range => (
-                  <option key={range} value={range}>{range}</option>
-                ))}
-              </select>
-            </div>
-            <button className="generate-report-btn">
-              Generate Report
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const getMockMaintenanceData = () => ({
+    completionRate: [
+      { time: 'Jan', completed: 85, pending: 15 },
+      { time: 'Feb', completed: 90, pending: 10 },
+      { time: 'Mar', completed: 88, pending: 12 },
+      { time: 'Apr', completed: 92, pending: 8 },
+      { time: 'May', completed: 87, pending: 13 },
+      { time: 'Jun', completed: 89, pending: 11 }
+    ],
+    maintenanceByAssetType: [
+      { time: 'Jan', hq: 12, east: 8, west: 10, north: 6 },
+      { time: 'Feb', hq: 15, east: 10, west: 12, north: 8 },
+      { time: 'Mar', hq: 11, east: 7, west: 9, north: 5 },
+      { time: 'Apr', hq: 14, east: 9, west: 11, north: 7 },
+      { time: 'May', hq: 13, east: 8, west: 10, north: 6 },
+      { time: 'Jun', hq: 16, east: 11, west: 13, north: 9 }
+    ],
+    maintenanceByLocation: [
+      { time: 'Jan', hq: 20, east: 15, west: 18, north: 12 },
+      { time: 'Feb', hq: 22, east: 17, west: 20, north: 14 },
+      { time: 'Mar', hq: 19, east: 14, west: 17, north: 11 },
+      { time: 'Apr', hq: 21, east: 16, west: 19, north: 13 },
+      { time: 'May', hq: 23, east: 18, west: 21, north: 15 },
+      { time: 'Jun', hq: 24, east: 19, west: 22, north: 16 }
+    ]
+  });
 
   const renderSection = () => {
+    const currentData = getCurrentData();
+    
     switch (activeSection) {
       case 'power-usage':
-        return renderPowerUsageSection();
+        return (
+          <PowerUsageSection
+            data={currentData}
+            reportType={reportType}
+            setReportType={setReportType}
+            reportTimeRange={reportTimeRange}
+            setReportTimeRange={setReportTimeRange}
+          />
+        );
       case 'efficiency':
         return (
-          <div className="section-content">
-            <h2>Efficiency Monitoring</h2>
-            <p>Coming soon...</p>
-          </div>
+          <EfficiencySection
+            data={getMockEfficiencyData()}
+            reportType={reportType}
+            setReportType={setReportType}
+            reportTimeRange={reportTimeRange}
+            setReportTimeRange={setReportTimeRange}
+          />
+        );
+      case 'maintenance':
+        return (
+          <MaintenanceSection
+            data={getMockMaintenanceData()}
+            reportType={reportType}
+            setReportType={setReportType}
+            reportTimeRange={reportTimeRange}
+            setReportTimeRange={setReportTimeRange}
+          />
         );
       case 'alarms':
         return (
           <div className="section-content">
             <h2>System Alarms</h2>
-            <p>Coming soon...</p>
-          </div>
-        );
-      case 'maintenance':
-        return (
-          <div className="section-content">
-            <h2>Maintenance Schedule</h2>
             <p>Coming soon...</p>
           </div>
         );
