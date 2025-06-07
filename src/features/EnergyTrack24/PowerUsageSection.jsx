@@ -19,7 +19,7 @@ const PowerUsageSection = ({ data, reportType, setReportType, reportTimeRange, s
 
   const graphConfigs = [
     {
-      title: 'Power Consumption (Last 12 Months)',
+      title: 'Power Consumption ',
       data: data.consumption,
       lines: [
         { dataKey: 'hq', name: 'HQ' },

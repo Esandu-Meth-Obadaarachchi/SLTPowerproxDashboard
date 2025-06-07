@@ -19,7 +19,7 @@ const AlarmsSection = ({ data, reportType, setReportType, reportTimeRange, setRe
 
   const graphConfigs = [
     {
-      title: 'Alarm Frequency (Last 30 Days)',
+      title: 'Alarm Frequency ',
       data: data.alarmFrequency,
       lines: [
         { dataKey: 'hq', name: 'HQ' },

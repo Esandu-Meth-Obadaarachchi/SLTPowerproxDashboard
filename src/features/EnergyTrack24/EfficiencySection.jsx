@@ -19,7 +19,7 @@ const EfficiencySection = ({ data, reportType, setReportType, reportTimeRange, s
 
   const graphConfigs = [
     {
-      title: 'PUE Trend by Location (Last 12 Months)',
+      title: 'PUE Trend by Location ',
       data: data.pueByLocation,
       lines: [
         { dataKey: 'hq', name: 'HQ PUE' },
