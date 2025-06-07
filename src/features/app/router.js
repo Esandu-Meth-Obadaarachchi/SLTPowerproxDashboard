@@ -13,7 +13,11 @@ import Location from "../MapLocationPage/MapLocation";
 import LocationDetail from "../LocationDetail/LocationDetail";
 import LocationSelector from "../LocationSelector/LocationSelector";
 import GeneratorDashboard from "../assets/generator/components/Dashboard";
+
 import EnergyTrack from "../EnergyTrack24/EnergyTrackPage";
+
+
+import ACUnits from "../assets/acunit/ACUnits.jsx";
 
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
@@ -79,8 +83,12 @@ const AppRouter = () => {
         <Route path="location/:id" element={<LocationDetail />} />
         <Route path="generator" element={<LocationSelector />} />
         <Route path="dashboard/:assetId" element={<GeneratorDashboard />} />
+
         <Route path="alarms" element={<Alarms />} />
         <Route path="energytrack" element={<EnergyTrack />} />
+
+        <Route path="acUnits" element={<ACUnits />} />
+
       </Route>
       
       {/* Root redirect - matches original behavior */}

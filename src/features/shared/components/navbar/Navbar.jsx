@@ -46,7 +46,7 @@ const Navbar = () => {
           <span>PowerProx Dashboard</span>
         </div>
 
-        <div className="navbar-links">
+        {/* <div className="navbar-links">
           <div 
             className={`nav-item ${isActive("/app/overview") ? "active" : ""}`}
             onClick={() => handleNavigation("/app/overview")}
@@ -104,8 +104,8 @@ const Navbar = () => {
             </svg>
             <span>Logout</span>
           </div>
-        </div>
-      </div>
+        </div>*/}
+      </div> 
     </nav>
   );
 };
