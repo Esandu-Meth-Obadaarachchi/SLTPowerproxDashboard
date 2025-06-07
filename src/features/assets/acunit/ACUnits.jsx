@@ -37,48 +37,50 @@ const temperatureTrendData = [
   { time: '24:00', avgTemp: 22.4, targetTemp: 22.0 }
 ];
 
-const StatusCard = ({ title, value, icon, color }) => (
- <div 
-   className="status-card" 
-   style={{ 
-     borderLeftColor: color,
-     transition: 'all 0.3s ease'
-   }}
-   onMouseEnter={(e) => {
-     e.target.style.boxShadow = `0 16px 48px ${color}40`;
-   }}
-   onMouseLeave={(e) => {
-     e.target.style.boxShadow = 'none';
-   }}
- >
-   <div className="status-card-content">
-     <div className="status-card-header">
-       <div className="status-card-icon" style={{ color }}>
-         {icon}
-       </div>
-       <div className="status-card-info">
-         <h3 className="status-card-value">{value}</h3>
-         <p className="status-card-title">{title}</p>
-       </div>
-     </div>
-   </div>
- </div>
-
-//  // Status Card component
 // const StatusCard = ({ title, value, icon, color }) => (
-//   <div className="status-card" style={{ borderLeftColor: color,box-shadow: 0 16px 48px color}}>
-//     <div className="status-card-content">
-//       <div className="status-card-header">
-//         <div className="status-card-icon" style={{ color }}>
-//           {icon}
-//         </div>
-//         <div className="status-card-info">
-//           <h3 className="status-card-value">{value}</h3>
-//           <p className="status-card-title">{title}</p>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
+//  <div 
+//    className="status-card" 
+//    style={{ 
+//      borderLeftColor: color,
+//      transition: 'all 0.3s ease'
+//    }}
+//    onMouseEnter={(e) => {
+//      e.target.style.boxShadow = `0 16px 48px ${color}40`;
+//    }}
+//    onMouseLeave={(e) => {
+//      e.target.style.boxShadow = 'none';
+//    }}
+//  >
+//    <div className="status-card-content">
+//      <div className="status-card-header">
+//        <div className="status-card-icon" style={{ color }}>
+//          {icon}
+//        </div>
+//        <div className="status-card-info">
+//          <h3 className="status-card-value">{value}</h3>
+//          <p className="status-card-title">{title}</p>
+//        </div>
+//      </div>
+//    </div>
+//  </div>
+
+// Status Card component
+const StatusCard = ({ title, value, icon, color }) => (
+  <div className="status-card" style={{ borderLeftColor: color}}>
+    <div className="status-card-content">
+      <div className="status-card-header">
+        <div className="status-card-icon" style={{ color }}>
+          {icon}
+        </div>
+        <div className="status-card-info">
+          <h3 className="status-card-value">{value}</h3>
+          <p className="status-card-title">{title}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 );
 
 // Chart Components

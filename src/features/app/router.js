@@ -14,7 +14,7 @@ import LocationDetail from "../LocationDetail/LocationDetail";
 import LocationSelector from "../LocationSelector/LocationSelector";
 import GeneratorDashboard from "../assets/generator/components/Dashboard";
 
-import EnergyTrack from "../EnergyTrack24/EnergyTrackPage";
+import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
 
 
 import ACUnits from "../assets/acunit/ACUnits.jsx";
