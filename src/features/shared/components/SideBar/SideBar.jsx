@@ -55,6 +55,18 @@ const Sidebar = ({ isCollapsed, onToggle }) => {
       )
     },
     {
+
+      id: "EnergyTrack",
+      label: "Reports And Analysis",
+      path: "/app/energytrack",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11 3v18M6 9v12M16 13v6M21 5v14" />
+      </svg>
+      
+      )
+    }
+
       id: "acUnits",
       label: "AC Unit",
       path: "/app/acUnits",
@@ -66,6 +78,7 @@ const Sidebar = ({ isCollapsed, onToggle }) => {
       )
     },
     
+
   ];
 
   const handleNavigation = (path) => {
