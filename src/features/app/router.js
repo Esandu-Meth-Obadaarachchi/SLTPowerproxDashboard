@@ -13,14 +13,12 @@ import Location from "../MapLocationPage/MapLocation";
 import LocationDetail from "../LocationDetail/LocationDetail";
 import LocationSelector from "../LocationSelector/LocationSelector";
 import GeneratorDashboard from "../assets/generator/components/Dashboard";
-
 import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
-
-
 import ACUnits from "../assets/acunit/ACUnits.jsx";
-
+import FMS from "../FaultManagementSystem/FaultManagement";
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
+import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 
 // Placeholder for future components
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
@@ -38,10 +36,6 @@ const ProtectedRoute = ({ children, redirectTo = "/login" }) => {
   return children;
 };
 
-/**
- * Application router configuration with cleaner nested structure
- * Uses ONLY the routes from the original router.js file
- */
 const AppRouter = () => {
   // Check authentication status
   const userString = localStorage.getItem("user") || sessionStorage.getItem("user");
@@ -88,6 +82,7 @@ const AppRouter = () => {
         <Route path="energytrack" element={<EnergyTrack />} />
 
         <Route path="acUnits" element={<ACUnits />} />
+        <Route path="fms" element={<FaultManagementSystem />} />
 
       </Route>
       

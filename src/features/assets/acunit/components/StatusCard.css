@@ -1,78 +1,141 @@
-.status-card {
-  width: 100%;
-  height: 100%;
-  background-color: var(--card-background, #1a2235);
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* StatusCard.css */
+
+/* CSS Variables */
+:root {
+  --card-background: #1a2235;
+  --text-color: #ffffff;
+  --text-secondary: #94a3b8;
+  --primary-color: #0077ff;
+  --border-color: rgba(255, 255, 255, 0.1);
 }
 
-.status-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+.status-card {
+  background: var(--card-background);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-color);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover glow effect */
+.status-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent, rgba(0, 119, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.status-card:hover::before {
+  opacity: 1;
 }
 
 .status-card-content {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.status-card-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  height: 100%;
 }
 
-.status-icon {
+.status-card-icon {
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  transition: all 0.3s ease;
 }
 
-.status-icon svg {
-  width: 32px;
-  height: 32px;
+.status-card:hover .status-card-icon {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.1);
 }
 
-.status-info {
+.status-card-info {
   flex: 1;
 }
 
-.status-value {
+.status-card-value {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--text-color, #ffffff);
-  margin-bottom: 0.25rem;
+  color: var(--text-color);
+  margin: 0 0 0.25rem 0;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-.status-title {
-  font-size: 0.875rem;
-  color: var(--text-secondary, #94a3b8);
+.status-card-title {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
 }
 
+/* Animation */
+.status-card:nth-child(odd) {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.status-card:nth-child(even) {
+  animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .status-card {
     padding: 1rem;
   }
   
-  .status-icon {
-    width: 50px;
-    height: 50px;
+  .status-card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
   }
   
-  .status-icon svg {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .status-value {
+  .status-card-value {
     font-size: 1.5rem;
   }
-  
-  .status-title {
-    font-size: 0.75rem;
+}
+
+@media (max-width: 480px) {
+  .status-card-header {
+    flex-direction: row;
+    text-align: left;
   }
 }

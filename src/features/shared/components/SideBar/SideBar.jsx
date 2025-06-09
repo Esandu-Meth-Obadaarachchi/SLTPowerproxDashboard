@@ -66,29 +66,41 @@ const Sidebar = ({ isCollapsed, onToggle }) => {
       
       )
     },{
-  id: "acUnits",
-  label: "AC Unit",
-  path: "/app/acUnits",
-  icon: (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      {/* AC Unit Body */}
-      <rect x="2" y="8" width="20" height="10" rx="2" ry="2"></rect>
-      {/* Cooling vents */}
-      <line x1="5" y1="11" x2="19" y2="11"></line>
-      <line x1="5" y1="13" x2="19" y2="13"></line>
-      <line x1="5" y1="15" x2="19" y2="15"></line>
-      {/* Control panel */}
-      <circle cx="18" cy="10" r="1"></circle>
-      <circle cx="16" cy="10" r="0.5"></circle>
-      {/* Air flow indicators */}
-      <path d="M7 6c0-1 1-2 2-2s2 1 2 2"></path>
-      <path d="M13 6c0-1 1-2 2-2s2 1 2 2"></path>
-      {/* Mounting brackets */}
-      <line x1="2" y1="8" x2="2" y2="6"></line>
-      <line x1="22" y1="8" x2="22" y2="6"></line>
-    </svg>
-  )
-}
+      id: "acUnits",
+      label: "AC Unit",
+      path: "/app/acUnits",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          {/* AC Unit Body */}
+          <rect x="2" y="8" width="20" height="10" rx="2" ry="2"></rect>
+          {/* Cooling vents */}
+          <line x1="5" y1="11" x2="19" y2="11"></line>
+          <line x1="5" y1="13" x2="19" y2="13"></line>
+          <line x1="5" y1="15" x2="19" y2="15"></line>
+          {/* Control panel */}
+          <circle cx="18" cy="10" r="1"></circle>
+          <circle cx="16" cy="10" r="0.5"></circle>
+          {/* Air flow indicators */}
+          <path d="M7 6c0-1 1-2 2-2s2 1 2 2"></path>
+          <path d="M13 6c0-1 1-2 2-2s2 1 2 2"></path>
+          {/* Mounting brackets */}
+          <line x1="2" y1="8" x2="2" y2="6"></line>
+          <line x1="22" y1="8" x2="22" y2="6"></line>
+        </svg>
+      )
+    },
+    {
+
+      id: "fms",
+      label: "Fault Management System",
+      path: "/app/fms",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11 3v18M6 9v12M16 13v6M21 5v14" />
+      </svg>
+      
+      )
+    }
 
     
     
