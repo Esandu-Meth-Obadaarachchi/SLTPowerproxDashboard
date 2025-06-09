@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/SLTPowerproxDashboard/static/css/main.4fae74ac.css",
-    "main.js": "/SLTPowerproxDashboard/static/js/main.519217e3.js",
+    "main.css": "/SLTPowerproxDashboard/static/css/main.effb6bca.css",
+    "main.js": "/SLTPowerproxDashboard/static/js/main.be775126.js",
     "static/js/453.51b20bab.chunk.js": "/SLTPowerproxDashboard/static/js/453.51b20bab.chunk.js",
+    "static/media/Background.png": "/SLTPowerproxDashboard/static/media/Background.970ae7666dd686ebfeeb.png",
     "static/media/slide2.jpeg": "/SLTPowerproxDashboard/static/media/slide2.734617fd5a04e9b2941c.jpeg",
     "static/media/logo.png": "/SLTPowerproxDashboard/static/media/logo.e6bacd0172ed7ab35f8c.png",
     "static/media/slide1.jpeg": "/SLTPowerproxDashboard/static/media/slide1.2d6fbd6bbb4a68c3709e.jpeg",
     "index.html": "/SLTPowerproxDashboard/index.html",
-    "main.4fae74ac.css.map": "/SLTPowerproxDashboard/static/css/main.4fae74ac.css.map",
-    "main.519217e3.js.map": "/SLTPowerproxDashboard/static/js/main.519217e3.js.map",
+    "main.effb6bca.css.map": "/SLTPowerproxDashboard/static/css/main.effb6bca.css.map",
+    "main.be775126.js.map": "/SLTPowerproxDashboard/static/js/main.be775126.js.map",
     "453.51b20bab.chunk.js.map": "/SLTPowerproxDashboard/static/js/453.51b20bab.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4fae74ac.css",
-    "static/js/main.519217e3.js"
+    "static/css/main.effb6bca.css",
+    "static/js/main.be775126.js"
   ]
 }
