@@ -12,6 +12,7 @@ const client = new InfluxDB({
   token: INFLUXDB_TOKEN 
 });
 
+
 // Function to fetch overall stats
 export const fetchOverallStats = async () => {
   const queryApi = client.getQueryApi(INFLUXDB_ORG);

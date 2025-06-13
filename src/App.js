@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase"; 
+import {
+  auth,
+  registerFCMTokenWithUserDetails,
+  listenToForegroundMessages,
+} from "./firebase";
+
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup"; 
 import ForgotPassword from "./pages/Auth/ForgotPassword"; 
@@ -14,71 +19,83 @@ import Location from "./pages/LocationPage/Location";
 import Overview from "./pages/Overview/Overview";
 import LocationDetail from "./pages/LocationDetail/LocationDetail";
 
-// Placeholder for Alarms component
-const Alarms = () => <div>Alarms Page (Placeholder)</div>;
+import Alarms from "./pages/Alarms/Alarms";
 
-// Protected route component to handle authentication
+import { sendNativeNotification } from "./utils/notification";
+
+// Route protection component
 const ProtectedRoute = ({ children }) => {
-  // Check if user is authenticated
   const userString = localStorage.getItem("user") || sessionStorage.getItem("user");
   const isAuthenticated = userString ? JSON.parse(userString).isAuthenticated : false;
-  
-  if (!isAuthenticated) {
-    // Redirect to login page if not authenticated
-    return <Navigate to="/login" replace />;
-  }
-  
-  return children;
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
+  const [alarmMessages, setAlarmMessages] = useState([]);
+
+  // Helper: Determine role based on email
+  const determineUserRole = (email) => {
+    if (email === "admin@example.com") return "administrator";
+    if (email === "tech@example.com") return "technician";
+    return "operator";
+  };
+
+  // Auth state observer
   useEffect(() => {
-    // Use Firebase's onAuthStateChanged for better auth state management
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // User is signed in
         const userInfo = {
           username: user.displayName || user.email.split("@")[0],
           email: user.email,
-          role: determineUserRole(user.email), // Implement this function based on your needs
-          isAuthenticated: true
+          role: determineUserRole(user.email),
+          isAuthenticated: true,
         };
-        
-        // Check if "remember me" was selected (stored in localStorage)
+
         const rememberMe = localStorage.getItem("rememberMe") === "true";
         const storage = rememberMe ? localStorage : sessionStorage;
         storage.setItem("user", JSON.stringify(userInfo));
-        
         setIsAuthenticated(true);
+
+        // Register FCM token after successful login
+        await registerFCMTokenWithUserDetails();
       } else {
-        // User is signed out
-        setIsAuthenticated(false);
-        
-        // Clear authentication data
         localStorage.removeItem("user");
         sessionStorage.removeItem("user");
+        setIsAuthenticated(false);
       }
       setIsLoading(false);
     });
-    
-    // Cleanup subscription on unmount
+
     return () => unsubscribe();
   }, []);
-  
-  // Helper function to determine user role - replace with your own logic
-  const determineUserRole = (email) => {
-    // For demonstration purposes only - in production, get roles from your database
-    if (email === "admin@example.com") return "administrator";
-    if (email === "tech@example.com") return "technician";
-    return "operator"; // Default role
-  };
-  
-  // Show loading indicator while checking auth status
+
+  // FCM foreground notifications & alarm message sync
+  useEffect(() => {
+    const storedAlarms = JSON.parse(localStorage.getItem("alarms") || "[]");
+    setAlarmMessages(storedAlarms);
+
+    const unsubscribe = listenToForegroundMessages((payload) => {
+      const { title, body } = payload.notification || {};
+      if (title && body) {
+        const newAlarm = { title, body, time: new Date().toISOString() };
+        const updatedAlarms = [newAlarm, ...storedAlarms];
+        localStorage.setItem("alarms", JSON.stringify(updatedAlarms));
+        setAlarmMessages(updatedAlarms);
+        sendNativeNotification({ title, body });
+      }
+    });
+
+    return () => unsubscribe?.();
+  }, []);
+
   if (isLoading) {
-    return <div className="loading-container">Loading...</div>;
+    return (
+      <div className="loading-container" style={{ padding: "2rem", textAlign: "center" }}>
+        <h3>Loading...</h3>
+      </div>
+    );
   }
   
   return (
