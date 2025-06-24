@@ -19,6 +19,7 @@ import FMS from "../FaultManagementSystem/FaultManagement";
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
+import UserManagementSystem  from "../UserManagement/usermanagement";
 
 // Placeholder for future components
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
@@ -83,6 +84,7 @@ const AppRouter = () => {
 
         <Route path="acUnits" element={<ACUnits />} />
         <Route path="fms" element={<FaultManagementSystem />} />
+        <Route path="ums" element={<UserManagementSystem />} />
 
       </Route>
       
