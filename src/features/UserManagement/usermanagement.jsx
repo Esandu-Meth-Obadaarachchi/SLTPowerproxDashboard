@@ -1,103 +1,227 @@
-import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import HorizontalNavbar from "./HorizontalNavbar";
+import UsersTab from "./UsersTab";
+import ActivityLogTab from "./ActivityLogTab";
+import AnalyticsTab from "./AnalyticsTab";
 import "./usermanagement.css";
 
-const userManagement = () => {
-  const HorizontalNavbar = () => {
-    const [activeTab, setActiveTab] = useState("users");
+const USERS_PER_PAGE = 5;
+const ACTIVITY_LOGS_PER_PAGE = 5;
 
-    const navItems = [
-      { id: "users", label: "Users" },
-      { id: "activity-log", label: "Activity Log" },
-      { id: "analytics", label: "Analytics" },
-    ];
+const UserManagement = () => {
+  const [activeTab, setActiveTab] = useState("users");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [activityPage, setActivityPage] = useState(1);
 
-    return (
-      <nav className="horizontal-navbar">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            className={`nav-tab ${activeTab === item.id ? "active" : ""}`}
-            onClick={() => setActiveTab(item.id)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </nav>
-    );
+  const [showAddUserPanel, setShowAddUserPanel] = useState(false);
+  const [newUserName, setNewUserName] = useState("");
+  const [newUserRole, setNewUserRole] = useState("");
+  const [newUserRegion, setNewUserRegion] = useState("");
+
+  const [users, setUsers] = useState([
+    {
+      name: "John Smith",
+      email: "john.smith@example.com",
+      role: "Administrator",
+      roleIcon: "👤",
+      regions: ["All Regions"],
+      status: "Active",
+      lastLogin: "19/05/2025, 08:45:22",
+    },
+    {
+      name: "Sarah Johnson",
+      email: "sarah.johnson@example.com",
+      role: "HQ Staff",
+      roleIcon: "👥",
+      regions: ["HQ"],
+      status: "Active",
+      lastLogin: "19/05/2025, 09:12:45",
+    },
+    {
+      name: "Mike Chen",
+      email: "mike.chen@example.com",
+      role: "Technician",
+      roleIcon: "👥",
+      regions: ["East Region", "HQ"],
+      status: "Active",
+      lastLogin: "19/05/2025, 07:30:18",
+    },
+    {
+      name: "Lisa Wong",
+      email: "lisa.wong@example.com",
+      role: "Regional Staff",
+      roleIcon: "👥",
+      regions: ["West Region"],
+      status: "Active",
+      lastLogin: "19/05/2025, 10:05:33",
+    },
+    {
+      name: "David Rodriguez",
+      email: "david.rodriguez@example.com",
+      role: "Viewer",
+      roleIcon: "👁️",
+      regions: ["North Region"],
+      status: "Inactive",
+      lastLogin: "15/05/2025, 14:22:51",
+    },
+    {
+      name: "Emma Watson",
+      email: "emma.watson@example.com",
+      role: "Viewer",
+      roleIcon: "👁️",
+      regions: ["South Region"],
+      status: "Active",
+      lastLogin: "15/05/2025, 11:22:51",
+    },
+  ]);
+
+  const activityLogs = [
+    {
+      timestamp: "19/05/2025, 08:45:22",
+      name: "John Smith",
+      action: "Login",
+      detail: "Successful login from 192.168.1.105",
+    },
+    {
+      timestamp: "19/05/2025, 09:12:33",
+      name: "John Smith",
+      action: "User Management",
+      detail: "Modified permissions for user USR-004",
+    },
+    {
+      timestamp: "19/05/2025, 09:12:45",
+      name: "Sarah Johnson",
+      action: "Login",
+      detail: "Successful login from 192.168.1.110",
+    },
+    {
+      timestamp: "19/05/2025, 09:30:18",
+      name: "Sarah Johnson",
+      action: "Alarm Management",
+      detail: "Acknowledged alarm ALM-2025-0042",
+    },
+    {
+      timestamp: "19/05/2025, 07:30:18",
+      name: "Mike Chen",
+      action: "Login",
+      detail: "Successful login from 192.168.1.115",
+    },
+    {
+      timestamp: "18/05/2025, 14:12:18",
+      name: "David Rodriguez",
+      action: "User Update",
+      detail: "Updated contact info",
+    },
+    {
+      timestamp: "18/05/2025, 10:03:45",
+      name: "Lisa Wong",
+      action: "Logout",
+      detail: "User logged out",
+    },
+    {
+      timestamp: "18/05/2025, 09:32:10",
+      name: "Sarah Johnson",
+      action: "Password Change",
+      detail: "User changed password",
+    },
+    {
+      timestamp: "17/05/2025, 11:22:05",
+      name: "Mike Chen",
+      action: "Login",
+      detail: "Successful login from 192.168.1.200",
+    },
+    {
+      timestamp: "17/05/2025, 09:15:00",
+      name: "John Smith",
+      action: "System Settings",
+      detail: "Updated system config",
+    },
+  ];
+
+  const handleAddUser = () => {
+    setShowAddUserPanel(true);
+    setNewUserName("");
+    setNewUserRole("");
+    setNewUserRegion("");
   };
 
-  const FilterSection = () => {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [role, setRole] = useState("");
-    const [region, setRegion] = useState("");
-    const [status, setStatus] = useState("");
+  const handleSubmitNewUser = () => {
+    if (!newUserName.trim() || !newUserRole.trim() || !newUserRegion.trim()) {
+      alert("Please fill all fields.");
+      return;
+    }
 
-    return (
-      <div className="toolbar-container">
-        <input
-          type="text"
-          placeholder="🔍 Search users..."
-          className="search-input"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+    const roleIconMap = {
+      Administrator: "👤",
+      "HQ Staff": "👥",
+      Technician: "🛠️",
+      "Regional Staff": "🌍",
+      Viewer: "👁️",
+    };
 
-        <select
-          className="dropdown"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <option value="">All Roles</option>
-          <option value="admin">Admin</option>
-          <option value="HQ">HQ Staff</option>
-          <option value="tech">Technician</option>
-          <option value="regional">Regional Staff</option>
-          <option value="viewer">Viewer</option>
-        </select>
+    const newUser = {
+      name: newUserName,
+      email: `${newUserName.toLowerCase().replace(/\s+/g, "")}@example.com`,
+      role: newUserRole,
+      roleIcon: roleIconMap[newUserRole] || "👤",
+      regions: [newUserRegion],
+      status: "Active",
+      lastLogin: new Date().toLocaleString("en-GB"),
+    };
 
-        <select
-          className="dropdown"
-          value={region}
-          onChange={(e) => setRegion(e.target.value)}
-        >
-          <option value="">All Regions</option>
-          <option value="us">US</option>
-          <option value="eu">EU</option>
-        </select>
+    const newUsers = [...users, newUser];
+    setUsers(newUsers);
+    setCurrentPage(Math.ceil(newUsers.length / USERS_PER_PAGE));
+    setShowAddUserPanel(false);
+  };
 
-        <select
-          className="dropdown"
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-        >
-          <option value="">All Statuses</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-
-        <button className="add-user-btn">👤 ADD USER</button>
-      </div>
-    );
+  const renderTab = () => {
+    switch (activeTab) {
+      case "users":
+        return (
+          <UsersTab
+            users={users}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            handleAddUser={handleAddUser}
+            showAddUserPanel={showAddUserPanel}
+            setShowAddUserPanel={setShowAddUserPanel}
+            newUserName={newUserName}
+            newUserRole={newUserRole}
+            newUserRegion={newUserRegion}
+            setNewUserName={setNewUserName}
+            setNewUserRole={setNewUserRole}
+            setNewUserRegion={setNewUserRegion}
+            handleSubmitNewUser={handleSubmitNewUser}
+            USERS_PER_PAGE={USERS_PER_PAGE}
+          />
+        );
+      case "activity-log":
+        return (
+          <ActivityLogTab
+            activityLogs={activityLogs}
+            activityPage={activityPage}
+            setActivityPage={setActivityPage}
+            ACTIVITY_LOGS_PER_PAGE={ACTIVITY_LOGS_PER_PAGE}
+          />
+        );
+      case "analytics":
+        return <AnalyticsTab />;
+      default:
+        return null;
+    }
   };
 
   return (
-    <>
-      <div className="body-container">
-        <div className="top-info">
-          <h1 className="heading">User Management</h1>
-          <p className="description">Manage users, roles and permissions</p>
-        </div>
-        <div className="information-container">
-          <div>
-            <HorizontalNavbar />
-            <FilterSection />
-          </div>
-        </div>
+    <div className="body-container">
+      <div className="top-info">
+        <h1 className="heading">User Management</h1>
+        <p className="description">Manage users, roles and permissions</p>
       </div>
-    </>
+      <HorizontalNavbar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="tab-content">{renderTab()}</div>
+    </div>
   );
 };
 
-export default userManagement;
+export default UserManagement;
