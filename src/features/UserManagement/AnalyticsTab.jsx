@@ -24,7 +24,6 @@ const AnalyticsTab = () => {
   ];
 
   const regionData = [
-    { name: "All", value: 2 },
     { name: "HQ", value: 2 },
     { name: "East", value: 1 },
     { name: "West", value: 1 },
