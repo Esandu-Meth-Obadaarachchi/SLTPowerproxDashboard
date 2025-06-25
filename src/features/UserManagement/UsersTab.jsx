@@ -39,11 +39,15 @@ const UsersTab = ({
           <option>Regional</option>
         </select>
         <select className="dropdown">
-          <option>All Regions</option>
+          <option>North Region</option>
+          <option>South Region</option>
+          <option>East Region</option>
+          <option>West Regions</option>
+          <option>HQ</option>
         </select>
         <select className="dropdown">
           <option>Active</option>
-          <option>InActive</option>
+          <option>Inactive</option>
         </select>
         <button
           className="add-user-btn hover-lift-glow"

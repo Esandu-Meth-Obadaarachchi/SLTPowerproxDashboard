@@ -51,7 +51,7 @@ const AnalyticsTab = () => {
     <div className="analytics-wrapper">
       <div className="chart-card hover-lift-glow">
         <h4>Users by Role</h4>
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={240}>
           <PieChart>
             <Pie data={roleData} dataKey="value" outerRadius={60}>
               {roleData.map((entry, i) => (
@@ -64,7 +64,7 @@ const AnalyticsTab = () => {
 
       <div className="chart-card hover-lift-glow">
         <h4>Users by Region</h4>
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={240}>
           <PieChart>
             <Pie data={regionData} dataKey="value" outerRadius={60}>
               {regionData.map((entry, i) => (
@@ -90,7 +90,7 @@ const AnalyticsTab = () => {
 
       <div className="chart-card hover-lift-glow">
         <h4>User Activity by Day</h4>
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={240}>
           <BarChart data={barData}>
             <XAxis dataKey="day" />
             <YAxis />
