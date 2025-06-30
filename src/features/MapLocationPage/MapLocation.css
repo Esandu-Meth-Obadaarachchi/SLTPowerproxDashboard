@@ -2,11 +2,15 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  background: var(--dashboard-bg);
   position: relative;
   overflow: hidden;
   padding: 1.5rem;
   color: white;
+}
+
+.location-container h1 {
+  color: var(--text-color);
 }
 
 /* Diagonal elements for background styling */

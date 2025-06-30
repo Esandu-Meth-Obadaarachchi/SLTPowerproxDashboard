@@ -19,9 +19,13 @@ import FMS from "../FaultManagementSystem/FaultManagement";
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
+import TransformersPage from '../TransformerMonitoring/TransformersPage';
 
 // Placeholder for future components
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
+
+// const TransformersPage = () => <div>Transformers Page (Placeholder)</div>;
+
 
 // Protected route component with cleaner implementation
 const ProtectedRoute = ({ children, redirectTo = "/login" }) => {
@@ -83,6 +87,8 @@ const AppRouter = () => {
 
         <Route path="acUnits" element={<ACUnits />} />
         <Route path="fms" element={<FaultManagementSystem />} />
+
+<Route path="transformers" element={<TransformersPage />} />
 
       </Route>
       
