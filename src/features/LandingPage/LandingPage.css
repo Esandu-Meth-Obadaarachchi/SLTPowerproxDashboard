@@ -1,32 +1,37 @@
-/* Landing page styles - based on Login.css theme */
+
+
+/* ===========================
+   BASE LANDING PAGE STYLES
+=========================== */
 .landing-page {
-  height: 100vh; /* Fixed height to prevent scrolling */
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  background-color: var(--dashboard-bg);
+  color: var(--text-color);
   position: relative;
   overflow: hidden;
   padding: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Header stats section */
+/* Stats section */
 .stats-container-landing-page {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem; /* Reduced margin */
+  margin: 0.5rem 0;
   z-index: 2;
-  
 }
 
+/* Stat Card */
 .stat-card {
   width: 100%;
   max-width: 200px;
-  background-color: var(--card-background, #1a2235);
+  background-color: var(--card-background);
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  padding: 1rem; /* Slightly reduced padding */
+  padding: 1rem;
   position: relative;
   z-index: 2;
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -35,7 +40,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .stat-card:hover {
@@ -44,7 +49,7 @@
 }
 
 .stat-title {
-  color: var(--text-secondary, #94a3b8);
+  color: var(--text-secondary);
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
@@ -52,38 +57,40 @@
 .stat-icon {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  width: 50px; /* Reduced size */
-  height: 50px; /* Reduced size */
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.3rem 0; /* Reduced margin */
+  margin: 0.3rem 0;
 }
 
-.generator-icon svg, .location-icon svg {
-  width: 25px; /* Reduced size */
-  height: 25px; /* Reduced size */
-  color: var(--primary-color, #0077ff);
+.generator-icon svg,
+.location-icon svg {
+  width: 25px;
+  height: 25px;
+  color: var(--primary-color);
 }
 
 .stat-value {
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--text-color, #ffffff);
+  color: var(--text-color);
 }
 
-/* Middle carousel section - NEW STYLES FOR CAROUSEL */
+/* ===========================
+   CAROUSEL
+=========================== */
 .slideshow-container {
   flex: 0.9;
-  height: 25vh; /* 25% of viewport height to match Flutter */
+  height: 25vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 0;
-  margin: 0;
-  z-index: 1;
   margin-top: 50px;
+  padding: 0;
+  z-index: 1;
 }
 
 .slideshow-container::before {
@@ -91,19 +98,18 @@
   position: absolute;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-color, #00f7ff), var(--primary-color, #0077ff));
+  background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
   transform: rotate(-45deg) translateX(-50%);
   z-index: -1;
 }
 
 .carousel-content {
-  width: 80%; /* 80% of parent width to match Flutter */
+  width: 80%;
   height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 
 .custom-carousel .carousel .slide {
   background: transparent;
@@ -111,31 +117,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.6; /* Make non-active slides more visible but slightly transparent */
+  opacity: 0.6;
   transition: opacity 0.5s ease;
 }
-/* Reduce the size of the slide images */
+
+.custom-carousel .carousel .slide.selected {
+  opacity: 1;
+  transform: scale(1.05);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
 .custom-carousel .carousel .slide img {
-  max-height: 60vh; /* Reduced from 50vh */
-  max-width: 100%; /* Limit width of images */
+  max-height: 60vh;
+  max-width: 100%;
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.custom-carousel .carousel .slide.selected {
-  opacity: 1;
-  transform: scale(1.05); /* Slightly reduced scale to make side images more visible */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-/* Remove control arrows styles since we're hiding them */
 .custom-carousel .carousel .control-arrow {
   display: none;
 }
 
-/* Add visual indicators that suggest swiping */
+/* Swipe indicators */
 .custom-carousel::before,
 .custom-carousel::after {
   content: '';
@@ -156,13 +161,15 @@
 .custom-carousel::after {
   right: 5px;
 }
-/* Bottom navigation buttons */
+
+/* ===========================
+   BOTTOM NAV BUTTONS
+=========================== */
 .nav-buttons-container {
   display: flex;
   justify-content: center;
   gap: 2rem;
-
-  margin-bottom: 1rem; /* Reduced margin */
+  margin-bottom: 1rem;
   z-index: 2;
 }
 
@@ -181,20 +188,20 @@
 }
 
 .generator-button {
-  background-color: var(--primary-color, #0077ff);
+  background-color: var(--primary-color);
   color: white;
 }
 
 .location-button {
-  background-color: #22c55e; /* Green color for location button */
+  background-color: #22c55e;
   color: white;
 }
 
 .button-icon {
+  margin-left: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
 }
 
 .button-icon svg {
@@ -211,14 +218,14 @@
   transform: translateY(0);
 }
 
-/* Diagonal elements to match login styling */
-.landing-page::before, 
+/* Diagonal effects */
+.landing-page::before,
 .landing-page::after {
   content: '';
   position: absolute;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-color, #00f7ff), var(--primary-color, #0077ff));
+  background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
   transform: rotate(-45deg) translateX(-50%);
   z-index: 0;
 }
@@ -231,129 +238,121 @@
   bottom: 30%;
 }
 
-/* Responsive styles */
+/* ===========================
+   RESPONSIVE STYLES
+=========================== */
 @media (max-width: 768px) {
   .stats-container {
-    flex-direction: row; /* Keep horizontal on medium screens */
+    flex-direction: row;
     align-items: center;
     gap: 1rem;
   }
-  
+
   .stat-card {
-    max-width: 150px; /* Smaller on medium screens */
+    max-width: 150px;
   }
-  
-  .nav-buttons-container {
-    gap: 1rem;
-  }
-  
+
   .carousel-content {
     width: 90%;
   }
-  
+
   .custom-carousel .carousel .slide.selected {
-    transform: scale(1.05); /* Slightly less scale on medium screens */
+    transform: scale(1.05);
+  }
+
+  .nav-buttons-container {
+    gap: 1rem;
   }
 }
 
 @media (max-width: 576px) {
   .stats-container {
-    flex-direction: column; /* Stack on mobile */
+    flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .stat-card {
     max-width: 140px;
     padding: 0.5rem;
   }
-  
+
   .nav-buttons-container {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
   }
-  
+
   .nav-button {
     width: 80%;
   }
-  
+
   .carousel-content {
     width: 95%;
   }
-  
-  .custom-carousel .carousel .control-arrow {
-    width: 30px;
-    height: 30px;
-  }
-  
+
   .custom-carousel .carousel .slide.selected {
-    transform: scale(1.02); /* Even less scale on small screens */
+    transform: scale(1.02);
   }
 }
 
 @media (max-height: 700px) {
-  .stats-container {
-    padding-top: 0.2rem;
-  }
-  
   .stat-card {
     padding: 0.4rem;
     max-width: 140px;
   }
-  
+
   .stat-icon {
     width: 36px;
     height: 36px;
   }
-  
+
   .stat-value {
     font-size: 1.4rem;
   }
-  
+
   .slideshow-container {
-    height: 22vh; /* Slightly smaller on short screens */
+    height: 22vh;
   }
-  
+
   .custom-carousel .carousel .slide img {
     max-height: 22vh;
   }
-  
+
   .nav-button {
     padding: 0.4rem 1rem;
     min-width: 140px;
   }
 }
 
-/* Extra small height devices */
 @media (max-height: 600px) {
   .stat-card {
     padding: 0.3rem;
     max-width: 120px;
   }
-  
+
   .stat-icon {
     width: 32px;
     height: 32px;
     margin: 0.1rem 0;
   }
-  
+
   .stat-title {
     font-size: 0.75rem;
     margin-bottom: 0.1rem;
   }
-  
+
   .stat-value {
     font-size: 1.2rem;
   }
-  
+
   .slideshow-container {
     height: 20vh;
   }
-  
+
   .custom-carousel .carousel .slide img {
     max-height: 20vh;
   }
-  
+
   .nav-button {
     padding: 0.3rem 0.8rem;
     font-size: 0.9rem;

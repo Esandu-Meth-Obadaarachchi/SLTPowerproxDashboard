@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../../firebase";
 import "./navbar.css";
 import logo from "../../images/logo.png"; 
+import ThemeToggleButton from "../theme/ThemeToggleButton";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -105,6 +106,12 @@ const Navbar = () => {
             <span>Logout</span>
           </div>
         </div>*/}
+
+        <div className="navbar-controls">
+          <ThemeToggleButton />
+          <button onClick={handleLogout} className="logout-button">🔒 Logout</button>
+        </div>
+        
       </div> 
     </nav>
   );

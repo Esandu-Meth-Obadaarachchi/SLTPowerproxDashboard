@@ -20,10 +20,10 @@ const PowerConsumptionChart = ({ data = powerConsumptionData, height = 300 }) =>
         <YAxis stroke="#94a3b8" />
         <Tooltip 
           contentStyle={{ 
-            backgroundColor: '#1a2235', 
+            backgroundColor: 'var(--bg-color)', 
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: '8px',
-            color: '#ffffff'
+            color: 'var(--text-color)'
           }} 
         />
         <Legend />

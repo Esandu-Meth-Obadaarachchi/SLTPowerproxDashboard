@@ -1,0 +1,143 @@
+/*  TransformerPanel.jsx */
+/* Container for the entire transformer panel area */
+.transformer-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #0e1117; /* Dark background */
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Tab bar aligned to the top-right */
+.tab-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Tab button style */
+.tab-button {
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background-color: var(--card-background);
+  color: var(text-color); /* gray-300 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: #cfcfcf;
+}
+
+.tab-button.active {
+  background-color: #0ea5e9; /* Accent color */
+  color: white;
+  border-color: #0ea5e9;
+}
+/* ...................... */
+
+/* LV and MV Panel */
+/* Sections inside the panel */
+section {
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+
+/* Alarm list styles */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+/* Flex container for current and voltage cards */
+.panel-chart-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Individual chart card */
+/* Individual chart card */
+.panel-chart-card {
+  flex: 1 1 48%;
+  background-color: var(--all-cardbg);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  color: #f8fafc;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.panel-chart-card:hover {
+  transform: translateY(-4px);
+  border-color: #0ea5e9;
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.6), 0 0 20px rgba(14, 165, 233, 0.3);
+}
+
+
+/*Alarm*/
+.lv-alarm-card {
+  background-color: var(--all-cardbg);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 0, 0, 0.2);
+  border: 1px solid #334155;
+  color: #f8fafc;
+  max-width: 100%;
+  margin-top: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lv-alarm-card:hover {
+ transform: translateY(-4px);
+  box-shadow: 0 0 20px #0ea5e9;
+}
+
+.alarm-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #f1f5f9;
+  text-transform: uppercase;
+}
+
+.alarm-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.alarm-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.alarm-item.active {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border-left: 4px solid #ef4444;
+}
+
+.alarm-item.ok {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border-left: 4px solid #22c55e;
+}

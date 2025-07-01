@@ -1,8 +1,8 @@
 .energy-dashboard-container {
   padding: 1.5rem;
-  color: #ffffff;
-  background-color: #0f172a;
-  min-height: 100vh; /* Use min-height instead of fixed height */
+  color: var(--dashboard-text);
+  background-color: var(--dashboard-bg);
+  min-height: 100vh;
   overflow-y: auto;
   width: 100%;
   position: relative;
@@ -12,7 +12,6 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #e2e8f0;
 }
 
 .energy-dashboard-summary {
@@ -20,7 +19,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: #0f172a;
+  background-color: var(--dashboard-bg);
   padding-bottom: 1rem;
 }
 
@@ -38,19 +37,33 @@
   flex: 1;
 }
 
+.stat-card {
+  background: var(--all-cardbg);
+  padding: 1rem;
+  border-radius: 12px;
+  min-width: 160px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  color: var(--dashboard-text);
+}
+
+
 .energy-generator-status {
-  background-color: #1a2235;
+  background: var(--all-cardbg);
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--dashboard-border);
   min-width: 300px;
+  color: var(--dashboard-text);
+
 }
 
 .energy-generator-status h2 {
   font-size: 1rem;
   margin-bottom: 0.75rem;
-  color: #94a3b8;
+  color: var(--dashboard-muted);
 }
 
 .energy-status-indicators {
@@ -80,23 +93,23 @@
 }
 
 .energy-status-item.online {
-  background-color: #10b981;
+  background-color: var(--status-online);
 }
 
 .energy-status-item.standby {
-  background-color: #3b82f6;
+  background-color: var(--status-standby);
 }
 
 .energy-status-item.fault {
-  background-color: #ef4444;
+  background-color: var(--status-fault);
 }
 
 .energy-status-item.warning {
-  background-color: #f59e0b;
+  background-color: var(--status-warning);
 }
 
 .energy-status-item.total {
-  background-color: #6366f1;
+  background-color: var(--status-total);
 }
 
 .energy-dashboard-metrics {
@@ -116,11 +129,11 @@
 }
 
 .energy-location-card {
-  background-color: #1a2235;
+  background: var(--all-cardbg);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--dashboard-border);
 }
 
 .energy-location-header {
@@ -128,7 +141,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--dashboard-border);
   flex-wrap: wrap;
   gap: 0.5rem;
 }
@@ -136,13 +149,13 @@
 .energy-location-title h3 {
   margin: 0;
   font-size: 1.1rem;
-  color: #e2e8f0;
+  color: var(--dashboard-text);
 }
 
 .energy-location-title p {
   margin: 0;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: var(--dashboard-muted);
 }
 
 .energy-location-stats {
@@ -157,11 +170,11 @@
 
 .energy-efficiency {
   font-size: 0.9rem;
-  color: #10b981;
+  color: var(--status-online);
 }
 
 .energy-location-alerts .energy-alert-count {
-  background-color: #ef4444;
+  background-color: var(--status-fault);
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -175,14 +188,14 @@
 .energy-room-count {
   font-size: 0.9rem;
   margin-bottom: 1rem;
-  color: #94a3b8;
+  color: var(--dashboard-muted);
 }
 
 .energy-areas-section h4 {
   margin-top: 0;
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: var(--dashboard-muted);
 }
 
 .energy-areas-list {
@@ -196,25 +209,22 @@
   grid-template-columns: 1fr auto auto auto;
   align-items: center;
   padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--dashboard-border);
   border-radius: 6px;
 }
 
-.energy-area-name {
+.energy-area-name,
+.energy-area-consumption,
+.energy-total-label,
+.energy-total-value {
   font-size: 0.85rem;
-  color: #e2e8f0;
+  color: var(--dashboard-text);
 }
 
-.energy-area-consumption {
+.energy-area-efficiency,
+.energy-total-efficiency {
   font-size: 0.85rem;
-  color: #e2e8f0;
-  text-align: right;
-  padding-right: 0.5rem;
-}
-
-.energy-area-efficiency {
-  font-size: 0.85rem;
-  color: #10b981;
+  color: var(--status-online);
   text-align: right;
   padding-right: 0.5rem;
 }
@@ -225,17 +235,17 @@
 }
 
 .energy-trend-indicator.up {
-  color: #10b981;
+  color: var(--trend-up);
 }
 
 .energy-trend-indicator.down {
-  color: #ef4444;
+  color: var(--trend-down);
 }
 
 .energy-location-totals {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--dashboard-border);
 }
 
 .energy-total-row {
@@ -243,45 +253,24 @@
   grid-template-columns: 1fr auto auto auto;
   align-items: center;
   padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--dashboard-border);
   border-radius: 6px;
 }
 
-.energy-total-label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #e2e8f0;
-}
-
-.energy-total-value {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #e2e8f0;
-  text-align: right;
-  padding-right: 0.5rem;
-}
-
-.energy-total-efficiency {
-  font-size: 0.85rem;
-  color: #10b981;
-  text-align: right;
-  padding-right: 0.5rem;
-}
-
-/* Responsive adjustments */
+/* Responsive styles (same as before) */
 @media (max-width: 1280px) {
   .energy-stats-container {
     flex-direction: column;
   }
-  
+
   .energy-summary-stats {
     justify-content: flex-start;
   }
-  
+
   .energy-generator-status {
     min-width: 0;
   }
-  
+
   .energy-locations-grid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
@@ -291,25 +280,25 @@
   .energy-summary-stats {
     justify-content: center;
   }
-  
+
   .energy-status-indicators {
     justify-content: center;
   }
-  
+
   .energy-metric-cards {
     justify-content: center;
   }
-  
+
   .energy-location-header {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .energy-location-stats {
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .energy-locations-grid {
     grid-template-columns: 1fr;
   }
@@ -321,14 +310,14 @@
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
   }
-  
+
   .energy-area-efficiency,
   .energy-total-efficiency,
   .energy-trend-indicator {
     grid-column: 2;
     text-align: right;
   }
-  
+
   .energy-area-consumption,
   .energy-total-value {
     grid-column: 1;
@@ -336,7 +325,6 @@
   }
 }
 
-/* Additional fix to ensure proper scrolling */
 body, html {
   height: 100%;
   margin: 0;

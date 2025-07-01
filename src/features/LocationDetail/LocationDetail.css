@@ -2,13 +2,12 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  background: var(--dashboard-bg);
   position: relative;
   overflow-y: auto; /* Changed from overflow: hidden */
   padding: 0;
-  color: white;
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  color: var(--text-color);
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
 
 /* Header Styling */
 .location-detail-header {
@@ -118,18 +117,20 @@
   height: 10px;
   border-radius: 50%;
   margin-right: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .view-button {
   background: rgba(255,255,255,0.1);
   border: none;
-  color: white;
+  color: var(--text-color);
   padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   z-index: 2;
   position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .view-button:hover {
@@ -150,6 +151,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.1);
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .metrics-card-header, .chart-header {
@@ -176,6 +178,8 @@
   flex-direction: column;
   justify-content: center;
   transition: transform 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
 }
 
 .load-circle:hover {
@@ -223,15 +227,16 @@
 }
 
 .export-button, .expand-button {
-  background: rgba(255,255,255,0.1);
+  background: var(--input-background);
   border: none;
-  color: white;
+  color: var(--text-color);
   padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .export-button:hover, .expand-button:hover {
@@ -275,8 +280,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: rgba(44, 73, 134, 0.2);
+  background-color: var(--dashboard-bg);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:   0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .right-controls {
@@ -291,6 +297,8 @@
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 0.25rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
 }
 
 .timeframe-filter span {
@@ -299,11 +307,13 @@
   color: rgba(255, 255, 255, 0.6);
   border-radius: 8px;
   transition: all 0.3s ease;
+  color: var(--text-color);
+
 }
 
 .timeframe-filter span.active {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: white;
+  background-color: var(--input-background);
+  color: var(--text-color);
 }
 
 .date-picker {
@@ -313,7 +323,11 @@
   background: rgba(255, 255, 255, 0.1);
   padding: 0.5rem 1rem;
   border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
 }
+
+
 
 .location-detail-container::before,
 .location-detail-container::after {
@@ -359,6 +373,7 @@
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .load-table-header {

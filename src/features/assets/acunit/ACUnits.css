@@ -1,7 +1,7 @@
 /* ACUnits.css - Enhanced with LandingPage design patterns */
 
 /* CSS Variables */
-:root {
+/* :root {
   --card-background: #1a2235;
   --text-color: #ffffff;
   --text-secondary: #94a3b8;
@@ -12,12 +12,12 @@
   --error-color: #ef4444;
   --border-color: rgba(255, 255, 255, 0.1);
   --hover-color: rgba(255, 255, 255, 0.05);
-}
+} */
 
 /* Main Page Container */
 .ac-units-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  background: var(--dashboard-bg);
   padding: 2rem;
   color: var(--text-color);
   position: relative;
@@ -100,7 +100,7 @@
 }
 
 .status-card {
-  background: var(--card-background);
+  background: var(--dashboard-bg);
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid var(--border-color);
@@ -185,7 +185,7 @@
 }
 
 .tabs-container {
-  background: var(--card-background);
+  background: var(--all-cardbg);
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid var(--border-color);
@@ -195,6 +195,8 @@
   overflow: hidden;
   display: inline-block;
   width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
 }
 
 /* Subtle glow effect for tabs container */
@@ -277,8 +279,7 @@
 .tab-content {
   min-height: 400px;
   position: relative;
-  z-index: 1;
-  
+  z-index: 1;  
 }
 
 .tab-content-section {
@@ -299,7 +300,7 @@
 }
 
 .chart-section {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--all-cardbg);
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid var(--border-color);
@@ -360,7 +361,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(204, 166, 166, 0.02);
   border-radius: 12px;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
@@ -465,7 +466,7 @@
 
 /* AC Units List */
 .ac-units-list-section {
-  background: var(--card-background);
+  background: var(--all-cardbg);
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid var(--border-color);
@@ -474,6 +475,8 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
 }
 
 .ac-units-list-section::before {
@@ -501,6 +504,7 @@
   position: relative;
   z-index: 1;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+
 }
 
 .units-list {
@@ -516,12 +520,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.02);
+  /* background: rgba(255, 255, 255, 0.02); */
   border-radius: 12px;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  background: var(--all-cardbg);
+
 }
 
 .unit-item::before {
