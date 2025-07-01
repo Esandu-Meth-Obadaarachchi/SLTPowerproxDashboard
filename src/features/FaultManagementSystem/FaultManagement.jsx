@@ -233,7 +233,7 @@ const FaultManagementSystem = () => {
       </section>
 
       {/* Main Content */}
-      <main className="main-content">
+      <main className="main-table">
         <div className="content-card">
           {/* Tabs */}
           <div className="tabs-container">

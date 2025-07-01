@@ -100,7 +100,32 @@ const Sidebar = ({ isCollapsed, onToggle }) => {
       </svg>
       
       )
-    }
+
+    },
+    {
+      id: "upsSystem",
+      label: "UPS System",
+      path:"/app/upsSystem",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <polyline points="9 12 12 15 15 12"></polyline>
+        </svg>
+      )
+    },
+    {
+      id: "userManagement",
+      label: "User Management",
+      path:"/app/userManagement",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <polyline points="9 12 12 15 15 12"></polyline>
+        </svg>
+      )
+    },
 
     
     
