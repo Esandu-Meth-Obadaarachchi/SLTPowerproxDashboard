@@ -16,9 +16,12 @@ import GeneratorDashboard from "../assets/generator/components/Dashboard";
 import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
 import ACUnits from "../assets/acunit/ACUnits.jsx";
 import FMS from "../FaultManagementSystem/FaultManagement";
+import UPSSystem from "../assets/ups/UPSsystem.jsx";
+import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
+import UserManagement from "../UserManagement/usermanagement";
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
-import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
+
 
 // Placeholder for future components
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
@@ -83,6 +86,8 @@ const AppRouter = () => {
 
         <Route path="acUnits" element={<ACUnits />} />
         <Route path="fms" element={<FaultManagementSystem />} />
+        <Route path="upsSystem" element={<UPSSystem />} />
+        <Route path="userManagement" element={<UserManagement />} />
 
       </Route>
       
