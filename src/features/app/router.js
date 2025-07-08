@@ -15,15 +15,15 @@ import LocationSelector from "../LocationSelector/LocationSelector";
 import GeneratorDashboard from "../assets/generator/components/Dashboard";
 import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
 import ACUnits from "../assets/acunit/ACUnits.jsx";
-import FMS from "../FaultManagementSystem/FaultManagement";
+//import FMS from "../FaultManagementSystem/FaultManagement";
 import UPSSystem from "../assets/ups/UPSsystem.jsx";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
 
-import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
-import TransformersPage from '../TransformerMonitoring/TransformersPage';
+//import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
+import TransformersPage from '../assets/TransformerMonitoring/TransformersPage';
 // Placeholder for future components
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
 
@@ -92,8 +92,7 @@ const AppRouter = () => {
         <Route path="fms" element={<FaultManagementSystem />} />
         <Route path="upsSystem" element={<UPSSystem />} />
         <Route path="userManagement" element={<UserManagement />} />
-
-<Route path="transformers" element={<TransformersPage />} />
+         <Route path="transformers" element={<TransformersPage />} />
 
       </Route>
       

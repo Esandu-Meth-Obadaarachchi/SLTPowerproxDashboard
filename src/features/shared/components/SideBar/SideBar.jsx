@@ -115,11 +115,9 @@ const Sidebar = ({ isCollapsed, onToggle }) => {
         <path d="M18 16v2"></path>
         <path d="M12 12h.01"></path>
       </svg>
-  )
-    }
-
-
+      )
     },
+
     {
       id: "upsSystem",
       label: "UPS System",
