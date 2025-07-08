@@ -1,50 +1,63 @@
+/* === THEME VARIABLES === */
+:root {
+  --bg-color: #f1f5f9;
+  --text-color: #1e293b;
+  --card-background: #e2e8f0;
+}
+
+[data-theme="dark"] {
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --card-background: #1a2235;
+}
+
 .app-layout {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .main-content {
   margin-left: 250px; /* Default sidebar width */
- 
   transition: margin-left 0.3s ease;
   min-height: calc(100vh - 64px);
 }
 
 .main-content.sidebar-collapsed {
-  margin-left: 60px; /* Collapsed sidebar width */
+  margin-left: 60px;
 }
 
 .content-area {
   max-width: 100%;
   overflow-x: auto;
+  scroll-behavior: smooth;
 }
 
-/* Mobile overlay for sidebar */
 .mobile-overlay {
   position: fixed;
-  top: 64px; /* Below navbar */
+  top: 64px;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 899; /* Below sidebar but above content */
+  z-index: 899;
   display: none;
 }
 
-/* Responsive styles */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .main-content {
-    margin-left: 0; /* No sidebar margin on mobile */
+    margin-left: 0;
   }
-  
+
   .main-content.sidebar-collapsed {
     margin-left: 0;
   }
-  
+
   .content-area {
     padding: 1rem;
   }
-  
+
   .mobile-overlay {
     display: block;
   }
@@ -56,12 +69,6 @@
   }
 }
 
-/* Smooth scrolling for content area */
-.content-area {
-  scroll-behavior: smooth;
-}
-
-/* Focus styles for accessibility */
 .content-area:focus {
   outline: 2px solid #3498db;
   outline-offset: 2px;

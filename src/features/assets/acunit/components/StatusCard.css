@@ -1,13 +1,13 @@
 /* StatusCard.css */
 
 /* CSS Variables */
-:root {
+/* :root {
   --card-background: #1a2235;
   --text-color: #ffffff;
   --text-secondary: #94a3b8;
   --primary-color: #0077ff;
   --border-color: rgba(255, 255, 255, 0.1);
-}
+} */
 
 .status-card {
   background: var(--card-background);

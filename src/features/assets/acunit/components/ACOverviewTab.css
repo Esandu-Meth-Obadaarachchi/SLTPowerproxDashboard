@@ -1,11 +1,11 @@
 /* ACOverviewTab.css */
 
 /* CSS Variables */
-:root {
+/* :root {
   --text-color: #ffffff;
   --border-color: rgba(255, 255, 255, 0.1);
   --primary-color: #0077ff;
-}
+} */
 
 .tab-content-section {
   width: 100%;
@@ -20,7 +20,7 @@
 }
 
 .chart-section {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-color);
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid var(--border-color);

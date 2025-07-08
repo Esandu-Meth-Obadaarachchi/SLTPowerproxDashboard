@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --card-background: #1a2235;
   --text-color: #ffffff;
   --text-secondary: #94a3b8;
@@ -9,12 +9,12 @@
   --error-color: #ef4444;
   --border-color: rgba(255, 255, 255, 0.1);
   --hover-color: rgba(255, 255, 255, 0.05);
-}
+} */
 
 /* Main Page Container */
 .fault-management-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  background: var(--dashboard-bg);
   padding: 2rem;
   color: var(--text-color);
   position: relative;
@@ -124,13 +124,15 @@
 }
 
 .summary-card {
-  background: var(--card-background);
+  background: var(--all-cardbg);
   border-radius: 15px;
   padding: 1.5rem;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+
 }
 
 .summary-card::before {
@@ -211,10 +213,11 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .card-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--bg-color);
   transform: translateY(-2px);
 }
 
@@ -226,15 +229,18 @@
 }
 
 .content-card {
-  background: var(--card-background);
+  background: var(--all-cardbg);
   border-radius: 15px;
   border: 1px solid var(--border-color);
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+
 }
 
 /* Tabs */
 .tabs-container {
   border-bottom: 1px solid var(--border-color);
+  
 }
 
 .tabs {
@@ -298,6 +304,8 @@
   padding: 0.5rem 1rem;
   flex: 1;
   max-width: 400px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+
 }
 
 .search-input {
@@ -324,6 +332,8 @@
   color: var(--text-color);
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+
 }
 
 .filter-btn:hover {
@@ -389,6 +399,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .fault-card::before {

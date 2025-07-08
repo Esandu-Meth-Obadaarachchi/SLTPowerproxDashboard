@@ -1,20 +1,16 @@
 .energy-track-container {
-  background:url("../shared/images/Background.png");
+  background:var(--dashboard-bg);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-    z-index: 0;
-    min-height: 100vh;
-    padding: 24px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #ffffff;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  
-  
-  
+  z-index: 0;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-color);
+  position: relative;
+  overflow: hidden;
+}
   
   
   .energy-track-header {
@@ -22,16 +18,16 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 24px;
-    background: rgba(59, 130, 246, 0.08);
+    background: var(--dashboard-bg);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(59, 130, 246, 0.15);
     border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   }
   
   .header-left h1 {
-    color: #ffffff;
+    color: var(--text-color);
     font-size: 24px;
     font-weight: 600;
     margin: 0;
@@ -46,19 +42,20 @@
     gap: 16px;
     align-items: center;
   }
+  
   .stat-card{
     min-width: 120px;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  }
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    }
   .stat-card .stat-value {
     font-size: 18px;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-color);
     margin: 4px 0;
     line-height: 1.2;
   }
@@ -72,7 +69,7 @@
   .stat-card .stat-title {
     font-size: 12px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-color);
     margin: 0;
     line-height: 1.2;
   }
@@ -123,7 +120,7 @@
   .energy-track-header h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-color);
     margin: 0;
     text-align: center;
     z-index: 3;
@@ -142,7 +139,7 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
     padding: 12px 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     z-index: 2;
   }
   
@@ -157,7 +154,7 @@
     background: transparent;
     border: none;
     border-radius: 12px;
-    color: rgba(255, 255, 255, 0.7);
+    color:var(--text-color);
     font-weight: 500;
     font-size: 14px;
     cursor: pointer;
@@ -166,31 +163,30 @@
   }
   
   .sub-nav-item:hover {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-color);
     background: rgba(59, 130, 246, 0.1);
   }
   
   .sub-nav-item.active {
     background: rgba(255, 255, 255, 0.3);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+    color: var(--text-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   }
   
   /* Time Range Dropdown */
   .time-range-dropdown {
     position: relative;
     display: flex;
-    align-items: center;
   }
   
   .time-range-select {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(68, 46, 46, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     padding: 12px 40px 12px 16px;
-    color: #fff;
+    color: var(--text-color);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -214,10 +210,12 @@
   }
   
   .dropdown-arrow {
-    position: absolute;
-    right: 12px;
+    position: relative;
+    right: 18px;
     pointer-events: none;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
   }
   
   /* Power Usage Section */
@@ -256,7 +254,7 @@
   .graph-card h3 {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #ffffff;
+    color:var(--text-color);
     margin: 0 0 20px 0;
     text-align: center;
   }
@@ -399,11 +397,11 @@
   
   .section-content p {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: #ffffffb3;
     margin: 0;
   }
   .recent-reports-section {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--all-cardbg);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -439,6 +437,7 @@
     border-radius: 12px;
     padding: 16px 20px;
     transition: all 0.3s ease;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
   }
   
   .report-item:hover {
@@ -476,6 +475,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
   }
   
   .download-btn:hover {
@@ -542,3 +542,104 @@
       max-width: 300px;
     }
   }
+
+.generate-report-section h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--text-color, #ffffff);
+}
+
+.report-control label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.report-select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);  
+  background-color: var(--input-background);
+  color: var(--text-color);
+  transition: background 0.3s;
+}
+
+/* Section Container */
+.recent-reports-section {
+  padding: 2rem;
+  background: var(--all-cardbg);
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Header */
+.recent-reports-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+/* Reports List */
+.reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Single Report Item */
+.report-item {
+  /* background-color: var(--card-bg); */
+  border: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+/* Report Info */
+.report-info h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+.report-info p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+/* Download Button */
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #0056b3; /* Slightly darker blue */
+}
+
+/* Download Icon */
+.download-icon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--icon-color);
+}
+
+

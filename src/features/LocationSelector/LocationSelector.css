@@ -1,6 +1,6 @@
 /* Updated LocationSelector.css */
-:root {
-  --primary-dark: #1a2035;
+/* :root {
+  --primary-dark: #000000;
   --primary-light: #202940;
   --accent-color: #1f8ef1;
   --text-primary: #ffffff;
@@ -10,7 +10,7 @@
   --offline-color: #f44336;
   --card-bg: #27293d;
   --hover-color: #384063;
-}
+} */
 
 * {
   box-sizing: border-box;
@@ -20,8 +20,8 @@
 
 body {
   font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-  background-color: var(--primary-dark);
-  color: var(--text-primary);
+  background: var(--dashboard-bg);
+  color: var(--text-color);
   overflow: auto; /* Changed from overflow: hidden */
 }
 
@@ -31,11 +31,11 @@ body {
   height: 100vh;
   max-height: 100vh;
   overflow-y: auto; /* Changed from overflow: hidden */
-  background-color: var(--primary-dark);
+  background: var(--dashboard-bg);
 }
 
 .simplified-header {
-  background-color: var(--primary-light);
+  background-color: var(--dashboard-bg);
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -84,20 +84,20 @@ body {
 
 .legend-indicator.running {
   background-color: rgba(76, 175, 80, 0.15);
-  color: var(--running-color);
-  border: 1px solid var(--running-color);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
 }
 
 .legend-indicator.standby {
   background-color: rgba(33, 150, 243, 0.15);
-  color: var(--standby-color);
-  border: 1px solid var(--standby-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 .legend-indicator.offline {
   background-color: rgba(244, 67, 54, 0.15);
-  color: var(--offline-color);
-  border: 1px solid var(--offline-color);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
 }
 
 /* Filter dropdown styling */
@@ -110,7 +110,7 @@ body {
   border-radius: 20px;
   border: none;
   background-color: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
+  color: var(--text-color);
   cursor: pointer;
   outline: none;
   min-width: 150px;
@@ -126,7 +126,7 @@ body {
   border-radius: 20px;
   border: none;
   background-color: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
+  color: var(--text-color);
   min-width: 200px;
 }
 
@@ -149,15 +149,16 @@ body {
   padding: 20px;
   color: var(--text-secondary);
   font-size: 18px;
-  background: var(--card-bg);
+  /* background: var(--input-background); */
   border-radius: 8px;
   margin-top: 20px;
 }
 
 .simplified-location-card {
-  background-color: var(--card-bg);
+  background-color: var(--all-cardbg);
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .simplified-locations-grid {
@@ -189,17 +190,17 @@ body {
 
 .simplified-status.running {
   background-color: rgba(76, 175, 80, 0.15);
-  color: var(--running-color);
+  color: var(--success-color);
 }
 
 .simplified-status.standby {
   background-color: rgba(33, 150, 243, 0.15);
-  color: var(--standby-color);
+  color: var(--primary-color);
 }
 
 .simplified-status.offline {
   background-color: rgba(244, 67, 54, 0.15);
-  color: var(--offline-color);
+  color: var(--error-color);
 }
 
 .simplified-asset-slots {
@@ -231,8 +232,8 @@ body {
 
 .simplified-asset-slot.running {
   background-color: rgba(76, 175, 80, 0.15);
-  color: var(--running-color);
-  border: 1px solid var(--running-color);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
 }
 
 .simplified-asset-slot.running:hover {
@@ -241,8 +242,8 @@ body {
 
 .simplified-asset-slot.standby {
   background-color: rgba(33, 150, 243, 0.15);
-  color: var(--standby-color);
-  border: 1px solid var(--standby-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 .simplified-asset-slot.standby:hover {
@@ -251,8 +252,8 @@ body {
 
 .simplified-asset-slot.offline {
   background-color: rgba(244, 67, 54, 0.15);
-  color: var(--offline-color);
-  border: 1px solid var(--offline-color);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
 }
 
 .simplified-asset-slot.offline:hover {

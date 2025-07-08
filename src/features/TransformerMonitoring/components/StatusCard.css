@@ -1,0 +1,141 @@
+/* Status Card Container */
+.status-card {
+  margin-top: 2rem;
+  background-color: var(--all-cardbg);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(14, 165, 233, 0.4); /* Blue glow */
+  color: #f8fafc;
+  border: 1px solid #0ea5e9;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.status-card:hover {
+  box-shadow: 0 0 20px #0ea5e9, 0 0 40px rgba(14, 165, 233, 0.4);
+  border-color: #38bdf8;
+}
+
+.status-card h4 {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Light Indicators */
+.lights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.indicator {
+  text-align: center;
+  color: var(--text-color);
+}
+
+.light {
+  width: 25px;
+  height: 25px;
+  margin: 0 auto 0.5rem;
+  border-radius: 50%;
+  border: 2px solid #000;
+}
+
+.red { background: red; }
+.green { background: green; }
+.orange { background: orange; }
+.white { background: white; }
+.blue { background: blue; }
+.yellow { background: yellow; }
+
+/* Label */
+.label {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Hooter Container */
+.hooter-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.hooter {
+  text-align: center;
+}
+
+/* Updated Hooter Box */
+.hooter-box {
+  width: 160px;
+  height: 140px;
+  background: linear-gradient(145deg, #b91c1c, #7f1d1d);
+  border-radius: 16px;
+  position: relative;
+  color: white;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 10px rgba(255, 0, 0, 0.3),
+    0 0 15px rgba(255, 0, 0, 0.5);
+  border: 1px solid rgba(255, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hooter-box:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 12px rgba(255, 0, 0, 0.6),
+    0 0 24px rgba(255, 0, 0, 0.4);
+  border-color: rgba(255, 100, 100, 0.8);
+}
+
+/* LED Light */
+.hooter-led {
+  width: 16px;
+  height: 16px;
+  background-color: red;
+  border-radius: 50%;
+  margin: 0.25rem auto;
+  box-shadow:
+    0 0 6px red,
+    0 0 12px red,
+    0 0 18px red,
+    0 0 24px rgba(255, 0, 0, 0.5);
+}
+
+
+
+/* Main Text */
+.hooter-text {
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ON/OFF Badge Text */
+.hooter-text1 {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  margin: 0.25rem 0;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+/* Icon */
+.hooter-icon {
+  font-size: 30px;
+  margin-top: 0.25rem;
+}

@@ -1,0 +1,146 @@
+.alarm-card {
+  background-color: var(--all-cardbg);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(14, 165, 233, 0.3);
+  padding: 1.5rem;
+  max-width: 420px;
+  width: 100%;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border: 1px solid #0ea5e9;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+
+.alarm-card:hover {
+  box-shadow: 0 0 20px #0ea5e9, 0 0 40px rgba(14, 165, 233, 0.4);
+  border-color: #38bdf8;
+}
+
+/* Header */
+.alarm-header {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color:var(--text-color);
+}
+
+/* Alarm grid */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.panel-block {
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  font-weight: bold;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  text-wrap: wrap;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.red-bg {
+  background-color: #b91c1c;
+  color: #fff;
+  box-shadow:
+    0 0 8px rgba(255, 0, 0, 0.8),
+    0 0 12px rgba(255, 0, 0, 0.5);
+  animation: blink 1.2s infinite;
+}
+
+.red-bg:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 12px rgba(255, 0, 0, 0.9),
+    0 0 20px rgba(255, 0, 0, 0.6);
+}
+
+.white-bg {
+  background-color: white;
+  color: black;
+  border: 1px solid #d1d5db;
+  transition: box-shadow 0.3s ease;
+}
+
+.white-bg:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Blinking animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Bottom Buttons */
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.bottom-button {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+/* Individual Button Colors + Hover Glow */
+.mute {
+  background-color: #ec4899;
+  color: white;
+}
+.mute:hover {
+  box-shadow: 0 0 8px #ec4899, 0 0 12px #ec4899;
+}
+
+.akn {
+  background-color: #fdba74;
+  color: black;
+}
+.akn:hover {
+  box-shadow: 0 0 8px #fdba74, 0 0 12px #fdba74;
+}
+
+.alan {
+  background-color: black;
+  color: white;
+}
+.alan:hover {
+  box-shadow: 0 0 10px #ffffff33;
+}
+
+.rat {
+  background-color: #fde047;
+  color: black;
+}
+.rat:hover {
+  box-shadow: 0 0 8px #fde047, 0 0 12px #fde047;
+}
+
+.test {
+  background-color: #86efac;
+  color: black;
+}
+.test:hover {
+  box-shadow: 0 0 8px #86efac, 0 0 12px #86efac;
+}
