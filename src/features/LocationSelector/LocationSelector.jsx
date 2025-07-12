@@ -75,7 +75,7 @@ const LocationSelector = () => {
 
   // Function to handle navigation to generator dashboard
   const handleSelectAsset = (assetId) => {
-    navigate(`/dashboard/${assetId}`);
+    navigate(`app/dashboard`);
   };
 
   const handleToggleLocation = (locationId) => {

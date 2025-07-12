@@ -78,6 +78,66 @@
   margin-right: 8px;
 }
 
+/* Updated navbar controls styling */
+.navbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+}
+
+/* Theme toggle button styling */
+.theme-toggle-button {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--nav-hover-bg);
+  color: var(--nav-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-height: 36px;
+}
+
+.theme-toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.theme-toggle-button:active {
+  transform: translateY(0);
+}
+
+/* Logout button styling */
+.logout-button {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--nav-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-height: 36px;
+}
+
+.logout-button:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  transform: translateY(-1px);
+}
+
+.logout-button:active {
+  transform: translateY(0);
+}
+
 .user-section {
   display: flex;
   align-items: center;
@@ -95,28 +155,6 @@
   margin-right: 16px;
   cursor: pointer;
   color: #fff;
-}
-
-.logout-button {
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: var(--nav-hover-bg);
-  color: var(--nav-text);
-  transition: all 0.2s ease;
-}
-
-.logout-button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.logout-button svg {
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  color: var(--logout-icon);
 }
 
 /* Responsive styles */
@@ -137,12 +175,14 @@
     margin-right: 0;
   }
 
-  .logout-button span {
-    display: none;
+  .navbar-controls {
+    gap: 8px;
   }
 
-  .logout-button svg {
-    margin-right: 0;
+  .theme-toggle-button,
+  .logout-button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
   }
 
   .user-avatar {
@@ -153,6 +193,23 @@
 @media (max-width: 480px) {
   .navbar {
     padding: 0 0.5rem;
+  }
+
+  .navbar-controls {
+    gap: 6px;
+  }
+
+  .theme-toggle-button,
+  .logout-button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    min-height: 32px;
+  }
+
+  /* Hide text on very small screens, show only icons */
+  .theme-toggle-button span,
+  .logout-button span {
+    display: none;
   }
 
   .user-avatar {
