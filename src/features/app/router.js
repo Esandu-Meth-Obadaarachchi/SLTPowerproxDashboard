@@ -12,18 +12,23 @@ import Overview from "../OverviewPage/Overview";
 import Location from "../MapLocationPage/MapLocation";
 import LocationDetail from "../LocationDetail/LocationDetail";
 import LocationSelector from "../LocationSelector/LocationSelector";
-import GeneratorDashboard from "../assets/generator/components/Dashboard";
+
 import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
 import ACUnits from "../assets/acunit/ACUnits.jsx";
-import FMS from "../FaultManagementSystem/FaultManagement";
+import GeneratorDashboard from "../assets/generator/components/Generator";
+
+
+//import FMS from "../FaultManagementSystem/FaultManagement";
 import UPSSystem from "../assets/ups/UPSsystem.jsx";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
+import Rectifier from "../assets/rectifier/Rectifier";
+
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
 
-import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
-import TransformersPage from '../TransformerMonitoring/TransformersPage';
+//import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
+import TransformersPage from '../assets/TransformerMonitoring/TransformersPage';
 // Placeholder for future components
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
 
@@ -83,7 +88,7 @@ const AppRouter = () => {
         <Route path="location" element={<Location />} />
         <Route path="location/:id" element={<LocationDetail />} />
         <Route path="generator" element={<LocationSelector />} />
-        <Route path="dashboard/:assetId" element={<GeneratorDashboard />} />
+        <Route path="dashboard" element={<GeneratorDashboard />} />
 
         <Route path="alarms" element={<Alarms />} />
         <Route path="energytrack" element={<EnergyTrack />} />
@@ -92,9 +97,8 @@ const AppRouter = () => {
         <Route path="fms" element={<FaultManagementSystem />} />
         <Route path="upsSystem" element={<UPSSystem />} />
         <Route path="userManagement" element={<UserManagement />} />
-
-<Route path="transformers" element={<TransformersPage />} />
-
+        <Route path="transformers" element={<TransformersPage />} />
+        <Route path="rectifier" element={<Rectifier />} />
       </Route>
       
       {/* Root redirect - matches original behavior */}

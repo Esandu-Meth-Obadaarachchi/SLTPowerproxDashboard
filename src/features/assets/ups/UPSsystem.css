@@ -909,3 +909,71 @@
   color: #9ca3af;
   border: 1px solid #6b728055;
 }
+
+/* Light theme variables - ADD TO YOUR EXISTING [data-theme="light"] SECTION */
+[data-theme="light"] {
+  /* Your existing variables... */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --accent-color: #3498db;
+  --accent-hover: #2980b9;
+  --success-color: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.1);
+  --inactive-color: #64748b;
+  --inactive-bg: rgba(100, 116, 139, 0.1);
+  --hover-bg: #f1f5f9;
+  --gradient-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+  
+  /* UPS-specific variables */
+  --text-color: #0f172a;
+  --card-background: rgba(255, 255, 255, 0.9);
+  --primary-color: #3498db;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --background-gradient: linear-gradient(135deg, #ffffff, #f8fafc);
+}
+
+/* Dark theme variables - ADD TO YOUR EXISTING [data-theme="dark"] SECTION */
+[data-theme="dark"] {
+  /* Your existing variables... */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --border-color: #1e293b;
+  --border-hover: #334155;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-hover: rgba(0, 0, 0, 0.6);
+  --accent-color: #3498db;
+  --accent-hover: #2980b9;
+  --success-color: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.2);
+  --inactive-color: #64748b;
+  --inactive-bg: rgba(100, 116, 139, 0.2);
+  --hover-bg: #273449;
+  --gradient-bg: linear-gradient(135deg, #0f172a, #1e293b);
+  
+  /* UPS-specific variables */
+  --text-color: #ffffff;
+  --card-background: rgba(30, 41, 59, 0.8);
+  --primary-color: #0077ff;
+  --warning-color: #facc15;
+  --error-color: #ef4444;
+  --background-gradient: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+/* UPS Page theme-responsive background */
+.ups-page {
+  background: var(--background-gradient) !important;
+  transition: background 0.3s ease;
+}
