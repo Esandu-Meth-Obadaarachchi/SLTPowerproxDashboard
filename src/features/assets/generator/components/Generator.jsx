@@ -113,7 +113,7 @@ const GeneratorDashboard = () => {
         <StatusCard icon={Battery} value="9V" label="Battery Status" color="blue" />
         <StatusCard icon={Thermometer} value="197°C" label="Coolant Temp" color="red" />
       </div>
-
+      
       <div className="overview-grid">
         <div className="card">
           <h3 className="card-title">
