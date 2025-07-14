@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./SideBar.css";
 
-const Sidebar = ({ isCollapsed, onToggle }) => {
+const Sidebar = ({ 
+  isCollapsed, 
+  isMobile, 
+  isTablet, 
+  mobileMenuOpen, 
+  onToggle, 
+  onLinkClick 
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -178,30 +185,76 @@ const Sidebar = ({ isCollapsed, onToggle }) => {
 
   const handleNavigation = (path) => {
     navigate(path);
+    // Call onLinkClick to close mobile menu
+    if (onLinkClick) {
+      onLinkClick();
+    }
   };
 
   const isActive = (path) => {
     return location.pathname === path;
   };
 
+  // Determine sidebar visibility and classes
+  const getSidebarClasses = () => {
+    let classes = 'sidebar';
+    
+    if (isMobile) {
+      classes += ' mobile-sidebar';
+      if (mobileMenuOpen) {
+        classes += ' mobile-open';
+      }
+    } else if (isTablet) {
+      classes += ' tablet-sidebar';
+      if (isCollapsed) {
+        classes += ' collapsed';
+      }
+    } else {
+      if (isCollapsed) {
+        classes += ' collapsed';
+      }
+    }
+    
+    return classes;
+  };
+
   return (
-    <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+    <div className={getSidebarClasses()}>
       <div className="sidebar-content">
-        {/* Sidebar Header */}
-        <div className="sidebar-header">
-          <button 
-            className="sidebar-toggle"
-            onClick={onToggle}
-            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
-          {!isCollapsed && <span className="sidebar-title">Menu</span>}
-        </div>
+        {/* Sidebar Header - Only show toggle button on non-mobile */}
+        {!isMobile && (
+          <div className="sidebar-header">
+            <button 
+              className="sidebar-toggle"
+              onClick={onToggle}
+              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+            {!isCollapsed && <span className="sidebar-title">Menu</span>}
+          </div>
+        )}
+
+        {/* Mobile Header */}
+        {isMobile && (
+          <div className="sidebar-header mobile-header">
+            <span className="sidebar-title">Menu</span>
+            <button 
+              className="mobile-close-btn"
+              onClick={onToggle}
+              aria-label="Close mobile menu"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        )}
 
         {/* Navigation Menu */}
         <nav className="sidebar-nav">
@@ -211,10 +264,10 @@ const Sidebar = ({ isCollapsed, onToggle }) => {
                 <button
                   className={`nav-button ${isActive(item.path) ? 'active' : ''}`}
                   onClick={() => handleNavigation(item.path)}
-                  title={isCollapsed ? item.label : ''}
+                  title={isCollapsed && !isMobile ? item.label : ''}
                 >
                   <span className="nav-icon">{item.icon}</span>
-                  {!isCollapsed && <span className="nav-label">{item.label}</span>}
+                  {(!isCollapsed || isMobile) && <span className="nav-label">{item.label}</span>}
                 </button>
               </li>
             ))}
@@ -223,7 +276,7 @@ const Sidebar = ({ isCollapsed, onToggle }) => {
 
         {/* Sidebar Footer */}
         <div className="sidebar-footer">
-          {!isCollapsed && (
+          {(!isCollapsed || isMobile) && (
             <div className="sidebar-info">
               <p className="app-version">PowerProx v1.0</p>
             </div>

@@ -184,3 +184,213 @@
 .sidebar-nav::-webkit-scrollbar-thumb:hover {
   background: #4a5f7a;
 }
+
+/* Base sidebar styles (adjust according to your existing styles) */
+.sidebar {
+  position: fixed;
+  top: 64px; /* Below navbar */
+  left: 0;
+  height: calc(100vh - 64px);
+  width: 250px;
+  background-color: var(--sidebar-bg);
+  transition: all 0.3s ease;
+  z-index: 900;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+/* Large screens and TVs (1200px and above) */
+@media (min-width: 1200px) {
+  .sidebar {
+    width: 280px;
+    top: 64px;
+  }
+  
+  .sidebar.collapsed {
+    width: 70px;
+  }
+  
+  .sidebar-item {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+  
+  .sidebar-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+  }
+}
+
+/* Tablet (768px to 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .sidebar {
+    width: 200px;
+    top: 64px;
+  }
+  
+  .sidebar.collapsed {
+    width: 50px;
+  }
+  
+  .sidebar.tablet-mode {
+    width: 220px;
+  }
+  
+  .sidebar-item {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .sidebar-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+  }
+}
+
+/* Mobile and small tablets (768px and below) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 250px;
+    transform: translateX(-100%);
+    top: 64px;
+    height: calc(100vh - 64px);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .sidebar.collapsed {
+    width: 250px; /* Full width on mobile when open */
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.collapsed.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-item {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .sidebar-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+  }
+}
+
+/* Small mobile devices (480px and below) */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 240px;
+  }
+  
+  .sidebar-item {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+  
+  .sidebar-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+  }
+}
+
+/* Very small devices (360px and below) */
+@media (max-width: 360px) {
+  .sidebar {
+    width: 220px;
+  }
+  
+  .sidebar-item {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .sidebar-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+  }
+}
+
+/* Mobile hamburger menu button (add to your navbar or sidebar component) */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--nav-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-toggle:hover {
+  background-color: var(--nav-hover-bg);
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
+
+/* Ensure sidebar is accessible on all devices */
+.sidebar-item:focus {
+  outline: 2px solid var(--nav-active);
+  outline-offset: 2px;
+}
+
+.sidebar-item:hover {
+  background-color: var(--sidebar-hover-bg);
+}
+
+.sidebar-item.active {
+  background-color: var(--sidebar-active-bg);
+  color: var(--nav-active);
+}
+
+/* Smooth scrolling for sidebar */
+.sidebar {
+  scroll-behavior: smooth;
+}
+
+/* Ensure sidebar content is properly spaced */
+.sidebar-content {
+  padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .sidebar-content {
+    padding: 0.5rem 0;
+  }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Ensure sidebar items are touch-friendly */
+  .sidebar-item {
+    min-height: 44px; /* Minimum touch target size */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Add dividers between sections on mobile */
+  .sidebar-section:not(:last-child) {
+    border-bottom: 1px solid var(--sidebar-border);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}

@@ -15,12 +15,14 @@
   min-height: 100vh;
   background-color: var(--bg-color);
   color: var(--text-color);
+  position: relative;
 }
 
 .main-content {
   margin-left: 250px; /* Default sidebar width */
   transition: margin-left 0.3s ease;
   min-height: calc(100vh - 64px);
+  margin-top: 64px; /* Account for navbar height */
 }
 
 .main-content.sidebar-collapsed {
@@ -31,11 +33,12 @@
   max-width: 100%;
   overflow-x: auto;
   scroll-behavior: smooth;
+  padding: 1rem;
 }
 
 .mobile-overlay {
   position: fixed;
-  top: 64px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -44,10 +47,28 @@
   display: none;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE BREAKPOINTS */
+
+/* Tablet (768px to 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .main-content {
+    margin-left: 200px; /* Slightly smaller sidebar for tablets */
+  }
+  
+  .main-content.sidebar-collapsed {
+    margin-left: 50px;
+  }
+  
+  .content-area {
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile and small tablets (768px and below) */
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
+    margin-top: 64px;
   }
 
   .main-content.sidebar-collapsed {
@@ -63,9 +84,34 @@
   }
 }
 
+/* Small mobile devices (480px and below) */
 @media (max-width: 480px) {
   .content-area {
     padding: 0.75rem;
+  }
+}
+
+/* Very small devices (360px and below) */
+@media (max-width: 360px) {
+  .content-area {
+    padding: 0.5rem;
+  }
+}
+
+/* Large screens and TVs (1200px and above) */
+@media (min-width: 1200px) {
+  .main-content {
+    margin-left: 280px; /* Wider sidebar for large screens */
+  }
+  
+  .main-content.sidebar-collapsed {
+    margin-left: 70px;
+  }
+  
+  .content-area {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 }
 

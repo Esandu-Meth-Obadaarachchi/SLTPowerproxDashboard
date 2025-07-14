@@ -5,8 +5,9 @@ import { auth } from "../../../../firebase";
 import "./navbar.css";
 import logo from "../../images/logo.png"; 
 import ThemeToggleButton from "../theme/ThemeToggleButton";
+import HamburgerMenu from "./hamburger";
 
-const Navbar = () => {
+const Navbar = ({ onSidebarToggle, isMobile, mobileMenuOpen }) => {
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -38,6 +39,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
+        <HamburgerMenu 
+          isOpen={mobileMenuOpen}
+          onToggle={onSidebarToggle}
+          isMobile={isMobile}
+        />
         <div className="navbar-logo">
           <img 
             src={logo} 
