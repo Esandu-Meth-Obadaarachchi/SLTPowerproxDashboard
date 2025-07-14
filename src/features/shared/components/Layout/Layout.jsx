@@ -2,22 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Sidebar from '../SideBar/SideBar';
+import Navbar from '../navbar/Navbar'; // Import Navbar
 import './Layout.css';
 
 const Layout = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Handle responsive behavior
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
+      const width = window.innerWidth;
+      const mobile = width <= 768;
+      const tablet = width > 768 && width <= 1024;
       
-      // Auto-collapse sidebar on mobile
+      setIsMobile(mobile);
+      setIsTablet(tablet);
+      
+      // Auto-collapse sidebar on mobile and tablet
       if (mobile) {
         setSidebarCollapsed(true);
+        setMobileMenuOpen(false); // Close mobile menu on resize
+      } else if (tablet) {
+        setSidebarCollapsed(false); // Keep sidebar open on tablet
       }
     };
 
@@ -41,9 +50,21 @@ const Layout = () => {
     }
   };
 
+  // Close mobile menu when clicking on sidebar links
+  const handleSidebarLinkClick = () => {
+    if (isMobile) {
+      setMobileMenuOpen(false);
+    }
+  };
+
   return (
     <div className="app-layout">
-
+      {/* Navbar - pass the toggle function */}
+      <Navbar 
+        onSidebarToggle={handleSidebarToggle}
+        isMobile={isMobile}
+        mobileMenuOpen={mobileMenuOpen}
+      />
       
       {/* Mobile overlay */}
       {isMobile && mobileMenuOpen && (
@@ -56,12 +77,22 @@ const Layout = () => {
       {/* Sidebar */}
       <Sidebar 
         isCollapsed={sidebarCollapsed}
+        isMobile={isMobile}
+        isTablet={isTablet}
+        mobileMenuOpen={mobileMenuOpen}
         onToggle={handleSidebarToggle}
-        className={isMobile && mobileMenuOpen ? 'mobile-open' : ''}
+        onLinkClick={handleSidebarLinkClick}
+        className={`${isMobile && mobileMenuOpen ? 'mobile-open' : ''} ${
+          isTablet ? 'tablet-mode' : ''
+        }`}
       />
       
       {/* Main Content Area */}
-      <div className={`main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+      <div className={`main-content ${
+        sidebarCollapsed ? 'sidebar-collapsed' : ''
+      } ${isMobile ? 'mobile-layout' : ''} ${
+        isTablet ? 'tablet-layout' : ''
+      }`}>
         <div className="content-area">
           <Outlet />
         </div>
