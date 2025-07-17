@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Home, AlertTriangle, Zap, Activity, Settings, Power, Fuel, Battery, Thermometer } from 'lucide-react';
 import './GeneratorDashboard.css';
-
+import image from "../../../../assets/generator.png"
 const GeneratorDashboard = () => {
   const [activeTab, setActiveTab] = useState('OVERVIEW');
 
@@ -15,14 +15,14 @@ const GeneratorDashboard = () => {
   ];
 
   const StatusCard = ({ icon: Icon, value, label, color = 'blue' }) => (
-    <div className="status-card">
-      <div className="status-card-content">
-        <div className={`status-icon ${color}`}>
+    <div className="status-card-gen">
+      <div className="status-card-content-gen">
+        <div className={`status-icon-gen ${color}`}>
           <Icon size={32} />
         </div>
-        <div className="status-info">
-          <div className="status-value">{value}</div>
-          <div className="status-label">{label}</div>
+        <div className="status-info-gen">
+          <div className="status-value-gen">{value}</div>
+          <div className="status-label-gen">{label}</div>
         </div>
       </div>
     </div>
@@ -107,50 +107,89 @@ const GeneratorDashboard = () => {
   };
 
   const OverviewTab = () => (
-    <div className="tab-content-dashboard">
-      <div className="status-grid">
-        <StatusCard icon={Fuel} value="38%" label="Day Tank Fuel" color="yellow" />
-        <StatusCard icon={Battery} value="9V" label="Battery Status" color="blue" />
-        <StatusCard icon={Thermometer} value="197°C" label="Coolant Temp" color="red" />
-      </div>
-      
-      <div className="overview-grid">
-        <div className="card">
-          <h3 className="card-title">
-            <Activity size={20} />
-            System Status
-          </h3>
-          <div className="gauge-grid">
-            <CircularGauge value={1200} max={3000} label="RPM" unit="RPM" color="blue" />
-            <CircularGauge value={49} max={60} label="Frequency" unit="Hz" color="green" />
+  <div className="tab-content-dashboard">
+    <div className="status-grid">
+      <StatusCard icon={Fuel} value="38%" label="Day Tank Fuel" color="yellow" />
+      <StatusCard icon={Battery} value="9V" label="Battery Status" color="blue" />
+      <StatusCard icon={Thermometer} value="197°C" label="Coolant Temp" color="red" />
+    </div>
+    
+    <div className="overview-grid">
+      {/* Generator Visual Section */}
+      <div className="card generator-visual-card">
+        <h3 className="card-title">
+          <Zap size={20} />
+          Generator Unit
+        </h3>
+        <div className="generator-container">
+          <div className="generator-image-wrapper">
+            <img 
+              src={image} 
+              alt="Industrial Generator" 
+              className="generator-image"
+            />
+            <div className="generator-status-overlay">
+              <div className="status-indicator running">
+                <div className="status-dot"></div>
+                <span>RUNNING</span>
+              </div>
+            </div>
+          </div>
+          <div className="generator-quick-stats">
+            <div className="quick-stat">
+              <span className="stat-value">1200</span>
+              <span className="stat-label">RPM</span>
+            </div>
+            <div className="quick-stat">
+              <span className="stat-value">49</span>
+              <span className="stat-label">Hz</span>
+            </div>
+            <div className="quick-stat">
+              <span className="stat-value">197°C</span>
+              <span className="stat-label">Temp</span>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="card">
-          <h3 className="card-title">
-            <AlertTriangle size={20} />
-            Recent Alarms
-          </h3>
-          <div className="alarm-list">
-            {alarmData.slice(0, 3).map((alarm, index) => (
-              <div key={index} className="alarm-item">
-                <div className="alarm-info">
-                  <AlertTriangle size={20} className={`alarm-icon ${getSeverityClass(alarm.severity)}`} />
-                  <div className="alarm-details">
-                    <div className="alarm-type">{alarm.type}</div>
-                    <div className="alarm-originator">{alarm.originator}</div>
-                  </div>
-                </div>
-                <div className={`alarm-status ${getStatusClass(alarm.status)}`}>
-                  {alarm.status}
+      {/* System Status */}
+      <div className="card">
+        <h3 className="card-title">
+          <Activity size={20} />
+          System Metrics
+        </h3>
+        <div className="gauge-grid">
+          <CircularGauge value={1200} max={3000} label="RPM" unit="RPM" color="blue" />
+          <CircularGauge value={49} max={60} label="Frequency" unit="Hz" color="green" />
+        </div>
+      </div>
+
+      {/* Recent Alarms */}
+      <div className="card">
+        <h3 className="card-title">
+          <AlertTriangle size={20} />
+          Recent Alarms
+        </h3>
+        <div className="alarm-list">
+          {alarmData.slice(0, 3).map((alarm, index) => (
+            <div key={index} className="alarm-item">
+              <div className="alarm-info">
+                <AlertTriangle size={20} className={`alarm-icon ${getSeverityClass(alarm.severity)}`} />
+                <div className="alarm-details">
+                  <div className="alarm-type">{alarm.type}</div>
+                  <div className="alarm-originator">{alarm.originator}</div>
                 </div>
               </div>
-            ))}
-          </div>
+              <div className={`alarm-status ${getStatusClass(alarm.status)}`}>
+                {alarm.status}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 
   const ElectricalTab = () => (
     <div className="tab-content-dashboard">
@@ -319,9 +358,9 @@ const GeneratorDashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="main-dashboard">
+      <div className="main-dashboard-gen">
         {/* Summary Cards */}
-        <div className="summary-cards">
+        <div className="summary-cards-gen">
           <StatusCard icon={Power} value="Standby" label="Generator Status" color="green" />
           <StatusCard icon={AlertTriangle} value="3" label="Active Alarms" color="yellow" />
           <StatusCard icon={Thermometer} value="197°C" label="Average Temp" color="blue" />
