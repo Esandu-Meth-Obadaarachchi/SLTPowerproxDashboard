@@ -68,67 +68,123 @@ const ACInputTab = () => {
 
   return (
     <div className="ac-input-container">
-      {/* Voltage Section */}
-      <div className="ac-input-section">
-        <div className="ac-input-header">
-          <Cable size={24} className="ac-input-icon voltage-icon" />
-          <span className="ac-input-title voltage-title">Live Voltage</span>
+      {/* Live Voltage Row */}
+      <div className="ac-input-row">
+        <div className="ac-input-row-header">
+          <Cable size={24} className="ac-input-row-icon live-voltage-icon" />
+          <span className="ac-input-row-title live-voltage-title">
+            Live Voltage
+          </span>
         </div>
 
-        <div className="ac-input-status-grid">
-          <StatusCard icon={Cable} value="245V" label="L1" color="yellow" />
-          <StatusCard icon={Cable} value="250V" label="L2" color="yellow" />
-          <StatusCard icon={Cable} value="255V" label="L3" color="yellow" />
-        </div>
+        <div className="ac-input-voltage-grid">
+          <div className="ac-input-metric-card">
+            <StatusCard
+              icon={Cable}
+              value="245V"
+              label="L1 Voltage"
+              color="yellow"
+            />
+            <div className="ac-input-chart">
+              <PhaseChart
+                title="Voltage L1 (V)"
+                data={voltageDataL1}
+                lineColor="#FBBF24"
+              />
+            </div>
+          </div>
 
-        <div className="ac-input-charts">
-          <PhaseChart
-            title="Voltage L1 (V)"
-            data={voltageDataL1}
-            lineColor="#FBBF24"
-          />
-          <PhaseChart
-            title="Voltage L2 (V)"
-            data={voltageDataL2}
-            lineColor="#3B82F6"
-          />
-          <PhaseChart
-            title="Voltage L3 (V)"
-            data={voltageDataL3}
-            lineColor="#10B981"
-          />
+          <div className="ac-input-metric-card">
+            <StatusCard
+              icon={Cable}
+              value="250V"
+              label="L2 Voltage"
+              color="yellow"
+            />
+            <div className="ac-input-chart">
+              <PhaseChart
+                title="Voltage L2 (V)"
+                data={voltageDataL2}
+                lineColor="#3B82F6"
+              />
+            </div>
+          </div>
+
+          <div className="ac-input-metric-card">
+            <StatusCard
+              icon={Cable}
+              value="255V"
+              label="L3 Voltage"
+              color="yellow"
+            />
+            <div className="ac-input-chart">
+              <PhaseChart
+                title="Voltage L3 (V)"
+                data={voltageDataL3}
+                lineColor="#10B981"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Current Section */}
-      <div className="ac-input-section">
-        <div className="ac-input-header">
-          <Battery size={24} className="ac-input-icon current-icon" />
-          <span className="ac-input-title current-title">Live Current</span>
+      {/* Live Current Row */}
+      <div className="ac-input-row">
+        <div className="ac-input-row-header">
+          <Battery size={24} className="ac-input-row-icon live-current-icon" />
+          <span className="ac-input-row-title live-current-title">
+            Live Current
+          </span>
         </div>
 
-        <div className="ac-input-status-grid">
-          <StatusCard icon={Battery} value="85A" label="L1" color="green" />
-          <StatusCard icon={Battery} value="80A" label="L2" color="green" />
-          <StatusCard icon={Battery} value="88A" label="L3" color="green" />
-        </div>
+        <div className="ac-input-current-grid">
+          <div className="ac-input-metric-card">
+            <StatusCard
+              icon={Battery}
+              value="85A"
+              label="L1 Current"
+              color="green"
+            />
+            <div className="ac-input-chart">
+              <PhaseChart
+                title="Current L1 (A)"
+                data={currentDataL1}
+                lineColor="#10B981"
+              />
+            </div>
+          </div>
 
-        <div className="ac-input-charts">
-          <PhaseChart
-            title="Current L1 (A)"
-            data={currentDataL1}
-            lineColor="#10B981"
-          />
-          <PhaseChart
-            title="Current L2 (A)"
-            data={currentDataL2}
-            lineColor="#3B82F6"
-          />
-          <PhaseChart
-            title="Current L3 (A)"
-            data={currentDataL3}
-            lineColor="#FBBF24"
-          />
+          <div className="ac-input-metric-card">
+            <StatusCard
+              icon={Battery}
+              value="80A"
+              label="L2 Current"
+              color="green"
+            />
+            <div className="ac-input-chart">
+              <PhaseChart
+                title="Current L2 (A)"
+                data={currentDataL2}
+                lineColor="#3B82F6"
+              />
+            </div>
+          </div>
+
+          <div className="ac-input-metric-card">
+            <StatusCard
+              icon={Battery}
+              value="88A"
+              label="L3 Current"
+              color="green"
+            />
+            <div className="ac-input-chart">
+              <PhaseChart
+                title="Current L3 (A)"
+                data={currentDataL3}
+                lineColor="#FBBF24"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
