@@ -23,6 +23,9 @@
   transition: margin-left 0.3s ease;
   min-height: calc(100vh - 64px);
   margin-top: 64px; /* Account for navbar height */
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .main-content.sidebar-collapsed {
@@ -33,7 +36,9 @@
   max-width: 100%;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 1rem;
+  padding: 0; /* Remove padding to let individual components handle spacing */
+  position: relative;
+  width: 100%;
 }
 
 .mobile-overlay {
@@ -60,7 +65,7 @@
   }
   
   .content-area {
-    padding: 1.5rem;
+    padding: 0;
   }
 }
 
@@ -76,7 +81,7 @@
   }
 
   .content-area {
-    padding: 1rem;
+    padding: 0;
   }
 
   .mobile-overlay {
@@ -87,14 +92,14 @@
 /* Small mobile devices (480px and below) */
 @media (max-width: 480px) {
   .content-area {
-    padding: 0.75rem;
+    padding: 0;
   }
 }
 
 /* Very small devices (360px and below) */
 @media (max-width: 360px) {
   .content-area {
-    padding: 0.5rem;
+    padding: 0;
   }
 }
 
@@ -109,7 +114,7 @@
   }
   
   .content-area {
-    padding: 2rem;
+    padding: 0;
     max-width: 1400px;
     margin: 0 auto;
   }

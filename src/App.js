@@ -73,6 +73,7 @@ import { auth } from "./firebase";
 import AppRouter from "./features/app/router";
 import Navbar from "./features/shared/components/navbar/Navbar";
 import { ThemeProvider } from "./features/shared/components/theme/ThemeContext";
+import ScrollToTop from "./features/shared/components/ScrollToTop/ScrollToTop";
 import "./App.css";
 
 const App = () => {
@@ -118,7 +119,8 @@ const App = () => {
   return (
     <ThemeProvider>
       <div className="app-theme-container">
-        <Router>
+        <Router future={{ v7_startTransition: true }}>
+          <ScrollToTop />
           {isAuthenticated && <Navbar />}
           <AppRouter isAuthenticated={isAuthenticated} />
         </Router>

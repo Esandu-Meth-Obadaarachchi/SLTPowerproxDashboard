@@ -16,6 +16,7 @@ import LocationSelector from "../LocationSelector/LocationSelector";
 import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
 import ACUnits from "../assets/acunit/ACUnits.jsx";
 import GeneratorDashboard from "../assets/generator/components/Generator";
+import RectifierDetails from "../assets/rectifier/rectifierDetails/RectifierDetails";
 
 
 //import FMS from "../FaultManagementSystem/FaultManagement";
@@ -104,6 +105,7 @@ const AppRouter = () => {
         <Route path="userManagement" element={<UserManagement />} />
         <Route path="transformers" element={<TransformersPage />} />
         <Route path="rectifier" element={<Rectifier />} />
+        <Route path="rectifier/:rectifierId" element={<RectifierDetails />} />
       </Route>
       
       {/* Root redirect - matches original behavior */}
