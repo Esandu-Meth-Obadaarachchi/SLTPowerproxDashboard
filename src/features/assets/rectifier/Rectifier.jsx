@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BatteryCharging, AlertTriangle, Zap, Cpu } from 'lucide-react';
 
 import RectifierOverviewTab from './rectifier_components/RectifierOverviewTab';
@@ -65,6 +66,12 @@ const Rectifier = () => {
         return <RectifierOverviewTab />;
     }
   };
+  const navigate = useNavigate();
+
+const handleRectifierClick = (id) => {
+  navigate(`/app/rectifier/${id}`);
+};
+
 
   return (
     <div className="ups-page">
@@ -106,7 +113,7 @@ const Rectifier = () => {
         </div>
       </div>
 
-      <RectifierList />
+      <RectifierList onRectifierClick={handleRectifierClick} />
     </div>
   );
 };
