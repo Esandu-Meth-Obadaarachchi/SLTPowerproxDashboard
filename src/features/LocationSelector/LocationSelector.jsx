@@ -12,63 +12,85 @@ const LocationSelector = () => {
   const locationsData = [
     {
       id: 1,
-      name: "SLT HQ",
+      name: "SLT HQ Headquarters Building",
       locationType: "Main",
-      description: "Headquarters Building - Main Power Center",
+      description: "Main Power Center",
       assets: [
-        { id: 101, name: "Gen_HQb_1", status: "Standby", lastChecked: "2 hours ago" },
-        { id: 102, name: "Gen_HQb_2", status: "Standby", lastChecked: "4 hours ago" },
-        { id: 103, name: "Gen_HQb_3", status: "Running", lastChecked: "1 hour ago" },
+        { id: 101, name: "GEN_HQb_1", status: "Standby", lastChecked: "2 hours ago" },
+        { id: 102, name: "GEN_HQb_2", status: "Standby", lastChecked: "4 hours ago" },
+        { id: 103, name: "GEN_HQb_3", status: "Running", lastChecked: "1 hour ago" },
+        { id: 104, name: "GEN_HQb_4", status: "Running", lastChecked: "30 minutes ago" },
+        { id: 105, name: "GEN_HQb_5", status: "Offline", lastChecked: "8 hours ago" },
+        { id: 106, name: "GEN_HQb_6", status: "Standby", lastChecked: "3 hours ago" },
       ],
     },
     {
       id: 2,
-      name: "SLT OTS",
+      name: "SLT OTS Off-site Technical Station",
       locationType: "Main",
-      description: "Off-site Technical Station - Backup Power",
+      description: "Backup Power",
       assets: [
-        { id: 201, name: "Gen_OTS_1", status: "Standby", lastChecked: "3 hours ago" },
-        { id: 202, name: "Gen_OTS_2", status: "Running", lastChecked: "30 minutes ago" },
-        { id: 203, name: "Gen_OTS_3", status: "Offline", lastChecked: "1 day ago" },
+        { id: 201, name: "GEN_OTS_1", status: "Standby", lastChecked: "3 hours ago" },
+        { id: 202, name: "GEN_OTS_2", status: "Running", lastChecked: "30 minutes ago" },
+        { id: 203, name: "GEN_OTS_3", status: "Offline", lastChecked: "1 day ago" },
+        { id: 204, name: "GEN_OTS_4", status: "Running", lastChecked: "1 hour ago" },
+        { id: 205, name: "GEN_OTS_5", status: "Standby", lastChecked: "2 hours ago" },
+        { id: 206, name: "GEN_OTS_6", status: "Running", lastChecked: "45 minutes ago" },
+        { id: 207, name: "GEN_OTS_7", status: "Offline", lastChecked: "6 hours ago" },
       ],
     },
     {
       id: 3,
       name: "SLT WELIKADA A",
       locationType: "Gateway",
-      description: " - Welikada A Power Distribution Station",
+      description: "Welikada A Power Distribution Station",
       assets: [
-        { id: 301, name: "Gen_WA_1", status: "Running", lastChecked: "1 hour ago" },
-        { id: 302, name: "Gen_WA_2", status: "Running", lastChecked: "1 hour ago" },
-        { id: 303, name: "Gen_WA_3", status: "Running", lastChecked: "1 hour ago" },
+        { id: 301, name: "GEN_WA_1", status: "Running", lastChecked: "1 hour ago" },
+        { id: 302, name: "GEN_WA_2", status: "Running", lastChecked: "1 hour ago" },
+        { id: 303, name: "GEN_WA_3", status: "Running", lastChecked: "1 hour ago" },
+        { id: 304, name: "GEN_WA_4", status: "Standby", lastChecked: "2 hours ago" },
+        { id: 305, name: "GEN_WA_5", status: "Offline", lastChecked: "4 hours ago" },
       ],
     },
     {
       id: 4,
       name: "SLT WELIKADA B",
       locationType: "Gateway",
-      description: " - Welikada B Power Distribution Station",
+      description: "Welikada B Power Distribution Station",
       assets: [
-        { id: 401, name: "Gen_WB_1", status: "Standby", lastChecked: "5 hours ago" },
-        { id: 402, name: "Gen_WB_2", status: "Offline", lastChecked: "1 day ago" },
+        { id: 401, name: "GEN_WB_1", status: "Standby", lastChecked: "5 hours ago" },
+        { id: 402, name: "GEN_WB_2", status: "Offline", lastChecked: "1 day ago" },
+        { id: 403, name: "GEN_WB_3", status: "Running", lastChecked: "20 minutes ago" },
+        { id: 404, name: "GEN_WB_4", status: "Running", lastChecked: "1 hour ago" },
+        { id: 405, name: "GEN_WB_5", status: "Standby", lastChecked: "3 hours ago" },
+        { id: 406, name: "GEN_WB_6", status: "Running", lastChecked: "40 minutes ago" },
       ],
     },
     {
       id: 5,
       name: "SLT Thalawathugoda RSU",
       locationType: "Gateway",
-      description: " - Thalawathugoda Remote Service Unit",
+      description: "Thalawathugoda Remote Service Unit",
       assets: [
-        { id: 501, name: "Gen_TR_1", status: "Standby", lastChecked: "6 hours ago" },
+        { id: 501, name: "GEN_TR_1", status: "Standby", lastChecked: "6 hours ago" },
+        { id: 502, name: "GEN_TR_2", status: "Running", lastChecked: "2 hours ago" },
+        { id: 503, name: "GEN_TR_3", status: "Offline", lastChecked: "10 hours ago" },
+        { id: 504, name: "GEN_TR_4", status: "Running", lastChecked: "1 hour ago" },
       ],
     },
     {
       id: 6,
       name: "SLT MATTAKKULIYA TELESHOP",
       locationType: "Gateway",
-      description: " - Mattakkuliya Teleshop Backup Station",
+      description: "Mattakkuliya Teleshop Backup Station",
       assets: [
-        { id: 601, name: "Gen_MT_1", status: "Standby", lastChecked: "12 hours ago" },
+        { id: 601, name: "GEN_MT_1", status: "Standby", lastChecked: "12 hours ago" },
+        { id: 602, name: "GEN_MT_2", status: "Running", lastChecked: "3 hours ago" },
+        { id: 603, name: "GEN_MT_3", status: "Offline", lastChecked: "1 day ago" },
+        { id: 604, name: "GEN_MT_4", status: "Running", lastChecked: "2 hours ago" },
+        { id: 605, name: "GEN_MT_5", status: "Standby", lastChecked: "5 hours ago" },
+        { id: 606, name: "GEN_MT_6", status: "Running", lastChecked: "1 hour ago" },
+        { id: 607, name: "GEN_MT_7", status: "Offline", lastChecked: "8 hours ago" },
       ],
     },
   ];
@@ -205,45 +227,26 @@ const LocationSelector = () => {
             
             return (
               <div key={location.id} className="simplified-location-card">
-                <div className="simplified-location-header">
-                  <h2>{location.name + " " + location.description}</h2>
-                  <div className="simplified-status-indicators">
-                    {statusCounts.running > 0 && (
-                      <div className="simplified-status running">
-                        <span>⚡</span>
-                        <span>{statusCounts.running}</span>
-                      </div>
-                    )}
-                    {statusCounts.standby > 0 && (
-                      <div className="simplified-status standby">
-                        <span>⏱️</span>
-                        <span>{statusCounts.standby}</span>
-                      </div>
-                    )}
-                    {statusCounts.offline > 0 && (
-                      <div className="simplified-status offline">
-                        <span>⚠️</span>
-                        <span>{statusCounts.offline}</span>
-                      </div>
-                    )}
+                {/* Left side - Location information */}
+                <div className="simplified-location-info">
+                  <div className="simplified-location-header">
+                    <h2>{location.name}</h2>
+                    <div className="simplified-location-description">
+                      {location.description}
+                    </div>
                   </div>
                 </div>
                 
-                {/* Asset slots - now with hover effect and proper navigation */}
-                <div className="simplified-asset-slots">
+                {/* Right side - Generator buttons */}
+                <div className="simplified-asset-buttons">
                   {location.assets.map((asset) => (
-                    <div 
+                    <button 
                       key={asset.id} 
-                      className={`simplified-asset-slot ${asset.status.toLowerCase()}`}
+                      className={`simplified-asset-button ${asset.status.toLowerCase()}`}
                       onClick={() => handleSelectAsset(asset.id, asset.name)}
                     >
-                      {asset.name}
-                      <span className="view-indicator">→</span>
-                    </div>
-                  ))}
-                  {/* Add empty slots to maintain grid */}
-                  {Array(3 - location.assets.length).fill().map((_, i) => (
-                    <div key={`empty-${i}`} className="simplified-asset-slot empty"></div>
+                      <span>{asset.name}</span>
+                    </button>
                   ))}
                 </div>
               </div>

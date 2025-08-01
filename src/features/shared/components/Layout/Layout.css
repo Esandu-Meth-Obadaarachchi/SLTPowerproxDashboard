@@ -1,14 +1,20 @@
 /* === THEME VARIABLES === */
 :root {
-  --bg-color: #f1f5f9;
-  --text-color: #1e293b;
-  --card-background: #e2e8f0;
+  --bg-color: rgba(241, 245, 249, 0.1);
+  --text-color: #f8fafc;
+  --card-background: rgba(226, 232, 240, 0.1);
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] {
-  --bg-color: #0f172a;
+  --bg-color: rgba(15, 23, 42, 0.1);
   --text-color: #f8fafc;
-  --card-background: #1a2235;
+  --card-background: rgba(26, 34, 53, 0.15);
+  --glass-background: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
 }
 
 .app-layout {
@@ -16,13 +22,15 @@
   background-color: var(--bg-color);
   color: var(--text-color);
   position: relative;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .main-content {
   margin-left: 250px; /* Default sidebar width */
   transition: margin-left 0.3s ease;
-  min-height: calc(100vh - 64px);
-  margin-top: 64px; /* Account for navbar height */
+  padding-top: 5%;
+  background: transparent;
 }
 
 .main-content.sidebar-collapsed {
@@ -31,9 +39,8 @@
 
 .content-area {
   max-width: 100%;
-  overflow-x: auto;
-  scroll-behavior: smooth;
   padding: 1rem;
+  background: transparent;
 }
 
 .mobile-overlay {
@@ -42,9 +49,206 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   z-index: 899;
   display: none;
+}
+
+/* === GLASSMORPHISM UTILITY CLASSES === */
+.glass-card {
+  background: var(--glass-background);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.glass-button.active {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* === SIDEBAR GLASS EFFECTS === */
+.sidebar {
+  background: rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-item {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.sidebar-item.active {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+}
+
+/* === NAVBAR GLASS EFFECTS === */
+.navbar {
+  background: rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* === STAT CARDS GLASS EFFECTS === */
+.stat-card {
+  background: var(--glass-background);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+.stat-card .icon {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 50%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* === CHART CONTAINERS GLASS EFFECTS === */
+.chart-container {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.chart-container:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* === TAB NAVIGATION GLASS EFFECTS === */
+.tab-navigation {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab-item {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tab-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.tab-item.active {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+}
+
+/* === MODAL AND DROPDOWN GLASS EFFECTS === */
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-content {
+  background: rgba(15, 23, 42, 0.15);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-menu {
+  background: rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 /* RESPONSIVE BREAKPOINTS */
@@ -60,6 +264,14 @@
   }
   
   .content-area {
+    padding: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 1.25rem;
+  }
+  
+  .chart-container {
     padding: 1.5rem;
   }
 }
@@ -82,6 +294,18 @@
   .mobile-overlay {
     display: block;
   }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .chart-container {
+    padding: 1.25rem;
+  }
+  
+  .glass-card:hover {
+    transform: none; /* Disable hover transform on mobile */
+  }
 }
 
 /* Small mobile devices (480px and below) */
@@ -89,12 +313,24 @@
   .content-area {
     padding: 0.75rem;
   }
+  
+  .stat-card {
+    padding: 0.875rem;
+  }
+  
+  .chart-container {
+    padding: 1rem;
+  }
 }
 
 /* Very small devices (360px and below) */
 @media (max-width: 360px) {
   .content-area {
     padding: 0.5rem;
+  }
+  
+  .stat-card {
+    padding: 0.75rem;
   }
 }
 
@@ -109,13 +345,42 @@
   }
   
   .content-area {
-    padding: 2rem;
+    
     max-width: 1400px;
     margin: 0 auto;
+  }
+  
+  .stat-card {
+    padding: 2rem;
+  }
+  
+  .chart-container {
+    padding: 2.5rem;
   }
 }
 
 .content-area:focus {
-  outline: 2px solid #3498db;
+  outline: 2px solid rgba(59, 130, 246, 0.5);
   outline-offset: 2px;
+}
+
+/* === SCROLLBAR GLASS EFFECTS === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
