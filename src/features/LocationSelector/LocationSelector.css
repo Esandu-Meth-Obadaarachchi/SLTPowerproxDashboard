@@ -1,4 +1,4 @@
-/* Updated LocationSelector.css */
+/* Updated LocationSelector.css - Thin Bar Design */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -321,7 +321,7 @@ body {
 .simplified-locations-grid {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
   padding: 20px;
   height: calc(100vh - 70px);
   overflow-y: auto;
@@ -341,130 +341,144 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Updated location card styling with glassmorphism effect */
+/* NEW: Thin bar location card design */
 .simplified-location-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.15), rgba(33, 150, 243, 0.08));
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(33, 150, 243, 0.2);
+  border-radius: 8px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  min-height: 120px;
+  min-height: 60px;
+  max-height: 60px;
+  box-shadow: 
+    0 2px 8px rgba(33, 150, 243, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.simplified-location-card:hover {
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(33, 150, 243, 0.12));
+  border-color: rgba(33, 150, 243, 0.3);
+  box-shadow: 
+    0 4px 16px rgba(33, 150, 243, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
 }
 
 /* Left side - Location info */
 .simplified-location-info {
+  flex: none;
+  width: 320px; /* Fixed width to control where separator appears */
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  flex: 1;
+  justify-content: center;
+  position: relative;
+}
+
+/* White separator line positioned at right edge of location info */
+.simplified-location-info::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
 }
 
 .simplified-location-header {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .simplified-location-header h2 {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-color);
   margin: 0;
+  line-height: 1.2;
 }
 
 .simplified-location-description {
-  font-size: 14px;
-  color: var(--text-secondary);
-  opacity: 0.8;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.2;
 }
 
 /* Right side - Generator buttons */
 .simplified-asset-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  align-items: flex-start;
-  min-width: 200px;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 16px;
+  max-width: 60%;
 }
 
-/* Enhanced pill-shaped generator buttons with glassmorphism */
+/* Compact generator buttons */
 .simplified-asset-button {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 25px;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 16px;
   border: 1px solid transparent;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
-  min-width: 140px;
-  justify-content: space-between;
+  min-width: 80px;
+  height: 28px;
   position: relative;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* Arrow indicator */
-.simplified-asset-button::before {
-  content: "→";
-  font-size: 16px;
-  opacity: 0.7;
-  transition: all 0.3s ease;
-}
-
-.simplified-asset-button:hover::before {
-  opacity: 1;
-  transform: translateX(2px);
-}
-
-/* Status-based button styling with enhanced glassmorphism */
+/* Status-based button styling */
 .simplified-asset-button.running {
-  background: rgba(76, 175, 80, 0.15);
-  color: var(--success-color);
-  border-color: rgba(76, 175, 80, 0.3);
-  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.15);
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+  border-color: rgba(76, 175, 80, 0.4);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
 }
 
 .simplified-asset-button.running:hover {
-  background: rgba(76, 175, 80, 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.25);
-  border-color: rgba(76, 175, 80, 0.4);
+  background: rgba(76, 175, 80, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25);
 }
 
 .simplified-asset-button.standby {
-  background: rgba(33, 150, 243, 0.15);
-  color: var(--primary-color);
-  border-color: rgba(33, 150, 243, 0.3);
-  box-shadow: 0 4px 16px rgba(33, 150, 243, 0.15);
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196f3;
+  border-color: rgba(33, 150, 243, 0.4);
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
 }
 
 .simplified-asset-button.standby:hover {
-  background: rgba(33, 150, 243, 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(33, 150, 243, 0.25);
-  border-color: rgba(33, 150, 243, 0.4);
+  background: rgba(33, 150, 243, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25);
 }
 
 .simplified-asset-button.offline {
-  background: rgba(244, 67, 54, 0.15);
-  color: var(--error-color);
-  border-color: rgba(244, 67, 54, 0.3);
-  box-shadow: 0 4px 16px rgba(244, 67, 54, 0.15);
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+  border-color: rgba(244, 67, 54, 0.4);
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.15);
 }
 
 .simplified-asset-button.offline:hover {
-  background: rgba(244, 67, 54, 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(244, 67, 54, 0.25);
-  border-color: rgba(244, 67, 54, 0.4);
+  background: rgba(244, 67, 54, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.25);
 }
 
 /* Remove old asset slots styling */
@@ -476,7 +490,7 @@ body {
   display: none;
 }
 
-/* Responsive adjustments - Keep location name on left, only buttons stack */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .simplified-header {
     flex-direction: column;
@@ -506,20 +520,32 @@ body {
   }
   
   .simplified-location-card {
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
     min-height: auto;
+    max-height: none;
+  }
+  
+  .simplified-location-info {
+    flex: 1;
+    width: auto;
+    padding: 12px 16px;
+  }
+  
+  .simplified-location-info::after {
+    display: none;
   }
   
   .simplified-asset-buttons {
-    flex-direction: column;
-    align-items: stretch;
-    min-width: auto;
-    width: 200px;
+    max-width: none;
+    padding: 8px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    justify-content: flex-start;
   }
   
   .simplified-asset-button {
-    min-width: auto;
-    width: 100%;
+    min-width: 70px;
+    font-size: 11px;
   }
 }
 
@@ -545,18 +571,30 @@ body {
   }
   
   .simplified-location-card {
-    padding: 16px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
+    min-height: auto;
+  }
+  
+  .simplified-location-info {
+    padding: 10px 14px;
+  }
+  
+  .simplified-location-header h2 {
+    font-size: 14px;
+  }
+  
+  .simplified-location-description {
+    font-size: 11px;
   }
   
   .simplified-asset-buttons {
-    width: 100%;
-    flex-direction: column;
+    padding: 6px 14px;
+    gap: 4px;
   }
   
   .simplified-asset-button {
-    padding: 10px 16px;
+    min-width: 65px;
+    height: 24px;
+    font-size: 10px;
+    padding: 4px 8px;
   }
 }

@@ -126,9 +126,9 @@ const LocationSelector = () => {
     return { running, standby, offline };
   };
 
-  // Implement search filtering
+  // Implement search filtering and asset filtering
   const filteredLocations = useMemo(() => {
-    let filtered = locationsData;
+    let filtered = locationsData.map(location => ({ ...location, assets: [...location.assets] }));
     
     // Filter by search query
     if (searchQuery) {
@@ -142,28 +142,60 @@ const LocationSelector = () => {
             asset.status.toLowerCase().includes(query)
           )
       );
+      
+      // Also filter assets within locations based on search
+      filtered = filtered.map(location => ({
+        ...location,
+        assets: location.assets.filter(asset => 
+          location.name.toLowerCase().includes(query) || 
+          location.description.toLowerCase().includes(query) ||
+          asset.name.toLowerCase().includes(query) || 
+          asset.status.toLowerCase().includes(query)
+        )
+      }));
     }
     
     // Apply groupBy filter
     if (groupByFilter !== "All") {
       if (groupByFilter === "Running") {
+        // Filter locations that have running generators
         filtered = filtered.filter(location => 
           location.assets.some(asset => asset.status === "Running")
         );
+        // Only show running generators
+        filtered = filtered.map(location => ({
+          ...location,
+          assets: location.assets.filter(asset => asset.status === "Running")
+        }));
       } else if (groupByFilter === "Standby") {
+        // Filter locations that have standby generators
         filtered = filtered.filter(location => 
           location.assets.some(asset => asset.status === "Standby")
         );
+        // Only show standby generators
+        filtered = filtered.map(location => ({
+          ...location,
+          assets: location.assets.filter(asset => asset.status === "Standby")
+        }));
       } else if (groupByFilter === "Offline") {
+        // Filter locations that have offline generators
         filtered = filtered.filter(location => 
           location.assets.some(asset => asset.status === "Offline")
         );
+        // Only show offline generators
+        filtered = filtered.map(location => ({
+          ...location,
+          assets: location.assets.filter(asset => asset.status === "Offline")
+        }));
       } else if (groupByFilter === "Main") {
         filtered = filtered.filter(location => location.locationType === "Main");
       } else if (groupByFilter === "Gateway") {
         filtered = filtered.filter(location => location.locationType === "Gateway");
       }
     }
+    
+    // Remove locations that have no assets after filtering
+    filtered = filtered.filter(location => location.assets.length > 0);
     
     return filtered;
   }, [locationsData, searchQuery, groupByFilter]);
