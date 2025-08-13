@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import "./LocationSelector.css";
 import { useNavigate } from "react-router-dom";
+import {ReactComponent as GeneratorIcon} from "../../features/shared/images/generator6.svg"; // Import your generator icon
 
 const LocationSelector = () => {
   const navigate = useNavigate();
@@ -99,18 +100,25 @@ const LocationSelector = () => {
   const handleSelectAsset = (assetId, assetName) => {
     // Navigate to dashboard with asset ID as URL parameter
     navigate(`/app/dashboard/${assetId}`);
+  };
+
+  // Function to shorten generator names (e.g., GEN_HQb_1 -> HQ1)
+  const shortenGeneratorName = (name) => {
+    // Extract the part between underscores and the number
+    const parts = name.split('_');
+    if (parts.length >= 3) {
+      const locationPart = parts[1]; // e.g., "HQb", "OTS", "WA"
+      const numberPart = parts[2]; // e.g., "1", "2"
+      
+      // Remove 'b' or other suffixes and take first 2-3 characters
+      const locationShort = locationPart.replace(/[a-z]/g, '').substring(0, 2) || 
+                           locationPart.substring(0, 2).toUpperCase();
+      
+      return `${locationShort}${numberPart}`;
+    }
     
-    // Alternative: Navigate with query parameter
-    // navigate(`/app/dashboard?genId=${assetId}`);
-    
-    // You can also pass additional data via state if needed
-    // navigate(`/app/dashboard/${assetId}`, { 
-    //   state: { 
-    //     assetId, 
-    //     assetName,
-    //     // Add any other data you want to pass
-    //   } 
-    // });
+    // Fallback: just take first 3 characters
+    return name.substring(0, 3).toUpperCase();
   };
 
   const handleToggleLocation = (locationId) => {
@@ -126,79 +134,133 @@ const LocationSelector = () => {
     return { running, standby, offline };
   };
 
-  // Implement search filtering and asset filtering
-  const filteredLocations = useMemo(() => {
-    let filtered = locationsData.map(location => ({ ...location, assets: [...location.assets] }));
-    
-    // Filter by search query
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        location => 
-          location.name.toLowerCase().includes(query) || 
-          location.description.toLowerCase().includes(query) ||
-          location.assets.some(asset => 
-            asset.name.toLowerCase().includes(query) || 
-            asset.status.toLowerCase().includes(query)
-          )
-      );
-      
-      // Also filter assets within locations based on search
-      filtered = filtered.map(location => ({
+  // Get all generators from all locations for the bottom section
+  const getAllGenerators = () => {
+    const allGenerators = [];
+    locationsData.forEach(location => {
+      location.assets.forEach(asset => {
+        allGenerators.push({
+          ...asset,
+          locationName: location.name,
+          locationId: location.id
+        });
+      });
+    });
+    return allGenerators;
+  };
+
+  // Implement filtering logic
+  const { filteredLocations, remainingGenerators } = useMemo(() => {
+  // Start with a copy of locations and their assets
+  let filtered = locationsData.map(location => ({
+    ...location,
+    assets: [...location.assets],
+  }));
+
+  // Apply search filter (affects locations + assets)
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+
+    filtered = filtered
+      .filter(location =>
+        location.name.toLowerCase().includes(query) ||
+        location.description.toLowerCase().includes(query) ||
+        location.assets.some(asset =>
+          asset.name.toLowerCase().includes(query) ||
+          asset.status.toLowerCase().includes(query)
+        )
+      )
+      .map(location => ({
         ...location,
-        assets: location.assets.filter(asset => 
-          location.name.toLowerCase().includes(query) || 
+        assets: location.assets.filter(asset =>
+          location.name.toLowerCase().includes(query) ||
           location.description.toLowerCase().includes(query) ||
-          asset.name.toLowerCase().includes(query) || 
+          asset.name.toLowerCase().includes(query) ||
           asset.status.toLowerCase().includes(query)
         )
       }));
-    }
-    
-    // Apply groupBy filter
-    if (groupByFilter !== "All") {
-      if (groupByFilter === "Running") {
-        // Filter locations that have running generators
-        filtered = filtered.filter(location => 
-          location.assets.some(asset => asset.status === "Running")
-        );
-        // Only show running generators
-        filtered = filtered.map(location => ({
-          ...location,
-          assets: location.assets.filter(asset => asset.status === "Running")
-        }));
-      } else if (groupByFilter === "Standby") {
-        // Filter locations that have standby generators
-        filtered = filtered.filter(location => 
-          location.assets.some(asset => asset.status === "Standby")
-        );
-        // Only show standby generators
-        filtered = filtered.map(location => ({
-          ...location,
-          assets: location.assets.filter(asset => asset.status === "Standby")
-        }));
-      } else if (groupByFilter === "Offline") {
-        // Filter locations that have offline generators
-        filtered = filtered.filter(location => 
-          location.assets.some(asset => asset.status === "Offline")
-        );
-        // Only show offline generators
-        filtered = filtered.map(location => ({
-          ...location,
-          assets: location.assets.filter(asset => asset.status === "Offline")
-        }));
-      } else if (groupByFilter === "Main") {
-        filtered = filtered.filter(location => location.locationType === "Main");
-      } else if (groupByFilter === "Gateway") {
-        filtered = filtered.filter(location => location.locationType === "Gateway");
-      }
-    }
-    
-    // Remove locations that have no assets after filtering
-    filtered = filtered.filter(location => location.assets.length > 0);
-    
-    return filtered;
-  }, [locationsData, searchQuery, groupByFilter]);
+  }
+
+  const allGenerators = getAllGenerators();
+  let locationsToShow = [];
+  let targetGenerators = [];
+
+  switch (groupByFilter) {
+    case "All":
+      // Top: show all locations (empty assets array so no generator buttons)
+      locationsToShow = filtered.map(loc => ({ ...loc, assets: [] }));
+
+      // Bottom: all generators from all locations
+      targetGenerators = allGenerators;
+      break;
+
+    case "Running":
+    case "Standby":
+    case "Offline":
+      targetGenerators = allGenerators.filter(
+        gen => gen.status === groupByFilter
+      );
+      break;
+
+    case "Main":
+    case "Gateway":
+      const typeLocations = filtered.filter(
+        location => location.locationType === groupByFilter
+      );
+      typeLocations.forEach(location => {
+        location.assets.forEach(asset => {
+          targetGenerators.push({
+            ...asset,
+            locationName: location.name,
+            locationId: location.id,
+          });
+        });
+      });
+      break;
+
+    default:
+      targetGenerators = allGenerators;
+  }
+
+  // If not "All", group generators into locations for top section
+  if (groupByFilter !== "All") {
+    const targetIds = new Set(targetGenerators.map(gen => gen.id));
+    locationsToShow = filtered
+      .map(location => ({
+        ...location,
+        assets: location.assets.filter(asset => targetIds.has(asset.id)),
+      }))
+      .filter(location => location.assets.length > 0);
+  }
+
+  // Remaining generators (ones not shown in locations)
+  let remaining = [];
+  if (groupByFilter !== "All") {
+    const shownIds = new Set();
+    locationsToShow.forEach(location =>
+      location.assets.forEach(asset => shownIds.add(asset.id))
+    );
+
+    remaining = allGenerators.filter(gen => !shownIds.has(gen.id));
+  }
+
+  // Apply search to remaining
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    remaining = remaining.filter(
+      gen =>
+        gen.name.toLowerCase().includes(query) ||
+        gen.status.toLowerCase().includes(query) ||
+        gen.locationName.toLowerCase().includes(query)
+    );
+  }
+
+  return {
+    filteredLocations: locationsToShow,
+    remainingGenerators: groupByFilter === "All" ? targetGenerators : remaining,
+  };
+}, [locationsData, searchQuery, groupByFilter]);
+
 
   return (
     <div className="simplified-dashboard">
@@ -229,7 +291,7 @@ const LocationSelector = () => {
               value={groupByFilter}
               onChange={(e) => setGroupByFilter(e.target.value)}
             >
-              <option value="All">Show All</option>
+              <option value="All">General</option>
               <option value="Running">Running</option>
               <option value="Standby">Standby</option>
               <option value="Offline">Offline</option>
@@ -251,39 +313,90 @@ const LocationSelector = () => {
       </div>
       
       <div className="simplified-locations-grid">
-        {filteredLocations.length === 0 ? (
-          <div className="no-results">No matching locations found</div>
-        ) : (
-          filteredLocations.map((location) => {
-            const statusCounts = getLocationStatusCounts(location);
-            
-            return (
-              <div key={location.id} className="simplified-location-card">
-                {/* Left side - Location information */}
-                <div className="simplified-location-info">
-                  <div className="simplified-location-header">
-                    <h2>{location.name}</h2>
-                    <div className="simplified-location-description">
-                      {location.description}
+        {/* Filtered Locations Section */}
+        {filteredLocations.length > 0 && (
+          <div className="filtered-locations-section">
+            <h3 className="section-title">
+              {groupByFilter === "All" ? "All Locations" : `${groupByFilter} Generators`}
+            </h3>
+            {filteredLocations.map((location) => {
+              return (
+                <div key={location.id} className="simplified-location-card">
+                  {/* Left side - Location information */}
+                  <div className="simplified-location-info">
+                    <div className="simplified-location-header">
+                      <h2>{location.name}</h2>
+                      <div className="simplified-location-description">
+                        {location.description}
+                      </div>
                     </div>
                   </div>
+                  
+                  {/* Right side - Generator cards */}
+                  <div className="simplified-asset-buttons">
+                    {location.assets.map((asset) => (
+                      <div 
+                        key={asset.id} 
+                        className={`generator-card ${asset.status.toLowerCase()}`}
+                        onClick={() => handleSelectAsset(asset.id, asset.name)}
+                        title={`${asset.name} - ${asset.status} (Last checked: ${asset.lastChecked})`}
+                      >
+                        {/* Status indicator circle */}
+                        <div className={`status-circle ${asset.status.toLowerCase()}`}></div>
+                        
+                        {/* Generator icon */}
+                        <div className="generator-icon">
+                          <GeneratorIcon className="w-6 h-6 text-current" />
+                        </div>
+                        
+                        {/* Generator name */}
+                        <div className="generator-name">
+                          {shortenGeneratorName(asset.name)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                
-                {/* Right side - Generator buttons */}
-                <div className="simplified-asset-buttons">
-                  {location.assets.map((asset) => (
-                    <button 
-                      key={asset.id} 
-                      className={`simplified-asset-button ${asset.status.toLowerCase()}`}
-                      onClick={() => handleSelectAsset(asset.id, asset.name)}
-                    >
-                      <span>{asset.name}</span>
-                    </button>
-                  ))}
+              );
+            })}
+          </div>
+        )}
+
+        {/* All Generators Section (Bottom) */}
+        {remainingGenerators.length > 0 && (
+          <div className="all-generators-section">
+            <h3 className="section-title">
+              {groupByFilter === "All" ? "All Generators" : "Other Generators"}
+            </h3>
+            <div className="generators-grid">
+              {remainingGenerators.map((generator) => (
+                <div 
+                  key={generator.id} 
+                  className={`generator-card ${generator.status.toLowerCase()}`}
+                  onClick={() => handleSelectAsset(generator.id, generator.name)}
+                  title={`${generator.name} - ${generator.status} (Last checked: ${generator.lastChecked}) - ${generator.locationName}`}
+                >
+                  {/* Status indicator circle */}
+                  <div className={`status-circle ${generator.status.toLowerCase()}`}></div>
+                  
+                  {/* Generator icon */}
+                  <div className="generator-icon">
+                    <GeneratorIcon className="w-6 h-6 text-current" />
+                  </div>
+                  
+                  {/* Generator name */}
+                  <div className="generator-name">
+                    {shortenGeneratorName(generator.name)}
+                  </div>
                 </div>
-              </div>
-            );
-          })
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* No results message */}
+        {filteredLocations.length === 0 && remainingGenerators.length === 0 && (
+          <div className="no-results">No matching generators found</div>
         )}
       </div>
     </div>

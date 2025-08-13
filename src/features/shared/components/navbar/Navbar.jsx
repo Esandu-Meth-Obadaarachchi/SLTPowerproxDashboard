@@ -6,6 +6,7 @@ import "./navbar.css";
 import logo from "../../images/logo.png"; 
 import ThemeToggleButton from "../theme/ThemeToggleButton";
 import HamburgerMenu from "./hamburger";
+import Logo from "../../../../assets/Logo.png";
 
 const Navbar = ({ onSidebarToggle, isMobile, mobileMenuOpen }) => {
   const navigate = useNavigate();
@@ -45,12 +46,10 @@ const Navbar = ({ onSidebarToggle, isMobile, mobileMenuOpen }) => {
           isMobile={isMobile}
         />
         <div className="navbar-logo">
-          <img 
-            src={logo} 
-            alt="PowerProx Logo" 
-            className="logo-icon" 
-          />
-          <span>PowerProx Dashboard</span>
+          
+          <img className="Logo" src={Logo} alt="Logo" />
+                                 
+          <span>SLT PowerZenith</span>
         </div>
 
         <div className="navbar-controls">
