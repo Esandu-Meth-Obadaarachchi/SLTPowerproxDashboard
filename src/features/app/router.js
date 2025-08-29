@@ -17,6 +17,7 @@ import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
 import ACUnits from "../assets/acunit/ACUnits.jsx";
 import GeneratorDashboard from "../assets/generator/components/Generator";
 import RectifierDetails from "../assets/rectifier/rectifierDetails/RectifierDetails";
+import UPSDetails from "../assets/ups/upsDetails/UPSDetails";
 
 
 //import FMS from "../FaultManagementSystem/FaultManagement";
@@ -97,6 +98,7 @@ const AppRouter = () => {
         <Route path="acUnits" element={<ACUnits />} />
         <Route path="fms" element={<FaultManagementSystem />} />
         <Route path="upsSystem" element={<UPSSystem />} />
+        <Route path="ups/:upsId" element={<UPSDetails />} />
         <Route path="userManagement" element={<UserManagement />} />
         <Route path="transformers" element={<TransformersPage />} />
         <Route path="rectifier" element={<Rectifier />} />
