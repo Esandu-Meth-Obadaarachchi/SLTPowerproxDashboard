@@ -24,6 +24,7 @@ import UPSSystem from "../assets/ups/UPSsystem.jsx";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
 import Rectifier from "../assets/rectifier/Rectifier";
+import TemperatureMonitoring from "../TemparatureMonitoring/temperatureMonitoring";
 
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
@@ -106,6 +107,7 @@ const AppRouter = () => {
         <Route path="transformers" element={<TransformersPage />} />
         <Route path="rectifier" element={<Rectifier />} />
         <Route path="rectifier/:rectifierId" element={<RectifierDetails />} />
+        <Route path="temperature" element={<TemperatureMonitoring />} />
       </Route>
       
       {/* Root redirect - matches original behavior */}

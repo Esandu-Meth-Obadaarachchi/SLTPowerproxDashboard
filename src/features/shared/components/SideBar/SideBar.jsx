@@ -180,6 +180,21 @@ const Sidebar = ({
           <path d="M7 14h10"></path>
         </svg>
       )
+    },
+    {
+      id: "temperature",
+      label: "Temperature Monitoring",
+      path: "/app/temperature",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="11" y="3" width="2" height="10" rx="1" ry="1"></rect>
+          <circle cx="12" cy="17" r="3"></circle>
+          <line x1="12" y1="11" x2="12" y2="17"></line>
+          <line x1="16" y1="6" x2="19" y2="6"></line>
+          <line x1="16" y1="10" x2="19" y2="10"></line>
+          <line x1="16" y1="14" x2="19" y2="14"></line>
+        </svg>
+      )
     }
   ];
 
