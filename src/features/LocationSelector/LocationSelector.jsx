@@ -73,9 +73,22 @@ const LocationSelector = () => {
     },
   ];
 
-  // Function to handle navigation to generator dashboard
-  const handleSelectAsset = (assetId) => {
-    navigate(`app/dashboard`);
+  // Function to handle navigation to generator dashboard with asset ID
+  const handleSelectAsset = (assetId, assetName) => {
+    // Navigate to dashboard with asset ID as URL parameter
+    navigate(`/app/dashboard/${assetId}`);
+    
+    // Alternative: Navigate with query parameter
+    // navigate(`/app/dashboard?genId=${assetId}`);
+    
+    // You can also pass additional data via state if needed
+    // navigate(`/app/dashboard/${assetId}`, { 
+    //   state: { 
+    //     assetId, 
+    //     assetName,
+    //     // Add any other data you want to pass
+    //   } 
+    // });
   };
 
   const handleToggleLocation = (locationId) => {
@@ -216,13 +229,13 @@ const LocationSelector = () => {
                   </div>
                 </div>
                 
-                {/* Asset slots - now with hover effect */}
+                {/* Asset slots - now with hover effect and proper navigation */}
                 <div className="simplified-asset-slots">
                   {location.assets.map((asset) => (
                     <div 
                       key={asset.id} 
                       className={`simplified-asset-slot ${asset.status.toLowerCase()}`}
-                      onClick={() => handleSelectAsset(asset.id)}
+                      onClick={() => handleSelectAsset(asset.id, asset.name)}
                     >
                       {asset.name}
                       <span className="view-indicator">→</span>

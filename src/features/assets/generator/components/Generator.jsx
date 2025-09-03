@@ -388,3 +388,4 @@ const GeneratorDashboard = () => {
 };
 
 export default GeneratorDashboard;
+

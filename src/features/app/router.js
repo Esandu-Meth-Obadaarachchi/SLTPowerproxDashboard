@@ -25,6 +25,7 @@ import UPSSystem from "../assets/ups/UPSsystem.jsx";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
 import Rectifier from "../assets/rectifier/Rectifier";
+import RoomAccessControl from "../RoomAccessControl/RoomAccessControl";
 
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
@@ -90,10 +91,16 @@ const AppRouter = () => {
         <Route path="location" element={<Location />} />
         <Route path="location/:id" element={<LocationDetail />} />
         <Route path="generator" element={<LocationSelector />} />
-        <Route path="dashboard" element={<GeneratorDashboard />} />
+        {/* Generator dashboard route with genId parameter */}
 
+        <Route path="dashboard/:genId" element={<GeneratorDashboard />} />
+        
+        {/* Optional: Fallback route for dashboard without genId */}
+        <Route path="/app/dashboard" element={<GeneratorDashboard />} />
+        
         <Route path="alarms" element={<Alarms />} />
         <Route path="energytrack" element={<EnergyTrack />} />
+        <Route path="rac" element={<RoomAccessControl/>}/>
 
         <Route path="acUnits" element={<ACUnits />} />
         <Route path="fms" element={<FaultManagementSystem />} />
