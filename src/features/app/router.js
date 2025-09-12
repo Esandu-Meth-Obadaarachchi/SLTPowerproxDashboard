@@ -33,6 +33,7 @@ import Layout from "../shared/components/Layout/Layout";
 //import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import TransformersPage from '../assets/TransformerMonitoring/TransformersPage';
 // Placeholder for future components
+
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
 
 // const TransformersPage = () => <div>Transformers Page (Placeholder)</div>;
