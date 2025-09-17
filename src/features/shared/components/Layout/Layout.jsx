@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Sidebar from '../SideBar/SideBar';
-import Navbar from '../navbar/Navbar'; // Import Navbar
+import Navbar from '../navbar/Navbar';
 import './Layout.css';
 
 const Layout = () => {
@@ -20,19 +20,17 @@ const Layout = () => {
       
       setIsMobile(mobile);
       setIsTablet(tablet);
-      
-      // Auto-collapse sidebar on mobile and tablet
+
       if (mobile) {
         setSidebarCollapsed(true);
-        setMobileMenuOpen(false); // Close mobile menu on resize
+        setMobileMenuOpen(false);
       } else if (tablet) {
-        setSidebarCollapsed(false); // Keep sidebar open on tablet
+        setSidebarCollapsed(false);
       }
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
-    
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -50,7 +48,6 @@ const Layout = () => {
     }
   };
 
-  // Close mobile menu when clicking on sidebar links
   const handleSidebarLinkClick = () => {
     if (isMobile) {
       setMobileMenuOpen(false);
@@ -58,46 +55,48 @@ const Layout = () => {
   };
 
   return (
-    <div className="app-layout">
-      {/* Navbar - pass the toggle function */}
-      <Navbar 
-        onSidebarToggle={handleSidebarToggle}
-        isMobile={isMobile}
-        mobileMenuOpen={mobileMenuOpen}
-      />
-      
-      {/* Mobile overlay */}
-      {isMobile && mobileMenuOpen && (
-        <div 
-          className="mobile-overlay" 
-          onClick={handleMobileOverlayClick}
-        />
-      )}
-      
-      {/* Sidebar */}
-      <Sidebar 
+    <>
+      {/* Sidebar - rendered outside the scroll container */}
+      <Sidebar
         isCollapsed={sidebarCollapsed}
         isMobile={isMobile}
         isTablet={isTablet}
         mobileMenuOpen={mobileMenuOpen}
         onToggle={handleSidebarToggle}
         onLinkClick={handleSidebarLinkClick}
-        className={`${isMobile && mobileMenuOpen ? 'mobile-open' : ''} ${
-          isTablet ? 'tablet-mode' : ''
-        }`}
       />
-      
-      {/* Main Content Area */}
-      <div className={`main-content ${
-        sidebarCollapsed ? 'sidebar-collapsed' : ''
-      } ${isMobile ? 'mobile-layout' : ''} ${
-        isTablet ? 'tablet-layout' : ''
-      }`}>
-        <div className="content-area">
-          <Outlet />
+
+      {/* Main layout */}
+      <div className="app-layout">
+        {/* Navbar */}
+        <Navbar 
+          onSidebarToggle={handleSidebarToggle}
+          isMobile={isMobile}
+          mobileMenuOpen={mobileMenuOpen}
+        />
+
+        {/* Mobile overlay */}
+        {isMobile && mobileMenuOpen && (
+          <div 
+            className="mobile-overlay" 
+            onClick={handleMobileOverlayClick}
+          />
+        )}
+
+        {/* Main Content */}
+        <div 
+          className={`main-content ${
+            sidebarCollapsed ? 'sidebar-collapsed' : ''
+          } ${isMobile ? 'mobile-layout' : ''} ${
+            isTablet ? 'tablet-layout' : ''
+          }`}
+        >
+          <div className="content-area">
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
