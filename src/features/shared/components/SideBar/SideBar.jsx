@@ -166,21 +166,7 @@ const Sidebar = ({
         </svg>
       )
     },
-    {
-      id: "generator",
-      label: "Generator Dash",
-      path: "/app/dashboard",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="6" width="18" height="12" rx="2" ry="2"></rect>
-          <path d="M9 12l3-3 3 3"></path>
-          <path d="M12 9v6"></path>
-          <circle cx="7" cy="10" r="1"></circle>
-          <circle cx="17" cy="10" r="1"></circle>
-          <path d="M7 14h10"></path>
-        </svg>
-      )
-    },
+  
     {
   id: "roomAccess",
   label: "Room Access Control",
