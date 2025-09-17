@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Home, AlertTriangle, Zap, Activity, Settings, Power, Fuel, Battery, Thermometer } from 'lucide-react';
 import './GeneratorDashboard.css';
 import image from "../../../../assets/generator.png"
+
 const GeneratorDashboard = () => {
   const [activeTab, setActiveTab] = useState('OVERVIEW');
 

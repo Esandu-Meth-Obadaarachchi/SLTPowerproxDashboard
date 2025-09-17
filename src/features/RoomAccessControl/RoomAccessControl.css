@@ -1,0 +1,143 @@
+.room-access-container {
+  padding: 1.5rem;
+  color: var(--dashboard-text);
+  background-color: var(--dashboard-bg);
+  min-height: 100vh;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.room-card {
+  background: var(--all-cardbg);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--dashboard-border);
+}
+
+.room-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--dashboard-text);
+}
+
+.room-status {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+  color: white;
+}
+
+.status-badge.occupied {
+  background-color: var(--status-online);
+}
+
+.status-badge.vacant {
+  background-color: var(--status-fault);
+}
+
+.room-subtitle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  color: var(--dashboard-muted);
+}
+
+.room-list {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  color: var(--dashboard-text);
+}
+
+.last-access {
+  font-size: 0.75rem;
+  color: var(--dashboard-muted);
+}
+
+.access-history {
+  background: var(--all-cardbg);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--dashboard-border);
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.log-scroll-area {
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+thead {
+  background-color: var(--dashboard-border);
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--dashboard-border);
+}
+
+tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .room-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.location-filter {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
