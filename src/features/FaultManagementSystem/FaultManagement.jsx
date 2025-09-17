@@ -146,12 +146,8 @@ const FaultManagementSystem = () => {
 
   return (
     <div className="fault-management-page">
-      {/* Background Animation */}
-      <div className="background-animation">
-        <div className="floating-particle"></div>
-        <div className="floating-particle"></div>
-        <div className="floating-particle"></div>
-      </div>
+     
+    
 
       {/* Header */}
       <header className="fault-header">
