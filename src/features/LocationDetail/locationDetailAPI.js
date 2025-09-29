@@ -6,7 +6,7 @@
 class DataService {
   constructor() {
     // Update to port 8001 to match the FastAPI server port
-    this.apiBaseUrl = 'http://124.43.136.185:8001';
+    this.apiBaseUrl = 'http://0.0.0.0:8001';
   }
 
   /**
