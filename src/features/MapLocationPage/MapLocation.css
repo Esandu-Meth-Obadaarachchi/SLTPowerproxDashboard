@@ -2,7 +2,9 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--dashboard-bg);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
   padding: 1.5rem;
@@ -14,17 +16,7 @@
 }
 
 /* Diagonal elements for background styling */
-.location-container::before,
-.location-container::after {
-  content: '';
-  position: absolute;
-  width: 150%;
-  height: 3px;
-  background: linear-gradient(90deg, #00f7ff, #0077ff);
-  transform: rotate(-45deg);
-  z-index: 0;
-  left: -25%;
-}
+
 
 .location-container::before {
   top: 25%;

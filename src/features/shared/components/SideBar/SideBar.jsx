@@ -166,6 +166,7 @@ const Sidebar = ({
         </svg>
       )
     },
+  
     {
       id: "generator",
       label: "Generator Dash",
@@ -197,6 +198,8 @@ const Sidebar = ({
       )
     }
   ];
+
+  
 
   const handleNavigation = (path) => {
     navigate(path);

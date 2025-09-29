@@ -1,5 +1,5 @@
 .energy-track-container {
-  background:var(--dashboard-bg);
+ 
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -18,7 +18,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 24px;
-    background: var(--dashboard-bg);
+    border-radius: 12px;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(59, 130, 246, 0.15);
@@ -43,36 +43,7 @@
     align-items: center;
   }
   
-  .stat-card{
-    min-width: 120px;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    }
-  .stat-card .stat-value {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-color);
-    margin: 4px 0;
-    line-height: 1.2;
-  }
-  .stat-icon {
-    color: #4CAF50;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .stat-card .stat-title {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-color);
-    margin: 0;
-    line-height: 1.2;
-  }
+ 
   
   .stat-icon svg {
     width: 20px;
