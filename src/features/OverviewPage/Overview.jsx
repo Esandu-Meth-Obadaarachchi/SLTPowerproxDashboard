@@ -166,12 +166,12 @@ const Overview = () => {
               icon={<AlertCircle color="#ff3333" />} 
             />
             <StatCard 
-              title="Number of Generators" 
+              title="NO. Generators" 
               value={overviewData.generatorCount} 
-              icon={<Battery color="#0077ff" />} 
+               icon={<div className="generator-icon"><Battery color="#0077ff" /></div>}
             />
             <StatCard 
-              title="Number of Locations" 
+              title="NO. Locations" 
               value={overviewData.locationCount} 
               icon={<MapPin color="#0077ff" />} 
             />

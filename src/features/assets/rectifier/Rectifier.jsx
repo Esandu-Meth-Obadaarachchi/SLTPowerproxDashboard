@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BatteryCharging, AlertTriangle, Zap, Cpu } from 'lucide-react';
+import '../../shared/CSS/shared_Css.css';
 
 import RectifierOverviewTab from './rectifier_components/RectifierOverviewTab';
 import RectifierAnalyticsTab from './rectifier_components/RectifierAnalyticsTab';

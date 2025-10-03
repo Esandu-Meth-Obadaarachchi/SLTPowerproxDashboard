@@ -1,6 +1,6 @@
 .stat-card {
    width: 157px;
-   height: 106px;
+   height: 120px;
     background-color: var(--card-background, #1a2235);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -38,9 +38,9 @@
     margin: 0.3rem 0;
   }
   
-  .generator-icon svg, .location-icon svg {
-    width: 25px;
-    height: 25px;
+  .generator-icon svg {
+    width: 20px !important;
+    height: 20px !important;
     color: var(--primary-color, #0077ff);
   }
   
