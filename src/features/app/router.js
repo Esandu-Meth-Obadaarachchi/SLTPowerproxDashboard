@@ -26,6 +26,7 @@ import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
 import Rectifier from "../assets/rectifier/Rectifier";
 import RoomAccessControl from "../RoomAccessControl/RoomAccessControl";
+import TemperatureMonitoring from "../TemparatureMonitoring/temperatureMonitoring";
 
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
@@ -119,11 +120,11 @@ const AppRouter = () => {
         <Route path="rectifier" element={<Rectifier />} />
         <Route path="rectifier/:rectifierId" element={<RectifierDetails />} />
 
-{/* ....................... */}
+        <Route path="temperature" element={<TemperatureMonitoring />} />
+
         {/* Canteens dashboard */}
         <Route path="canteens" element={<CanteensPage />} />
 
-{/* ............................. */}
 
       </Route>
       
