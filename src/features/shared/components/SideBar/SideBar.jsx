@@ -256,6 +256,62 @@ const Sidebar = ({
     },
 
     {
+
+      id: "generator",
+      label: "Generator Dash",
+      path: "/app/dashboard",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="6" width="18" height="12" rx="2" ry="2"></rect>
+          <path d="M9 12l3-3 3 3"></path>
+          <path d="M12 9v6"></path>
+          <circle cx="7" cy="10" r="1"></circle>
+          <circle cx="17" cy="10" r="1"></circle>
+          <path d="M7 14h10"></path>
+        </svg>
+      )
+    },
+
+    //..............
+    {
+  id: "canteens",
+  label: "Canteens",
+  path: "/app/canteens",
+  icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         viewBox="0 0 24 24" 
+         fill="none" 
+         stroke="currentColor" 
+         strokeWidth="2" 
+         strokeLinecap="round" 
+         strokeLinejoin="round">
+      <path d="M4 3h16v18H4z"></path>
+      <path d="M8 3v18"></path>
+      <path d="M16 3v18"></path>
+      <circle cx="12" cy="8" r="1"></circle>
+      <circle cx="12" cy="16" r="1"></circle>
+    </svg>
+  )
+},
+    //..............
+
+  id: "roomAccess",
+  label: "Room Access Control",
+  path: "/app/rac",
+  icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <path d="M9 9h6v6H9z"></path>
+      <path d="M3 9h6"></path>
+      <path d="M15 15h6"></path>
+      <path d="M12 3v6"></path>
+      <path d="M12 15v6"></path>
+    </svg>
+  )
+}
+
+
+    {
       id: "generator",
       label: "Generator Dash",
       path: "/app/dashboard",
