@@ -30,10 +30,17 @@ import Layout from "../shared/components/Layout/Layout";
 
 //import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import TransformersPage from '../assets/TransformerMonitoring/TransformersPage';
+
+//-------------
+// const CanteensPage = () => <div>Canteens Page (Placeholder)</div>;
+import CanteensPage from "../assets/canteen/components/CanteensPage";
+//-------------
+
 // Placeholder for future components
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
 
 // const TransformersPage = () => <div>Transformers Page (Placeholder)</div>;
+
 
 
 // Protected route component with cleaner implementation
@@ -106,6 +113,13 @@ const AppRouter = () => {
         <Route path="transformers" element={<TransformersPage />} />
         <Route path="rectifier" element={<Rectifier />} />
         <Route path="rectifier/:rectifierId" element={<RectifierDetails />} />
+
+{/* ....................... */}
+        {/* Canteens dashboard */}
+        <Route path="canteens" element={<CanteensPage />} />
+
+{/* ............................. */}
+
       </Route>
       
       {/* Root redirect - matches original behavior */}

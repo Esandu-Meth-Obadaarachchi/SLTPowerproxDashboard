@@ -180,7 +180,30 @@ const Sidebar = ({
           <path d="M7 14h10"></path>
         </svg>
       )
-    }
+    },
+
+    //..............
+    {
+  id: "canteens",
+  label: "Canteens",
+  path: "/app/canteens",
+  icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         viewBox="0 0 24 24" 
+         fill="none" 
+         stroke="currentColor" 
+         strokeWidth="2" 
+         strokeLinecap="round" 
+         strokeLinejoin="round">
+      <path d="M4 3h16v18H4z"></path>
+      <path d="M8 3v18"></path>
+      <path d="M16 3v18"></path>
+      <circle cx="12" cy="8" r="1"></circle>
+      <circle cx="12" cy="16" r="1"></circle>
+    </svg>
+  )
+},
+    //..............
   ];
 
   const handleNavigation = (path) => {

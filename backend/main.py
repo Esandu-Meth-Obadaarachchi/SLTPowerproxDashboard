@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import random
 import time
+from datetime import datetime, timedelta
 
 app = FastAPI()
 
@@ -107,3 +108,38 @@ def get_alarms():
         })
 
     return {"alarms": alarms}
+
+# --------------------------- CANTEENS ---------------------------
+canteens_list = ["Rajabojun Canteen", "Fruit Juice Bar", "1st Floor", "2nd Floor"]
+
+parameters = ["Voltage", "Current", "ActivePower", "ReactivePower", "ApparentPower",
+              "PowerFactor", "Frequency", "TotalEnergy", "TotalReactiveEnergy"]
+
+def generate_canteen_data():
+    """Generate dynamic chart data with real-time timestamps"""
+    canteens_data = {}
+    now = datetime.now()
+    
+    for canteen in canteens_list:
+        chart = []
+        # Generate last 4 hours data
+        for i in range(4):
+            timestamp = (now - timedelta(hours=3-i)).strftime("%H:%M")
+            chart.append({
+                "time": timestamp,
+                "Voltage": round(random.uniform(225, 235), 1),
+                "Current": random.randint(8, 18),
+                "ActivePower": round(random.uniform(2.0, 5.0), 1),
+                "ReactivePower": round(random.uniform(0.8, 1.7), 1),
+                "ApparentPower": round(random.uniform(2.2, 5.0), 1),
+                "PowerFactor": round(random.uniform(0.9, 0.97), 2),
+                "Frequency": round(random.uniform(49.8, 50.2), 2),
+                "TotalEnergy": random.randint(900, 1600),
+                "TotalReactiveEnergy": random.randint(380, 520),
+            })
+        canteens_data[canteen] = {"chart": chart}
+    return canteens_data
+
+@app.get("/canteens")
+def get_canteens():
+    return generate_canteen_data()
