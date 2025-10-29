@@ -28,8 +28,8 @@
   color: var(--nav-text);
 }
 
-.logo-icon {
-  height: 28px;
+.Logo{
+  height: 40px;
   width: auto;
   margin-right: 8px;
   object-fit: contain;

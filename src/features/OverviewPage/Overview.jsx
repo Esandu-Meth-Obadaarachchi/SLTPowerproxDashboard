@@ -208,11 +208,11 @@ const Overview = () => {
       <div className="energy-locations-grid">
         {overviewData.locations.map((location, index) => (
           <div 
-  key={index} 
-  className="energy-location-card"
-  onClick={() => handleLocationClick(location.name)} // Use location.name instead of location.id
-  style={{ cursor: 'pointer' }}
->
+            key={index} 
+            className="energy-location-card"
+            onClick={() => handleLocationClick(location.name)}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="energy-location-header">
               <div className="energy-location-title">
                 <h3>{location.name}</h3>
@@ -222,9 +222,13 @@ const Overview = () => {
                 <div className="energy-consumption">{location.consumption}</div>
                 <div className="energy-efficiency">{location.efficiency}</div>
               </div>
-              <div className="energy-location-alerts">
-                <span className="energy-alert-count">{location.alerts} Alert{location.alerts !== 1 ? 's' : ''}</span>
-              </div>
+              {location.alerts > 0 && (
+                <div className="energy-location-alerts">
+                  <span className="energy-alert-count has-alerts">
+                    {location.alerts} Alert{location.alerts !== 1 ? 's' : ''}
+                  </span>
+                </div>
+              )}
             </div>
             
             <div className="energy-location-details">

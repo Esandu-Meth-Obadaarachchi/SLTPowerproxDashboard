@@ -395,9 +395,12 @@
 import React, { useState, useEffect } from 'react';
 import { Home, AlertTriangle, Zap, Activity, Settings, Power, Fuel, Battery, Thermometer } from 'lucide-react';
 import './GeneratorDashboard.css';
+
 import image from "../../../../assets/generator.png";
 
 const API_BASE = "http://127.0.0.1:8000";
+
+
 
 const GeneratorDashboard = () => {
   const [activeTab, setActiveTab] = useState('OVERVIEW');

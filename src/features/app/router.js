@@ -17,6 +17,7 @@ import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
 import ACUnits from "../assets/acunit/ACUnits.jsx";
 import GeneratorDashboard from "../assets/generator/components/Generator";
 import RectifierDetails from "../assets/rectifier/rectifierDetails/RectifierDetails";
+import UPSDetails from "../assets/ups/upsDetails/UPSDetails";
 
 
 //import FMS from "../FaultManagementSystem/FaultManagement";
@@ -24,6 +25,7 @@ import UPSSystem from "../assets/ups/UPSsystem.jsx";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
 import Rectifier from "../assets/rectifier/Rectifier";
+import RoomAccessControl from "../RoomAccessControl/RoomAccessControl";
 
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
@@ -37,6 +39,7 @@ import CanteensPage from "../assets/canteen/components/CanteensPage";
 //-------------
 
 // Placeholder for future components
+
 const Alarms = () => <div>Alarms Page (Placeholder)</div>;
 
 // const TransformersPage = () => <div>Transformers Page (Placeholder)</div>;
@@ -105,10 +108,12 @@ const AppRouter = () => {
         
         <Route path="alarms" element={<Alarms />} />
         <Route path="energytrack" element={<EnergyTrack />} />
+        <Route path="rac" element={<RoomAccessControl/>}/>
 
         <Route path="acUnits" element={<ACUnits />} />
         <Route path="fms" element={<FaultManagementSystem />} />
         <Route path="upsSystem" element={<UPSSystem />} />
+        <Route path="ups/:upsId" element={<UPSDetails />} />
         <Route path="userManagement" element={<UserManagement />} />
         <Route path="transformers" element={<TransformersPage />} />
         <Route path="rectifier" element={<Rectifier />} />
