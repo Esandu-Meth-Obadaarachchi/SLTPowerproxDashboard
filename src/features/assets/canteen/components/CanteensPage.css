@@ -1,0 +1,104 @@
+.dashboard-page {
+  min-height: 100vh;
+  background: var(--dashboard-bg);
+  color: #fff;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.tab-button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: #333;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.tab-button.active-tab {
+  background: #007bff;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+.page-title {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.page-subtitle {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* overview */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.overview-card {
+  background: var(--all-cardbg);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  color: var(--text-color);
+}
+
+.overview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px var(--primary-color);
+}
+
+.overview-card h4 {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  margin-bottom: 0.2rem;
+}
+
+.overview-card p {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: var(--all-cardbg);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 0 1px #1e293b; /* border */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.chart-card:hover {
+  transform: translateY(-5px);
+}
+.chart-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
