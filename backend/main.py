@@ -1,145 +1,75 @@
+# main.py
+# -----------------------------
+# 🔹 This is the main entry point of your backend.
+# 🔹 It starts the FastAPI app and connects all service routers (APIs).
+# 🔹 Currently, it includes only the `energy_services.py` file.
+# 🔹 When you add new services, just import and include them like shown below.
+# -----------------------------
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import random
-import time
-from datetime import datetime, timedelta
 
-app = FastAPI()
+# ✅ Import the router(s) from your services folder
+# Example: from services.<filename> import router as <alias>
+from backend.energy_services import router as energy_router
 
-# Enable CORS so React (http://localhost:3000) can fetch the API
+# ------------------------------------------------
+# 🚀 Initialize the FastAPI app
+# ------------------------------------------------
+app = FastAPI(
+    title="Unified Energy Monitoring API",
+    version="1.0",
+    description="Backend that integrates multiple energy monitoring services (Generator, UPS, Battery, etc.)."
+)
+
+# ------------------------------------------------
+# 🌍 Enable CORS (so frontend apps can access the API)
+# ------------------------------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # replace "*" with ["http://localhost:3000"] for security
+    allow_origins=["*"],  # ⚠️ For production, replace '*' with your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ------------------------------------------------
+# 🔗 Register Routers (API Modules)
+# ------------------------------------------------
+# Each service file (like energy_services.py) defines its own router.
+# Include them here so their routes become available under the same server.
+app.include_router(energy_router)  # current energy service routes
+
+# ------------------------------------------------
+# 💡 Example: Adding new service later
+# ------------------------------------------------
+# from services.ups_service import router as ups_router
+# app.include_router(ups_router)
+
+# from services.battery_service import router as battery_router
+# app.include_router(battery_router)
+
+# ------------------------------------------------
+# 🏠 Root route
+# ------------------------------------------------
 @app.get("/")
-def root():
-    return {"message": "Generator Dashboard Mock API is running 🚀"}
-
-@app.get("/overview")
-def get_overview():
-    """Mock data for Overview tab"""
+async def root():
+    """
+    Root endpoint - basic info about the API.
+    """
     return {
-        "status": random.choice(["Running", "Standby", "Stopped"]),
-        "fuel": f"{random.randint(20, 100)}%",
-        "battery": f"{random.randint(9, 12)}V",
-        "coolant_temp": f"{random.randint(150, 220)}°C",
-        "rpm": random.randint(800, 1500),
-        "frequency": random.randint(45, 50),
-        "temperature": f"{random.randint(150, 220)}°C",
-        "capacity": f"{random.randint(500, 800)} kW",
-        "last_update": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "api": "Unified Energy Monitoring API",
+        "available_services": [
+            "/energy",  # from energy_services.py
+            # "/ups", "/battery", "/generator" ← add here when new ones are added
+        ]
     }
 
-@app.get("/electrical")
-def get_electrical():
-    """Mock data for Electrical tab"""
-    return {
-        "line": {
-            "L1-N": round(random.uniform(210, 240), 2),
-            "L2-N": round(random.uniform(210, 240), 2),
-            "L3-N": round(random.uniform(210, 240), 2),
-        #     "L1_L2": round(random.uniform(400, 430), 2),
-        #     "L2_L3": round(random.uniform(400, 430), 2),
-        #     "L3_L1": round(random.uniform(400, 430), 2),
-        #     "L1": round(random.uniform(30, 50), 2),
-        #     "L2": round(random.uniform(30, 50), 2),
-        #     "L3": round(random.uniform(30, 50), 2),
-         },
-
-        "line_voltages": {
-            "L1-L2": round(random.uniform(400, 430), 2),
-            "L2-L3": round(random.uniform(400, 430), 2),
-            "L3-L1": round(random.uniform(400, 430), 2),
-            "L1": round(random.uniform(30, 50), 2),
-            "L2": round(random.uniform(30, 50), 2),
-            "L3": round(random.uniform(30, 50), 2),
-         },
-
-        "power_metrics": {
-            "Active_Power": random.randint(100, 800),
-            "Apparent_Power": random.randint(500, 1000),
-            "Reactive_Power": random.randint(300, 800),
-        },
-        "power_factor": {
-            "L1": round(random.uniform(0.1, 1.0), 2),
-            "L2": round(random.uniform(0.1, 1.0), 2),
-            "L3": round(random.uniform(0.1, 1.0), 2),
-        }
-    }
-
-@app.get("/mechanical")
-def get_mechanical():
-    """Mock data for Mechanical tab"""
-    return {
-        "rpm": random.randint(800, 1500),
-        "coolant_temp": random.randint(150, 220),
-        "oil_pressure": random.randint(200, 350),
-        "frequency": random.randint(45, 50),
-        "fuel": {
-            "day_tank": random.randint(20, 100),
-            "num_starts": random.randint(0, 10),
-        },
-        "energy_metrics": {
-            "kWh": random.randint(500, 1000),
-            "kVAh": random.randint(600, 1100),
-            "kVarh": random.randint(700, 1200),
-        }
-    }
-
-@app.get("/alarms")
-def get_alarms():
-    """Mock data for Alarms tab"""
-    severities = ["Critical", "High", "Medium", "Low"]
-    statuses = ["Active", "Acknowledged", "Resolved"]
-
-    alarms = []
-    for _ in range(5):  # 5 mock alarms
-        alarms.append({
-            "time": time.strftime("%Y-%m-%d %H:%M:%S"),
-            "originator": f"Gen_{random.randint(1, 3)}",
-            "type": random.choice(["Overheating", "Disk Failure", "Offline", "Low Fuel"]),
-            "severity": random.choice(severities),
-            "status": random.choice(statuses),
-            "assignee": random.choice(["Admin", "Tech Team", "Operator"])
-        })
-
-    return {"alarms": alarms}
-
-# --------------------------- CANTEENS ---------------------------
-canteens_list = ["Rajabojun Canteen", "Fruit Juice Bar", "1st Floor", "2nd Floor"]
-
-parameters = ["Voltage", "Current", "ActivePower", "ReactivePower", "ApparentPower",
-              "PowerFactor", "Frequency", "TotalEnergy", "TotalReactiveEnergy"]
-
-def generate_canteen_data():
-    """Generate dynamic chart data with real-time timestamps"""
-    canteens_data = {}
-    now = datetime.now()
-    
-    for canteen in canteens_list:
-        chart = []
-        # Generate last 4 hours data
-        for i in range(4):
-            timestamp = (now - timedelta(hours=3-i)).strftime("%H:%M")
-            chart.append({
-                "time": timestamp,
-                "Voltage": round(random.uniform(225, 235), 1),
-                "Current": random.randint(8, 18),
-                "ActivePower": round(random.uniform(2.0, 5.0), 1),
-                "ReactivePower": round(random.uniform(0.8, 1.7), 1),
-                "ApparentPower": round(random.uniform(2.2, 5.0), 1),
-                "PowerFactor": round(random.uniform(0.9, 0.97), 2),
-                "Frequency": round(random.uniform(49.8, 50.2), 2),
-                "TotalEnergy": random.randint(900, 1600),
-                "TotalReactiveEnergy": random.randint(380, 520),
-            })
-        canteens_data[canteen] = {"chart": chart}
-    return canteens_data
-
-@app.get("/canteens")
-def get_canteens():
-    return generate_canteen_data()
+# ------------------------------------------------
+# ▶️ Run the FastAPI app
+# ------------------------------------------------
+# Run this file directly with:  python main.py
+# It will start the server on http://localhost:8001
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("backend.main:app", host="0.0.0.0", port=8001, reload=True)
