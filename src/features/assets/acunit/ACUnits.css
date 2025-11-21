@@ -17,7 +17,6 @@
 /* Main Page Container */
 .ac-units-page {
   min-height: 100vh;
-  background: var(--dashboard-bg);
   padding: 2rem;
   color: var(--text-color);
   position: relative;
@@ -25,17 +24,7 @@
 }
 
 /* Diagonal decorative elements - Two distinct lines */
-.ac-units-page::before, 
-.ac-units-page::after {
-  content: '';
-  position: absolute;
-  width: 120%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--accent-color), var(--primary-color), var(--accent-color));
-  transform: rotate(-45deg);
-  z-index: 0;
-  opacity: 0.8;
-}
+
 
 .ac-units-page::before {
   top: 20%;

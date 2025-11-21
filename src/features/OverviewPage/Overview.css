@@ -1,7 +1,7 @@
 .energy-dashboard-container {
   padding: 1.5rem;
   color: var(--dashboard-text);
-  background-color: var(--dashboard-bg);
+  
   min-height: 100vh;
   overflow-y: auto;
   width: 100%;
@@ -19,7 +19,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: var(--dashboard-bg);
+ 
   padding-bottom: 1rem;
 }
 
@@ -37,16 +37,7 @@
   flex: 1;
 }
 
-.stat-card {
-  background: var(--all-cardbg);
-  padding: 1rem;
-  border-radius: 12px;
-  min-width: 160px;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  color: var(--dashboard-text);
-}
+
 
 
 .energy-generator-status {
@@ -129,7 +120,10 @@
 }
 
 .energy-location-card {
-  background: var(--all-cardbg);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
@@ -174,11 +168,21 @@
 }
 
 .energy-location-alerts .energy-alert-count {
-  background-color: var(--status-fault);
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 500;
+}
+
+/* Updated alert styling with conditional colors */
+.energy-location-alerts .energy-alert-count.has-alerts {
+  background-color: var(--status-fault);
+  color: white;
+}
+
+.energy-location-alerts .energy-alert-count.no-alerts {
+  background-color: #0077ff;
+  color: white;
 }
 
 .energy-location-details {
