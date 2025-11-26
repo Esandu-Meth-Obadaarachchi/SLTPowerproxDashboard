@@ -27,17 +27,25 @@ import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
 import Rectifier from "../assets/rectifier/Rectifier";
 import RoomAccessControl from "../RoomAccessControl/RoomAccessControl";
+import TemperatureMonitoring from "../TemparatureMonitoring/temperatureMonitoring";
 
 // Layout component
 import Layout from "../shared/components/Layout/Layout";
 
 //import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import TransformersPage from '../assets/TransformerMonitoring/TransformersPage';
+
+//-------------
+// const CanteensPage = () => <div>Canteens Page (Placeholder)</div>;
+import CanteensPage from "../assets/canteen/components/CanteensPage";
+//-------------
+
 // Placeholder for future components
 
 
 
 // const TransformersPage = () => <div>Transformers Page (Placeholder)</div>;
+
 
 
 // Protected route component with cleaner implementation
@@ -113,6 +121,13 @@ const AppRouter = () => {
         <Route path="transformers" element={<TransformersPage />} />
         <Route path="rectifier" element={<Rectifier />} />
         <Route path="rectifier/:rectifierId" element={<RectifierDetails />} />
+
+        <Route path="temperature" element={<TemperatureMonitoring />} />
+
+        {/* Canteens dashboard */}
+        <Route path="canteens" element={<CanteensPage />} />
+
+
       </Route>
       
       {/* Root redirect - matches original behavior */}
