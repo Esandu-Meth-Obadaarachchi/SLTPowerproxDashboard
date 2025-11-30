@@ -532,13 +532,7 @@ tbody tr td:nth-child(5):contains("Denied") {
   margin-bottom: 2rem;
 }
 
-.stat-card {
-  background: var(--all-cardbg);
-  border: 1px solid var(--dashboard-border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
-}
+
 
 .stat-value {
   font-size: 2rem;
