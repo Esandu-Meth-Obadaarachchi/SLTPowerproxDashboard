@@ -64,6 +64,10 @@ const OperationalMetricsTab = ({
                 value: locationData.metrics.pue, 
                 icon: <Zap size={20} /> 
               },
+              {
+                label: 'Total Load',
+                value: locationData.metrics.totalLoad
+              },
               { 
                 label: 'Carbon Emission', 
                 value: locationData.metrics.carbonEmission, 

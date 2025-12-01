@@ -47,6 +47,7 @@ def get_influxdb_client():
 def get_data_with_range(range_expr):
     """Get data with a specific range expression"""
     db_client = get_influxdb_client()
+    print(range_expr)
     try:
         query = f'from(bucket: "{INFLUXDB_BUCKET}") |> range(start: {range_expr})'
         result = db_client.query_api().query(org=INFLUXDB_ORG, query=query)
@@ -59,6 +60,7 @@ def get_data_with_range(range_expr):
                 if time not in grouped_data:
                     grouped_data[time] = {"time": time.isoformat()}
                 grouped_data[time][field] = value
+        print(grouped_data)        
         return {"data": list(grouped_data.values())}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error querying InfluxDB: {str(e)}")
@@ -70,23 +72,23 @@ def get_data_with_range(range_expr):
 
 @router.get("/LiveData")
 async def get_data():
-    return get_data_with_range("-15m")
+    return get_data_with_range("-1m")
 
 @router.get("/HourlyData")
 async def get_hourly_data():
-    return get_data_with_range("-24h")
+    return get_data_with_range("-1h")
 
 @router.get("/DailyData")
 async def get_daily_data():
-    return get_data_with_range("-7d")
+    return get_data_with_range("-1d")
 
 @router.get("/Weekly")
 async def get_weekly_data():
-    return get_data_with_range("-30d")
+    return get_data_with_range("-7d")
 
 @router.get("/Monthly")
 async def get_monthly_data():
-    return get_data_with_range("-90d")
+    return get_data_with_range("-30d")
 
 @router.get("/Yearly")
 async def get_yearly_data():
