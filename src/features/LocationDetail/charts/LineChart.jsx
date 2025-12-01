@@ -9,10 +9,15 @@ import {
   Tooltip 
 } from 'recharts';
 
-const LineChart = ({ data, domain = [1.7, 2.1], yAxisLabel = 'PUE' }) => {
+const LineChart = ({ data, domain = [1.7, 2.1], yAxisLabel = 'PUE', loading = false }) => {
   return (
     <ResponsiveContainer width="100%" height={250}>
-      {data && data.length > 0 ? (
+      {loading ? (
+        <div className="chart-loader-container">
+          <div className="chart-spinner"></div>
+          <p className="chart-loading-text">Loading {yAxisLabel}...</p>
+        </div>
+      ) : data && data.length > 0 ? (
         <RechartsLineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis 

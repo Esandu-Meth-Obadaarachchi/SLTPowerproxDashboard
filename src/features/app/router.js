@@ -18,6 +18,7 @@ import ACUnits from "../assets/acunit/ACUnits.jsx";
 import GeneratorDashboard from "../assets/generator/components/Generator";
 import RectifierDetails from "../assets/rectifier/rectifierDetails/RectifierDetails";
 import UPSDetails from "../assets/ups/upsDetails/UPSDetails";
+import AlarmPage from "../Alarms/Alarms";
 
 
 //import FMS from "../FaultManagementSystem/FaultManagement";
@@ -41,7 +42,7 @@ import CanteensPage from "../assets/canteen/components/CanteensPage";
 
 // Placeholder for future components
 
-const Alarms = () => <div>Alarms Page (Placeholder)</div>;
+
 
 // const TransformersPage = () => <div>Transformers Page (Placeholder)</div>;
 
@@ -100,6 +101,7 @@ const AppRouter = () => {
         <Route path="location" element={<Location />} />
         <Route path="location/:id" element={<LocationDetail />} />
         <Route path="generator" element={<LocationSelector />} />
+        <Route path="alarms" element={<AlarmPage />} />
         {/* Generator dashboard route with genId parameter */}
 
         <Route path="dashboard/:genId" element={<GeneratorDashboard />} />
@@ -107,7 +109,7 @@ const AppRouter = () => {
         {/* Optional: Fallback route for dashboard without genId */}
         <Route path="/app/dashboard" element={<GeneratorDashboard />} />
         
-        <Route path="alarms" element={<Alarms />} />
+        
         <Route path="energytrack" element={<EnergyTrack />} />
         <Route path="rac" element={<RoomAccessControl/>}/>
 

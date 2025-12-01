@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # ✅ Import the router(s) from your services folder
 # Example: from services.<filename> import router as <alias>
-from backend.energy_services import router as energy_router
+from energy_services import router as energy_router
 
 # ------------------------------------------------
 # 🚀 Initialize the FastAPI app
@@ -72,4 +72,4 @@ async def root():
 # It will start the server on http://localhost:8001
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("backend.main:app", host="0.0.0.0", port=8001, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8001, reload=True)

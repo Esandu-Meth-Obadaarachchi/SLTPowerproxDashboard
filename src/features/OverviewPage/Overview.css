@@ -120,7 +120,7 @@
 }
 
 .energy-location-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: #070a194d;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 

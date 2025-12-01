@@ -372,7 +372,7 @@
     margin: 0;
   }
   .recent-reports-section {
-    background: var(--all-cardbg);
+    background: #070a194d;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -539,7 +539,7 @@
 /* Section Container */
 .recent-reports-section {
   padding: 2rem;
-  background: var(--all-cardbg);
+  
   border-radius: 12px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
   margin-top: 2rem;

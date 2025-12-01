@@ -1,7 +1,7 @@
 
 .transformers-page {
   min-height: 100vh;
-  background: var(--dashboard-bg);
+ 
   padding: 2rem;
   color: var(--text-color);
   position: relative;
@@ -103,7 +103,7 @@ body.light-theme .page-title {
 }
 
 .transformer-panel {
-  background: var(--dashboard-bg);
+
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid var(--border-color);
@@ -180,10 +180,12 @@ body.light-theme .page-title {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border: 1px solid var(--border-color);
+  
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
   color: var(--text-color);
+  backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 .overview-card:hover {
@@ -256,6 +258,8 @@ body.light-theme .page-title {
 .transformer-panel {
   display: grid;
   gap: 1.5rem;
+  backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 /* Card style */
