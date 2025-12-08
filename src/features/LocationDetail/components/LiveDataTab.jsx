@@ -1,138 +1,174 @@
 import React from 'react';
-import { Activity } from 'lucide-react';
+import { Activity, Zap } from 'lucide-react';
+
+// MetricValue Helper Component
+const MetricValue = ({ value, loading }) => {
+  if (loading) {
+    return <div className="metric-skeleton"></div>;
+  }
+  return <>{value}</>;
+};
 
 const LiveDataTab = ({ 
   locationData, 
-  expandedSection, 
-  toggleExpand, 
   generatorStatusColors, 
-  error 
+  error, 
+  loading = false
 }) => {
+  // Guard clause: Show loading state if data is not yet available
+  if (!locationData) {
+    return (
+      <div className="loading-container">
+        <div className="chart-loader-container">
+          <div className="chart-spinner"></div>
+          <p className="chart-loading-text">Loading location data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Ensure all required nested properties exist with safe defaults
+  const generators = locationData.generators || [];
+  const metrics = locationData.metrics || {
+    itLoad: '0.00 KW',
+    acLoad: '0.00 KW',
+    totalLoad: '0.00 KW'
+  };
+  const locationName = locationData.name || 'Unknown Location';
+
   return (
-    <>
-      <div className="generators-section">
-        <h2 className="section-title">Generators Status</h2>
-        <div className="generators-grid">
-          {locationData.generators.map((generator) => (
-            <div 
-              key={generator.id} 
-              className="generator-card" 
-              style={{ 
-                backgroundColor: generatorStatusColors[generator.status] + '20',
-                borderLeft: `4px solid ${generatorStatusColors[generator.status]}`
-              }}
-            >
-              <div className="generator-info">
-                <div style={{
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  marginBottom: '0.5rem'
-                }}>
-                  <span 
-                    className="generator-status-indicator" 
+    <div className="live-data-container">
+      {/* Enhanced Generators Section */}
+      <div className="generators-section-enhanced">
+        <div className="section-header">
+          <div className="section-title-wrapper">
+            <Zap className="section-icon" size={28} />
+            <h2 className="section-title-main">Generator Status Monitor</h2>
+          </div>
+          <div className="facility-badge">
+            {locationName}
+          </div>
+        </div>
+
+        <div className="generators-grid-enhanced">
+          {generators.length > 0 ? (
+            generators.map((generator) => (
+              <div 
+                key={generator.id} 
+                className="generator-card-enhanced"
+              >
+                <div className="generator-card-inner">
+                  <div className="generator-header">
+                    <div className="generator-id-section">
+                      <Activity size={20} className="generator-icon" />
+                      <span className="generator-id-text">{generator.id}</span>
+                    </div>
+                    <span 
+                      className="status-badge" 
+                      style={{ 
+                        backgroundColor: generatorStatusColors[generator.status] || '#5B7EC2',
+                        boxShadow: `0 0 20px ${generatorStatusColors[generator.status] || '#5B7EC2'}40`
+                      }}
+                    >
+                      <span className="status-indicator-dot"></span>
+                      {generator.status}
+                    </span>
+                  </div>
+
+                  <div className="generator-stats">
+                    <div className="stat-item">
+                      <span className="stat-label">Power Output</span>
+                      <span className="stat-value">
+                        <MetricValue 
+                          value={generator.status === 'Online' ? '95%' : '0%'}
+                          loading={loading}
+                        />
+                      </span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-label">Load</span>
+                      <span className="stat-value">
+                        <MetricValue 
+                          value={generator.status === 'Online' ? '850 kW' : 'Standby'}
+                          loading={loading}
+                        />
+                      </span>
+                    </div>
+                  </div>
+
+                  <div 
+                    className="status-bar"
                     style={{ 
-                      backgroundColor: generatorStatusColors[generator.status] 
+                      backgroundColor: `${generatorStatusColors[generator.status] || '#5B7EC2'}30`
                     }}
-                  ></span>
-                  <span className="generator-id">{generator.id}</span>
+                  >
+                    <div 
+                      className="status-bar-fill"
+                      style={{ 
+                        width: generator.status === 'Online' ? '95%' : '0%',
+                        backgroundColor: generatorStatusColors[generator.status] || '#5B7EC2'
+                      }}
+                    ></div>
+                  </div>
                 </div>
-                <span className="generator-status">{generator.status}</span>
               </div>
-              <button className="view-button">Details</button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="metrics-section">
-        <div className={`metrics-card ${expandedSection === 'facility' ? 'expanded' : ''}`}>
-          <div className="metrics-card-header">
-            <h2>{locationData.name}</h2>
-            <button className="expand-button" onClick={() => toggleExpand('facility')}>
-              <i className="fa fa-expand"></i>
-            </button>
-          </div>
-          <div className="load-circles">
-            <div className="load-circle it-load">
-              <div className="load-value">{locationData.metrics.itLoad}</div>
-              <div className="load-label">IT Load</div>
-            </div>
-            <div className="load-circle ac-load">
-              <div className="load-value">{locationData.metrics.acLoad}</div>
-              <div className="load-label">AC Load</div>
-            </div>
-            <div className="load-circle total-load">
-              <div className="load-value">{locationData.metrics.totalLoad}</div>
-              <div className="load-label">Total Load</div>
-            </div>
-          </div>
+            ))
+          ) : (
+            <div className="no-data-message">No generator data available</div>
+          )}
         </div>
 
-        <div className="load-tables-section">
-          <div className="load-tables-container">
-            <div className="load-table-card">
-              <div className="load-table-header">
-                <h3>IT Load Table</h3>
-                <button className="load-button">Load Details</button>
+        {/* Facility Metrics Overview */}
+        <div className="facility-metrics-card">
+          <h3 className="metrics-title">Facility Load Overview</h3>
+          <div className="load-circles-enhanced">
+            <div className="load-circle-enhanced it-load">
+              <div className="load-icon-wrapper">
+                <Activity size={24} />
               </div>
-              <div className="load-table-content">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Rack</th>
-                      <th>Load (KW)</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Rack A1</td>
-                      <td>0.00</td>
-                      <td>Unknown</td>
-                    </tr>
-                    <tr>
-                      <td>Rack B2</td>
-                      <td>0.00</td>
-                      <td>Unknown</td>
-                    </tr>
-                  </tbody>
-                </table>
-                {error && <div className="error-message">{error}</div>}
+              <div className="load-value-large">
+                <MetricValue 
+                  value={metrics.itLoad}
+                  loading={loading}
+                />
               </div>
+              <div className="load-label-enhanced">IT Load</div>
             </div>
-            <div className="load-table-card">
-              <div className="load-table-header">
-                <h3>AC Load Table</h3>
-                <button className="load-button">Load Details</button>
+            <div className="load-circle-enhanced ac-load">
+              <div className="load-icon-wrapper">
+                <Zap size={24} />
               </div>
-              <div className="load-table-content">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Unit</th>
-                      <th>Load (KW)</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>AC Unit 1</td>
-                      <td>0.00</td>
-                      <td>Unknown</td>
-                    </tr>
-                    <tr>
-                      <td>AC Unit 2</td>
-                      <td>0.00</td>
-                      <td>Unknown</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="load-value-large">
+                <MetricValue 
+                  value={metrics.acLoad}
+                  loading={loading}
+                />
               </div>
+              <div className="load-label-enhanced">AC Load</div>
+            </div>
+            <div className="load-circle-enhanced total-load">
+              <div className="load-icon-wrapper">
+                <Activity size={24} />
+              </div>
+              <div className="load-value-large">
+                <MetricValue 
+                  value={metrics.totalLoad}
+                  loading={loading}
+                />
+              </div>
+              <div className="load-label-enhanced">Total Load</div>
             </div>
           </div>
         </div>
+
+        {error && (
+          <div className="error-message-enhanced">
+            <span className="error-icon">⚠️</span>
+            {error}
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

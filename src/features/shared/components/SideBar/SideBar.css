@@ -24,23 +24,27 @@
 }
 
 /* ========= Core sidebar ========= */
+
 .sidebar {
-  position: fixed !important;           /* force fixed even if something else overrides */
-  top: var(--navbar-h);                 /* sit under navbar */
+  position: fixed !important;
+  top: var(--navbar-h);
   left: 0;
   height: calc(100vh - var(--navbar-h));
   width: var(--sidebar-w);
-  background-color:black;
+  background-color: black;
   border-right: 1px solid var(--sidebar-border);
   z-index: 900;
-
-  /* Only the sidebar itself should scroll if long */
+  
+  /* ADD THESE LINES: */
+  transform: none !important;
+  will-change: auto !important;
+  
   overflow-y: auto;
   overflow-x: hidden;
-
-  /* smooth width/collapse transition */
   transition: width 0.25s ease;
 }
+
+
 
 .sidebar.collapsed {
   width: var(--sidebar-w-collapsed);

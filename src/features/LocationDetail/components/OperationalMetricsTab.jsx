@@ -12,7 +12,8 @@ import BarChart from './../charts/BarChart';
 const OperationalMetricsTab = ({ 
   locationData, 
   expandedSection, 
-  toggleExpand 
+  toggleExpand,
+  loading = false
 }) => {
   return (
     <div className="metrics-section">
@@ -40,7 +41,7 @@ const OperationalMetricsTab = ({
                 <h3>PUE Performance</h3>
               </div>
             </div>
-            <LineChart data={locationData.charts.pue} />
+            <LineChart data={locationData.charts.pue} loading={loading} />
           </div>
 
           <div className="chart-card">
@@ -54,6 +55,7 @@ const OperationalMetricsTab = ({
               data={locationData.charts.totalLoad} 
               color="#8AE98A" 
               yAxisLabel="KW" 
+              loading={loading}
             />
           </div>
 
@@ -63,6 +65,10 @@ const OperationalMetricsTab = ({
                 label: 'PUE', 
                 value: locationData.metrics.pue, 
                 icon: <Zap size={20} /> 
+              },
+              {
+                label: 'Total Load',
+                value: locationData.metrics.totalLoad
               },
               { 
                 label: 'Carbon Emission', 
