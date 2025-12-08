@@ -1,5 +1,9 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import RoleProtectedRoute from "./ProtectedRoute";
+
+
+
 
 // Authentication Pages
 import Login from "../Auth/Login";
@@ -115,7 +119,14 @@ const AppRouter = () => {
         <Route path="fms" element={<FaultManagementSystem />} />
         <Route path="upsSystem" element={<UPSSystem />} />
         <Route path="ups/:upsId" element={<UPSDetails />} />
-        <Route path="userManagement" element={<UserManagement />} />
+       <Route
+  path="userManagement"
+  element={
+    <RoleProtectedRoute minLevel={12}>
+      <UserManagement />
+    </RoleProtectedRoute>
+  }
+/>
         <Route path="transformers" element={<TransformersPage />} />
         <Route path="rectifier" element={<Rectifier />} />
         <Route path="rectifier/:rectifierId" element={<RectifierDetails />} />
