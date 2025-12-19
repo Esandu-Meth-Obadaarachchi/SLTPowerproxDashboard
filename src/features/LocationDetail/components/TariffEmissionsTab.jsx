@@ -55,10 +55,6 @@ const TariffEmissionsTab = ({
     console.log("Exporting Carbon Emission data...");
   };
 
-  const handleExportTariff = () => {
-    console.log("Exporting Electricity Tariff data...");
-  };
-
   const handleExportEnergyConsumption = () => {
     console.log("Exporting Energy Consumption data...");
   };
@@ -86,25 +82,6 @@ const TariffEmissionsTab = ({
             data={locationData.charts.carbonEmission} 
             color='#00f7ff' 
             yAxisLabel="Metric Tons" 
-            loading={loading}
-          />
-        </ChartCard>
-
-        <ChartCard
-          title="Electricity Tariff"
-          icon={CloudLightning}
-          onExport={handleExportTariff}
-          onFullscreen={() => setFullscreenChart({
-            type: 'bar', 
-            data: locationData.charts.electricityTariff || locationData.charts.tariff, 
-            color: '#ff6b6b',
-            yAxisLabel: 'LKR'
-          })}
-        >
-          <BarChart 
-            data={locationData.charts.electricityTariff || locationData.charts.tariff} 
-            color="#ff6b6b" 
-            yAxisLabel="LKR" 
             loading={loading}
           />
         </ChartCard>

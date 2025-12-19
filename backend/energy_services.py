@@ -6,6 +6,8 @@
 from fastapi import APIRouter, HTTPException
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.exceptions import InfluxDBError
+from datetime import datetime, timedelta
+
 
 # --------------------------------------------------
 # Create a router instead of FastAPI app
@@ -64,6 +66,11 @@ def get_data_with_range(range_expr):
         return {"data": list(grouped_data.values())}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error querying InfluxDB: {str(e)}")
+
+def get_last_year_range():
+    today = datetime.utcnow()
+    last_year = today.replace(year=today.year - 1)
+    return last_year.isoformat() + "Z", today.isoformat() + "Z"
 
 
 # --------------------------------------------------
@@ -224,3 +231,55 @@ async def health_check():
             "error": str(e),
             "mode": "production"
         }
+
+@router.get("/YearlyDailyExport")
+async def get_yearly_daily_export(
+    measurement: str = "HQ-HQ-A-3-Data Center 3F"
+):
+    start, stop = get_last_year_range()
+    db_client = get_influxdb_client()
+
+    try:
+        flux_query = f"""
+        from(bucket: "{INFLUXDB_BUCKET}")
+            |> range(start: time(v: "{start}"), stop: time(v: "{stop}"))
+            |> filter(fn: (r) => r["_measurement"] == "{measurement}")
+            |> filter(fn: (r) =>
+                r["_field"] == "pue" or
+                r["_field"] == "Total_load" or
+                r["_field"] == "kWh" or
+                r["_field"] == "CarbonEmission"
+            )
+            |> aggregateWindow(every: 1d, fn: mean, createEmpty: false)
+            |> pivot(
+                rowKey: ["_time"],
+                columnKey: ["_field"],
+                valueColumn: "_value"
+            )
+            |> keep(columns: ["_time", "pue", "Total_load", "kWh", "CarbonEmission"])
+            |> sort(columns: ["_time"])
+        """
+
+        result = db_client.query_api().query(org=INFLUXDB_ORG, query=flux_query)
+
+        daily_data = []
+
+        for table in result:
+            for record in table.records:
+                daily_data.append({
+                    "date": record.get_time().date().isoformat(),
+                    "pue": record.values.get("pue"),
+                    "totalLoad": record.values.get("Total_load"),
+                    "energyConsumption": record.values.get("kWh"),
+                    "carbonEmission": record.values.get("CarbonEmission")
+                })
+
+        return {
+            "from": start,
+            "to": stop,
+            "unit": "daily",
+            "data": daily_data
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
