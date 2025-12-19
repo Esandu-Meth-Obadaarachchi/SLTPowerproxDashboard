@@ -85,114 +85,108 @@ const LocationDetail = () => {
 
   // Data Fetching Logic
   useEffect(() => {
-  const fetchData = async (isBackgroundRefresh = false) => {
-    // Only show loading screen on initial load or when switching tabs
-    if (!isBackgroundRefresh) {
-      setIsLoading(true);
-    }
-    
-    setError(null);
-    
-    try {
-      // Basic location data
-      const timeframeData = await DataService.fetchTimeframeData(timeframeFilter);
-      
-      //let chartData = {};
-      let energyDistribution = [];
-      let carbonAndTariff = {};
-      
-      // Fetch specific data based on active tab
-      //if (activeTab === 'LiveData' || activeTab === 'OperationalMetrics') {
-       // chartData = await DataService.fetchChartData(timeframeFilter);
-      //}
-      
-      // Always fetch energy distribution
-      try {
-        const energyDistResponse = await DataService.fetchEnergyDistribution(timeframeFilter);
-        energyDistribution = energyDistResponse.energyDistribution || [];
-      } catch (distError) {
-        console.error("Error fetching energy distribution:", distError);
-        energyDistribution = [
-          { name: "IT Load", value: 50 },
-          { name: "AC Load", value: 30 },
-          { name: "Other Systems", value: 20 }
-        ];
-      }
-      
-      // Fetch carbon and tariff data
-      if (activeTab === 'Tariff&Emissions' || activeTab === 'LiveData') {
-        carbonAndTariff = await DataService.fetchCarbonAndTariff(timeframeFilter);
-      }
-      
-      const processedData = processApiData(timeframeData.data);
-      
-      setLocationData({
-        name: locationNames[id] || 'HQ - Data Center 3F',
-        generators: generatorData[id] || generatorData['SLT-HQ'],
-        ...processedData,
-        charts: {
-          ...processedData.charts,
-          //...chartData,
-          ...carbonAndTariff,
-          energyDistribution: energyDistribution
-        }
-      });
-    } catch (err) {
-      console.error(`Error fetching data:`, err);
-      
-      // Only show error prominently on initial load
+    const fetchData = async (isBackgroundRefresh = false) => {
+      // Only show loading screen on initial load or when switching tabs
       if (!isBackgroundRefresh) {
-        setError(`Failed to fetch data. Please check your connection or try again later.`);
-        // Fallback data structure
+        setIsLoading(true);
+      }
+      
+      setError(null);
+      
+      try {
+        // Basic location data
+        const timeframeData = await DataService.fetchTimeframeData(timeframeFilter);
+        
+        let energyDistribution = [];
+        let carbonAndTariff = {};
+        
+        // Always fetch energy distribution
+        try {
+          const energyDistResponse = await DataService.fetchEnergyDistribution(timeframeFilter);
+          energyDistribution = energyDistResponse.energyDistribution || [];
+        } catch (distError) {
+          console.error("Error fetching energy distribution:", distError);
+          energyDistribution = [
+            { name: "IT Load", value: 50 },
+            { name: "AC Load", value: 30 },
+            { name: "Other Systems", value: 20 }
+          ];
+        }
+        
+        // Fetch carbon and tariff data
+        if (activeTab === 'Tariff&Emissions' || activeTab === 'LiveData') {
+          carbonAndTariff = await DataService.fetchCarbonAndTariff(timeframeFilter);
+        }
+        
+        // ✅ CORRECTED LINE: declared once, passing timeframeFilter for date formatting
+        const processedData = processApiData(timeframeData.data, timeframeFilter);
+        
         setLocationData({
           name: locationNames[id] || 'HQ - Data Center 3F',
           generators: generatorData[id] || generatorData['SLT-HQ'],
-          metrics: { 
-            pue: '0.00', 
-            carbonEmission: '0.00 MT/Year', 
-            electricalCost: '0.00 LKR/Year', 
-            itLoad: '0.00 KW', 
-            acLoad: '0.00 KW', 
-            totalLoad: '0.00 KW' 
-          },
-          charts: { 
-            pue: [], 
-            totalLoad: [], 
-            carbonEmission: [], 
-            electricityTariff: [], 
-            tariff: [], 
-            energyConsumption: [], 
-            energyDistribution: [] 
+          ...processedData,
+          charts: {
+            ...processedData.charts,
+            ...carbonAndTariff,
+            energyDistribution: energyDistribution
           }
         });
-      } else {
-        // Silent error handling for background refresh
-        console.warn('Background refresh failed - keeping existing data');
+      } catch (err) {
+        console.error(`Error fetching data:`, err);
+        
+        // Only show error prominently on initial load
+        if (!isBackgroundRefresh) {
+          setError(`Failed to fetch data. Please check your connection or try again later.`);
+          // Fallback data structure
+          setLocationData({
+            name: locationNames[id] || 'HQ - Data Center 3F',
+            generators: generatorData[id] || generatorData['SLT-HQ'],
+            metrics: { 
+              pue: '0.00', 
+              carbonEmission: '0.00 MT/Year', 
+              electricalCost: '0.00 LKR/Year', 
+              itLoad: '0.00 KW', 
+              acLoad: '0.00 KW', 
+              totalLoad: '0.00 KW' 
+            },
+            charts: { 
+              pue: [], 
+              totalLoad: [], 
+              carbonEmission: [], 
+              electricityTariff: [], 
+              tariff: [], 
+              energyConsumption: [], 
+              energyDistribution: [] 
+            }
+          });
+        } else {
+          // Silent error handling for background refresh
+          console.warn('Background refresh failed - keeping existing data');
+        }
+      } finally {
+        // Only turn off loading on initial load
+        if (!isBackgroundRefresh) {
+          setIsLoading(false);
+        }
       }
-    } finally {
-      // Only turn off loading on initial load
-      if (!isBackgroundRefresh) {
-        setIsLoading(false);
-      }
+    };
+    
+    // Initial fetch (with loading screen)
+    fetchData(false);
+    
+    // Live data refresh interval
+    let refreshInterval;
+    if (timeframeFilter === 'Live') {
+      refreshInterval = setInterval(() => {
+        // Background refresh (without loading screen)
+        fetchData(true);
+      }, 30000); // 30 seconds
     }
-  };
-  
-  // Initial fetch (with loading screen)
-  fetchData(false);
-  
-  // Live data refresh interval
-  let refreshInterval;
-  if (timeframeFilter === 'Live') {
-    refreshInterval = setInterval(() => {
-      // Background refresh (without loading screen)
-      fetchData(true);
-    }, 30000); // 30 seconds
-  }
-  
-  return () => {
-    if (refreshInterval) clearInterval(refreshInterval);
-  };
-}, [id, timeframeFilter, activeTab]);
+    
+    return () => {
+      if (refreshInterval) clearInterval(refreshInterval);
+    };
+  }, [id, timeframeFilter, activeTab]);
 
   // Event Handlers
   const toggleExpand = (section) => setExpandedSection(expandedSection === section ? null : section);
@@ -205,122 +199,119 @@ const LocationDetail = () => {
     // TODO: Implement Excel export logic here
   };
 
-  
-
   return (
-  <div className="location-detail-container">
-    <div className="location-detail-header">
-      
-      {/* Row 1: Title */}
-      <h1 className="overview-title">
-        <div className="overview-title-icon">
-          <Database size={24} />
-        </div>
-        Location Overview
-      </h1>
-
-      {/* Row 2: Modern Navigation Tabs */}
-      <div className="tabs-container">
-        {tabs.map((tab) => (
-          <button 
-            key={tab.id}
-            className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            <span className="tab-button-icon">{tab.icon}</span>
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Row 3: Controls (Filter Left, Date/Screen Right) */}
-      <div className="header-controls-row">
-        <div className="left-controls">
-          {/* CONDITIONAL: Hide filters if we are on Live Data tab */}
-          {activeTab !== 'LiveData' && (
-            <div className="timeframe-filter">
-              {['Live', 'Hourly', 'Monthly'].map(filter => (
-                <span 
-                  key={filter}
-                  className={timeframeFilter === filter ? 'active' : ''} 
-                  onClick={() => setTimeframeFilter(filter)}
-                >
-                  {filter}
-                </span>
-              ))}
-            </div>
-          )}
-          
-          <button 
-            className="export-yearly-button"
-            onClick={handleExportYearly}
-            title="Export Yearly Report"
-          >
-            <FileText size={16} />
-            <span>Yearly Report</span>
-          </button>
-        </div>
+    <div className="location-detail-container">
+      <div className="location-detail-header">
         
-        <div className="right-controls">
-          <div className="date-picker">
-            <Calendar size={16} />
-            <input 
-              type="date" 
-              value={currentDate}
-              onChange={(e) => handleDateChange(e.target.value)}
-            />
+        {/* Row 1: Title */}
+        <h1 className="overview-title">
+          <div className="overview-title-icon">
+            <Database size={24} />
           </div>
-          <button className="fullscreen-button">
-            <Maximize2 size={16} />
-          </button>
+          Location Overview
+        </h1>
+
+        {/* Row 2: Modern Navigation Tabs */}
+        <div className="tabs-container">
+          {tabs.map((tab) => (
+            <button 
+              key={tab.id}
+              className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              <span className="tab-button-icon">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Row 3: Controls (Filter Left, Date/Screen Right) */}
+        <div className="header-controls-row">
+          <div className="left-controls">
+            {/* CONDITIONAL: Hide filters if we are on Live Data tab */}
+            {activeTab !== 'LiveData' && (
+              <div className="timeframe-filter">
+                {['Live', 'Hourly', 'Monthly'].map(filter => (
+                  <span 
+                    key={filter}
+                    className={timeframeFilter === filter ? 'active' : ''} 
+                    onClick={() => setTimeframeFilter(filter)}
+                  >
+                    {filter}
+                  </span>
+                ))}
+              </div>
+            )}
+            
+            <button 
+              className="export-yearly-button"
+              onClick={handleExportYearly}
+              title="Export Yearly Report"
+            >
+              <FileText size={16} />
+              <span>Yearly Report</span>
+            </button>
+          </div>
+          
+          <div className="right-controls">
+            <div className="date-picker">
+              <Calendar size={16} />
+              <input 
+                type="date" 
+                value={currentDate}
+                onChange={(e) => handleDateChange(e.target.value)}
+              />
+            </div>
+            <button className="fullscreen-button">
+              <Maximize2 size={16} />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div className="location-detail-content">
-      {/* CHANGE 3: Pass isLoading to all tab components */}
-      {activeTab === 'LiveData' && (
-        <LiveDataTab 
-          locationData={locationData}
-          expandedSection={expandedSection}
-          toggleExpand={toggleExpand}
-          generatorStatusColors={generatorStatusColors}
-          error={error}
-          timeframeFilter={timeframeFilter}
-          loading={isLoading}  // ADD THIS PROP
-          
-        />
-      )}
-      {activeTab === 'Tariff&Emissions' && (
-        <TariffEmissionsTab 
-          locationData={locationData}
-          setFullscreenChart={handleFullscreenChart}
-          timeframeFilter={timeframeFilter}
-          loading={isLoading}  // ADD THIS PROP
-        />
-      )}
-      {activeTab === 'OperationalMetrics' && (
-        <OperationalMetricsTab 
-          locationData={locationData}
-          expandedSection={expandedSection}
-          toggleExpand={toggleExpand}
-          setFullscreenChart={handleFullscreenChart}
-          timeframeFilter={timeframeFilter}
-          loading={isLoading}  // ADD THIS PROP
+      <div className="location-detail-content">
+        {/* Pass isLoading to all tab components */}
+        {activeTab === 'LiveData' && (
+          <LiveDataTab 
+            locationData={locationData}
+            expandedSection={expandedSection}
+            toggleExpand={toggleExpand}
+            generatorStatusColors={generatorStatusColors}
+            error={error}
+            timeframeFilter={timeframeFilter}
+            loading={isLoading}
+          />
+        )}
+        {activeTab === 'Tariff&Emissions' && (
+          <TariffEmissionsTab 
+            locationData={locationData}
+            setFullscreenChart={handleFullscreenChart}
+            timeframeFilter={timeframeFilter}
+            loading={isLoading}
+          />
+        )}
+        {activeTab === 'OperationalMetrics' && (
+          <OperationalMetricsTab 
+            locationData={locationData}
+            expandedSection={expandedSection}
+            toggleExpand={toggleExpand}
+            setFullscreenChart={handleFullscreenChart}
+            timeframeFilter={timeframeFilter}
+            loading={isLoading}
+          />
+        )}
+      </div>
+      
+      {error && <div className="error-banner">{error}</div>}
+
+      {fullscreenChart && (
+        <FullScreenModal 
+          chartData={fullscreenChart}
+          onClose={closeFullscreenChart}
         />
       )}
     </div>
-    
-    {error && <div className="error-banner">{error}</div>}
-
-    {fullscreenChart && (
-      <FullScreenModal 
-        chartData={fullscreenChart}
-        onClose={closeFullscreenChart}
-      />
-    )}
-  </div>
-);
+  );
 };
 
 export default LocationDetail;
