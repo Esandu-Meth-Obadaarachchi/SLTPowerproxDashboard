@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+# CopyPublishSLTPowerprox Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based dashboard application for monitoring and visualizing power data with real-time analytics, built with Material-UI and integrated with InfluxDB and Firebase.
+Prerequisites
+Before you begin, ensure you have the following installed:
 
-## Available Scripts
+Node.js (v16 or higher) - Download here
+npm (comes with Node.js) or yarn
 
-In the project directory, you can run:
+Getting Started
+1. Install Dependencies
 
-### `npm start`
+    `npm install`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This will install all required packages listed in package.json, including:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+React 19
+Material-UI (MUI)
+InfluxDB Client
+Firebase
+Recharts
+React Router
+And more...
 
-### `npm test`
+### Available Scripts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`npm start`
+Runs the app in development mode.
+Will Auto open the browser if not,
+Open http://localhost:3000 to view it in your browser.
 
-### `npm run build`
+The page will reload when you make changes. You may also see any lint errors in the console.
 
-Builds the app for production to the `build` folder.\
+
+`npm test`
+Launches the test runner in interactive watch mode.
+See the section about running tests for more information.
+
+
+`npm run build`
+Builds the app for production to the build folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes. Your app is ready to be deployed!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm run deploy`
+Deploys the application to GitHub Pages.
+Make sure you've run npm run build first, or use this command which runs the build automatically before deployment.
 
-### `npm run eject`
+### Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+dashboard/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   └── App.js
+├── package.json
+├── package-lock.json
+└── README.md
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Key Features
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Real-time data visualization with Recharts
+- Interactive maps with Google Maps API
+- Material-UI component library
+- Firebase authentication and database
+- InfluxDB integration for time-series data
+- Responsive carousel displays
+- Gauge charts and progress indicators
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Troubleshooting
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Dependencies Not Installing
+If you encounter issues during `npm install`:
 
-### Code Splitting
+# 1.Clear npm cache
+`npm cache clean --force`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# 2.Delete node_modules and package-lock.json
+`rm -rf node_modules package-lock.json`
 
-### Analyzing the Bundle Size
+# 3.Reinstall
+`npm install`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+Port Already in Use
+If port 3000 is already in use:
 
-### Making a Progressive Web App
+# On Windows
+`netstat -ano | findstr :3000`
+`taskkill /PID <PID> /F`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# On Mac/Linux
+`lsof -ti:3000 | xargs kill -9`
 
-### Advanced Configuration
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+Build Fails
+If `npm run build` fails:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Check that all environment variables are set correctly
+# Ensure you have sufficient disk space
+# Try clearing the cache: `npm cache clean --force`
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Learn More
 
-### `npm run build` fails to minify
+[Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+[React Documentation](https://reactjs.org/)
+[Material-UI documentation](https://mui.com/)
+[InfluxDB Client documentation](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/nodejs/)
+[Firebase documentation](https://firebase.google.com/docs)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Contributing
+
+# 1. Fork the repository
+# 2. Create your feature branch (`git checkout -b feature/Feature`)
+# 3. Commit your changes (`git commit -m 'Add some Feature'`)
+# 4. Push to the branch (`git push origin feature/Feature`)
+# 5. Open a Pull Request
+
+
+### License
+This project is private and proprietary.

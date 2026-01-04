@@ -8,6 +8,7 @@ import {
 } from "./firebase";
 import AppRouter from "./features/app/router";
 import Navbar from "./features/shared/components/navbar/Navbar";
+import Sidebar from "./features/shared/components/SideBar/SideBar";
 import { ThemeProvider } from "./features/shared/components/theme/ThemeContext";
 import ScrollToTop from "./features/shared/components/ScrollToTop/ScrollToTop";
 import "./App.css";
@@ -16,6 +17,8 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [alarmMessages, setAlarmMessages] = useState([]);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Helper: Determine role based on email
   const determineUserRole = (email) => {
@@ -23,6 +26,24 @@ const App = () => {
     if (email === "tech@example.com") return "technician";
     return "operator";
   };
+
+  // Detect screen size for responsive behavior
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsTablet(width > 768 && width <= 1024);
+    };
+
+    // Initial check
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Auth state observer with FCM token registration
   useEffect(() => {
@@ -61,19 +82,17 @@ const App = () => {
 
   // FCM foreground notifications listener
   useEffect(() => {
-    // Load stored alarms from localStorage
     const storedAlarms = JSON.parse(localStorage.getItem("alarms") || "[]");
     setAlarmMessages(storedAlarms);
 
-    // Listen for foreground messages
     const unsubscribe = listenToForegroundMessages((payload) => {
-      console.log("🔔 Foreground notification received:", payload);
+      console.log("📬 Foreground notification received:", payload);
       
       const { title, body } = payload.notification || {};
       
       if (title && body) {
         const newAlarm = { 
-          id: Date.now(), // Simple unique ID
+          id: Date.now(),
           title, 
           body, 
           timestamp: new Date().toISOString(),
@@ -84,12 +103,11 @@ const App = () => {
         localStorage.setItem("alarms", JSON.stringify(updatedAlarms));
         setAlarmMessages(updatedAlarms);
 
-        // Show browser notification if permission granted
         if (Notification.permission === "granted") {
           new Notification(title, {
             body,
-            icon: "/favicon.ico", // Update with your icon path
-            badge: "/badge.png", // Update with your badge path
+            icon: "/favicon.ico",
+            badge: "/badge.png",
           });
         }
       }
@@ -111,6 +129,20 @@ const App = () => {
     }
   }, []);
 
+  const handleSidebarToggle = () => {
+    if (isMobile) {
+      setMobileMenuOpen(!mobileMenuOpen);
+    } else {
+      setSidebarCollapsed(!sidebarCollapsed);
+    }
+  };
+
+  const handleMobileLinkClick = () => {
+    if (isMobile) {
+      setMobileMenuOpen(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="loading-container" style={{ 
@@ -127,13 +159,44 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      <div className="app-theme-container">
-        <Router future={{ v7_startTransition: true }}>
-          <ScrollToTop />
-          {isAuthenticated && <Navbar alarmCount={alarmMessages.filter(a => !a.viewed).length} />}
-          <AppRouter isAuthenticated={isAuthenticated} />
-        </Router>
-      </div>
+      <Router future={{ v7_startTransition: true }}>
+        <ScrollToTop />
+        <div className="app-shell">
+          {/* Fixed Navbar */}
+          {isAuthenticated && (
+            <Navbar 
+              alarmCount={alarmMessages.filter(a => !a.viewed).length}
+              onMenuClick={handleSidebarToggle}
+              isMobile={isMobile}
+            />
+          )}
+          
+          {/* Mobile Overlay */}
+          {isAuthenticated && isMobile && mobileMenuOpen && (
+            <div 
+              className="mobile-overlay" 
+              onClick={() => setMobileMenuOpen(false)}
+            />
+          )}
+          
+          {/* Fixed Sidebar */}
+          {isAuthenticated && (
+            <Sidebar
+              isCollapsed={sidebarCollapsed}
+              isMobile={isMobile}
+              isTablet={isTablet}
+              mobileMenuOpen={mobileMenuOpen}
+              onToggle={handleSidebarToggle}
+              onLinkClick={handleMobileLinkClick}
+            />
+          )}
+          
+          {/* Scrollable Content Area */}
+          <main className={`main-content ${isAuthenticated ? 'authenticated' : ''} ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+            <AppRouter isAuthenticated={isAuthenticated} />
+          </main>
+        </div>
+      </Router>
     </ThemeProvider>
   );
 };

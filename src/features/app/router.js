@@ -20,37 +20,17 @@ import RectifierDetails from "../assets/rectifier/rectifierDetails/RectifierDeta
 import UPSDetails from "../assets/ups/upsDetails/UPSDetails";
 import AlarmPage from "../Alarms/Alarms";
 
-
-//import FMS from "../FaultManagementSystem/FaultManagement";
 import UPSSystem from "../assets/ups/UPSsystem.jsx";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
 import Rectifier from "../assets/rectifier/Rectifier";
 import RoomAccessControl from "../RoomAccessControl/RoomAccessControl";
 import TemperatureMonitoring from "../TemparatureMonitoring/temperatureMonitoring";
-
-// Layout component
-import Layout from "../shared/components/Layout/Layout";
-
-//import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import TransformersPage from '../assets/TransformerMonitoring/TransformersPage';
-
-//-------------
-// const CanteensPage = () => <div>Canteens Page (Placeholder)</div>;
 import CanteensPage from "../assets/canteen/components/CanteensPage";
-//-------------
 
-// Placeholder for future components
-
-
-
-// const TransformersPage = () => <div>Transformers Page (Placeholder)</div>;
-
-
-
-// Protected route component with cleaner implementation
+// Protected route component
 const ProtectedRoute = ({ children, redirectTo = "/login" }) => {
-  // Check if user is authenticated
   const userString = localStorage.getItem("user") || sessionStorage.getItem("user");
   const isAuthenticated = userString ? JSON.parse(userString).isAuthenticated : false;
   
@@ -61,11 +41,7 @@ const ProtectedRoute = ({ children, redirectTo = "/login" }) => {
   return children;
 };
 
-const AppRouter = () => {
-  // Check authentication status
-  const userString = localStorage.getItem("user") || sessionStorage.getItem("user");
-  const isAuthenticated = userString ? JSON.parse(userString).isAuthenticated : false;
-
+const AppRouter = ({ isAuthenticated }) => {
   return (
     <Routes>
       {/* Public Auth Routes */}
@@ -82,55 +58,144 @@ const AppRouter = () => {
         element={isAuthenticated ? <Navigate to="/app/landing" replace /> : <ForgotPassword />} 
       />
       
-      {/* Protected App Routes - All routes from original router.js */}
-      <Route 
-        path="/app" 
-        element={
-          <ProtectedRoute>
-            <Layout />
-          </ProtectedRoute>
-        }
-      >
+      {/* Protected App Routes - NO LAYOUT WRAPPER */}
+      <Route path="/app">
         {/* Default redirect to landing page */}
-        <Route index element={<Navigate to="/app/landing" replace />} />
+        <Route index element={
+          <ProtectedRoute>
+            <Navigate to="/app/landing" replace />
+          </ProtectedRoute>
+        } />
         
-        {/* Main App Routes - Exact same routes as original router.js */}
-        <Route path="landing" element={<LandingPage />} />
-        <Route path="overview" element={<Overview />} />
-        <Route path="locations" element={<Location />} />
-        <Route path="location" element={<Location />} />
-        <Route path="location/:id" element={<LocationDetail />} />
-        <Route path="generator" element={<LocationSelector />} />
-        <Route path="alarms" element={<AlarmPage />} />
-        {/* Generator dashboard route with genId parameter */}
-
-        <Route path="dashboard/:genId" element={<GeneratorDashboard />} />
+        {/* Main App Routes */}
+        <Route path="landing" element={
+          <ProtectedRoute>
+            <LandingPage />
+          </ProtectedRoute>
+        } />
         
-        {/* Optional: Fallback route for dashboard without genId */}
-        <Route path="/app/dashboard" element={<GeneratorDashboard />} />
+        <Route path="overview" element={
+          <ProtectedRoute>
+            <Overview />
+          </ProtectedRoute>
+        } />
         
+        <Route path="locations" element={
+          <ProtectedRoute>
+            <Location />
+          </ProtectedRoute>
+        } />
         
-        <Route path="energytrack" element={<EnergyTrack />} />
-        <Route path="rac" element={<RoomAccessControl/>}/>
-
-        <Route path="acUnits" element={<ACUnits />} />
-        <Route path="fms" element={<FaultManagementSystem />} />
-        <Route path="upsSystem" element={<UPSSystem />} />
-        <Route path="ups/:upsId" element={<UPSDetails />} />
-        <Route path="userManagement" element={<UserManagement />} />
-        <Route path="transformers" element={<TransformersPage />} />
-        <Route path="rectifier" element={<Rectifier />} />
-        <Route path="rectifier/:rectifierId" element={<RectifierDetails />} />
-
-        <Route path="temperature" element={<TemperatureMonitoring />} />
-
-        {/* Canteens dashboard */}
-        <Route path="canteens" element={<CanteensPage />} />
-
-
+        <Route path="location" element={
+          <ProtectedRoute>
+            <Location />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="location/:id" element={
+          <ProtectedRoute>
+            <LocationDetail />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="generator" element={
+          <ProtectedRoute>
+            <LocationSelector />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="alarms" element={
+          <ProtectedRoute>
+            <AlarmPage />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="dashboard/:genId" element={
+          <ProtectedRoute>
+            <GeneratorDashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="dashboard" element={
+          <ProtectedRoute>
+            <GeneratorDashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="energytrack" element={
+          <ProtectedRoute>
+            <EnergyTrack />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="rac" element={
+          <ProtectedRoute>
+            <RoomAccessControl />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="acUnits" element={
+          <ProtectedRoute>
+            <ACUnits />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="fms" element={
+          <ProtectedRoute>
+            <FaultManagementSystem />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="upsSystem" element={
+          <ProtectedRoute>
+            <UPSSystem />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="ups/:upsId" element={
+          <ProtectedRoute>
+            <UPSDetails />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="userManagement" element={
+          <ProtectedRoute>
+            <UserManagement />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="transformers" element={
+          <ProtectedRoute>
+            <TransformersPage />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="rectifier" element={
+          <ProtectedRoute>
+            <Rectifier />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="rectifier/:rectifierId" element={
+          <ProtectedRoute>
+            <RectifierDetails />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="temperature" element={
+          <ProtectedRoute>
+            <TemperatureMonitoring />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="canteens" element={
+          <ProtectedRoute>
+            <CanteensPage />
+          </ProtectedRoute>
+        } />
       </Route>
       
-      {/* Root redirect - matches original behavior */}
+      {/* Root redirect */}
       <Route path="/" element={<Navigate to="/app/landing" replace />} />
       
       {/* Catch-all route */}

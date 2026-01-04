@@ -5,6 +5,7 @@
   perspective: none !important;
   backdrop-filter: none !important;
 }
+
 :root {
   --navbar-h: 64px;
   --sidebar-w: 250px;
@@ -35,7 +36,7 @@
   border-right: 1px solid var(--sidebar-border);
   z-index: 900;
   
-  /* ADD THESE LINES: */
+  /* CRITICAL: No transform on desktop */
   transform: none !important;
   will-change: auto !important;
   
@@ -44,7 +45,12 @@
   transition: width 0.25s ease;
 }
 
-
+/* Desktop and tablet: sidebar is always visible */
+@media (min-width: 769px) {
+  .sidebar {
+    transform: none !important;
+  }
+}
 
 .sidebar.collapsed {
   width: var(--sidebar-w-collapsed);
@@ -178,15 +184,38 @@
 /* ========= Mobile behavior ========= */
 @media (max-width: 768px) {
   .sidebar {
-    /* still fixed; slide in/out from the left */
+    /* Hide by default on mobile, slide in when open */
     width: var(--sidebar-w);
-    transform: translateX(-100%);
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-    transition: transform 0.25s ease, width 0.25s ease;
+    transform: translateX(-100%) !important;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    z-index: 950;
   }
-  .sidebar.mobile-open { transform: translateX(0); }
-  .sidebar.collapsed { width: var(--sidebar-w); } /* full width when open on mobile */
-  .main-content { margin-left: 0; }                /* content spans full width on mobile */
+  
+  .sidebar.mobile-sidebar {
+    /* Ensure mobile-specific behavior */
+    position: fixed;
+    top: var(--navbar-h);
+    left: 0;
+    height: calc(100vh - var(--navbar-h));
+    width: var(--sidebar-w);
+  }
+  
+  .sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+  
+  .sidebar.collapsed {
+    width: var(--sidebar-w); /* Full width when open on mobile */
+  }
+  
+  .main-content {
+    margin-left: 0 !important; /* Content spans full width on mobile */
+  }
+  
+  .main-content.authenticated {
+    margin-left: 0 !important;
+  }
 }
 
 /* ========= Large screens (optional tweaks) ========= */

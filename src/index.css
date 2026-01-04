@@ -27,8 +27,9 @@ code {
 
 /* Theme */
 /* Nav Bar */
-:root {
-  /* --bg-color: #ffffff; */
+
+/*:root {
+  /* --bg-color: #ffffff; 
   --text-color: #1e1e1e;
   --nav-bg: #ffffff;
   --nav-text: #1e1e1e;
@@ -38,7 +39,7 @@ code {
 }
 
 [data-theme="dark"] {
-  /* --bg-color: #0f172a; */
+  /* --bg-color: #0f172a; 
   --text-color: #f3f3f3;
   --nav-bg: #020516;
   --nav-text: #f3f3f3;
@@ -47,7 +48,7 @@ code {
   --logout-icon: #ff7675;
 }
 
-/* Side Bar */
+/* Side Bar 
 :root {
   --sidebar-bg: #ffffff;
   --sidebar-border: #dcdcdc;
@@ -74,7 +75,7 @@ code {
   --sidebar-version-text: #95a5a6;
 }
 
-/* Overview */
+/* Overview 
 :root {
   --dashboard-bg: #ffffff;
   --dashboard-text: #1e293b;
@@ -103,7 +104,7 @@ code {
   --status-total: #6366f1;
   --trend-up: #10b981;
   --trend-down: #ef4444;
-}
+}*/
 
 /* Landing Page */
 /* :root {
@@ -129,7 +130,7 @@ code {
 /* ACUnits.css - Dark/Light Theme Enhanced */
 
 /* CSS Variables for Dark Theme */
-:root {
+/*:root {
   --bg-color: #000000;
   --card-background: #1a2235;
   --text-color: #ffffff;
@@ -146,7 +147,7 @@ code {
   --login-bg: #1a2235;
 }
 
-/* CSS Variables for Light Theme */
+/* CSS Variables for Light Theme 
 body.light-theme {
   --bg-color: #ffffff;
   --card-background: #ffffff;
@@ -163,7 +164,7 @@ body.light-theme {
   --all-cardbg: rgb(255, 255, 255);
   --login-bg: #1a2235;
 
-}
+}*/
 
 
 

@@ -1,3 +1,136 @@
+/* ========= CSS RESET FOR FIXED POSITIONING ========= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  /* CRITICAL: Remove any transforms that break fixed positioning */
+  transform: none !important;
+  perspective: none !important;
+  filter: none !important;
+}
+
+/* ========= APP SHELL STRUCTURE ========= */
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  /* CRITICAL: No transform properties here */
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* ========= MAIN CONTENT AREA ========= */
+.main-content {
+  /* Start with no margin when not authenticated */
+  margin-left: 0;
+  margin-top: 0;
+  min-height: 100vh;
+  width: 100%;
+  
+  /* Allow content to scroll */
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* Smooth transition when sidebar collapses */
+  transition: margin-left 0.25s ease;
+  
+  /* CRITICAL: No transform properties */
+  transform: none !important;
+  position: relative;
+  
+  /* Background image for main content */
+  background-image:  var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* When authenticated, add top margin for navbar */
+.main-content.authenticated {
+  margin-top: 64px; /* var(--navbar-h) */
+  min-height: calc(100vh - 64px);
+}
+
+/* Desktop: Add left margin for sidebar */
+
+/* Desktop: Add left margin for sidebar and adjust width */
+@media (min-width: 769px) {
+  .main-content.authenticated {
+    margin-left: 250px; /* var(--sidebar-w) */
+    width: calc(100% - 250px); /* Subtract sidebar width */
+  }
+  
+  .main-content.authenticated.sidebar-collapsed {
+    margin-left: 60px; /* var(--sidebar-w-collapsed) */
+    width: calc(100% - 60px); /* Subtract collapsed sidebar width */
+  }
+}
+
+/* Tablet: Same as desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-content.authenticated {
+    margin-left: 250px;
+  }
+  
+  .main-content.authenticated.sidebar-collapsed {
+    margin-left: 60px;
+  }
+}
+
+/* ========= Mobile behavior ========= */
+@media (max-width: 768px) {
+  .sidebar {
+    /* Hide by default on mobile, slide in when open */
+    width: var(--sidebar-w);
+    transform: translateX(-100%);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar.mobile-sidebar {
+    /* Ensure mobile-specific behavior */
+    position: fixed;
+    top: var(--navbar-h);
+    left: 0;
+    height: calc(100vh - var(--navbar-h));
+    width: var(--sidebar-w);
+    z-index: 950;
+  }
+  
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .sidebar.collapsed {
+    width: var(--sidebar-w); /* Full width when open on mobile */
+  }
+  
+  .main-content {
+    margin-left: 0 !important; /* Content spans full width on mobile */
+  }
+  
+  .main-content.authenticated {
+    margin-left: 0 !important;
+  }
+}
+
+/* ========= LOADING CONTAINER ========= */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+}
+
+/* ========= LEGACY APP STYLES (Keep for compatibility) ========= */
 .App {
   text-align: center;
 }
@@ -37,5 +170,24 @@
   }
 }
 
+/* ========= OVERLAY FOR MOBILE MENU ========= */
+.mobile-overlay {
+  position: fixed;
+  top: 64px; /* Below navbar */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 899; /* Below sidebar (900) but above content */
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease;
+}
 
-
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

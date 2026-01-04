@@ -1,3 +1,4 @@
+/* CRITICAL: Navbar fixed positioning - prevents scrolling with content */
 .navbar {
   background-color: var(--nav-bg);
   color: var(--nav-text);
@@ -9,10 +10,14 @@
   z-index: 1000;
   padding: 0 1rem;
   height: 64px;
+  
+  /* CRITICAL: No transform properties that break fixed positioning */
+  transform: none !important;
+  will-change: auto !important;
 }
 
 .navbar-container {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -26,12 +31,13 @@
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--nav-text);
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .Logo{
   height: 40px;
   width: auto;
-  margin-right: 8px;
   object-fit: contain;
 }
 
@@ -86,6 +92,54 @@
   align-items: center;
   gap: 12px;
   height: 100%;
+  margin-left: auto;
+}
+
+/* Alarm badge button */
+.alarm-badge-button {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--nav-text);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.alarm-badge-button:hover {
+  background-color: var(--nav-hover-bg, rgba(255, 255, 255, 0.1));
+  transform: translateY(-1px);
+}
+
+.alarm-badge-button:active {
+  transform: translateY(0);
+}
+
+.alarm-badge-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.alarm-count {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: #ff4444;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 12px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1.2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Theme toggle button styling */
@@ -159,6 +213,53 @@
   color: #fff;
 }
 
+/* Mobile menu toggle */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--nav-text);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  margin-right: 8px;
+}
+
+.mobile-menu-toggle:hover {
+  background-color: var(--nav-hover-bg);
+}
+
+.hamburger-icon {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger-icon span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--nav-text);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-icon.open span:first-child {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-icon.open span:last-child {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
 /* RESPONSIVE STYLES */
 
 /* Large screens and TVs (1200px and above) */
@@ -171,9 +272,8 @@
     font-size: 1.2rem;
   }
   
-  .logo-icon {
-    height: 32px;
-    margin-right: 12px;
+  .Logo {
+    height: 44px;
   }
   
   .nav-item {
@@ -182,6 +282,11 @@
   
   .navbar-controls {
     gap: 16px;
+  }
+  
+  .alarm-badge-button {
+    min-width: 44px;
+    min-height: 44px;
   }
   
   .theme-toggle-button,
@@ -225,8 +330,16 @@
     padding: 0 1rem;
   }
   
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
   .navbar-logo span {
-    display: none;
+    font-size: 0.95rem;
+  }
+
+  .Logo {
+    height: 36px;
   }
 
   .nav-item span {
@@ -242,7 +355,24 @@
   }
 
   .navbar-controls {
-    gap: 8px;
+    gap: 6px;
+  }
+
+  .alarm-badge-button {
+    padding: 6px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .alarm-badge-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .alarm-count {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+    min-width: 16px;
   }
 
   .theme-toggle-button,
@@ -265,8 +395,18 @@
     padding: 0 0.75rem;
   }
 
+  .navbar-logo span {
+    display: none;
+  }
+
   .navbar-controls {
-    gap: 6px;
+    gap: 4px;
+  }
+
+  .alarm-badge-button {
+    padding: 4px;
+    min-width: 32px;
+    min-height: 32px;
   }
 
   .theme-toggle-button,
@@ -292,7 +432,7 @@
   }
   
   .logout-button::before {
-    content: "⏻";
+    content: "🔒";
     margin-right: 0;
   }
 
@@ -311,7 +451,13 @@
   }
 
   .navbar-controls {
-    gap: 4px;
+    gap: 2px;
+  }
+
+  .alarm-badge-button {
+    padding: 4px;
+    min-width: 30px;
+    min-height: 30px;
   }
 
   .theme-toggle-button,
@@ -332,8 +478,13 @@
 /* Ensure buttons remain visible and functional on all screen sizes */
 @media (max-width: 768px) {
   .theme-toggle-button,
-  .logout-button {
+  .logout-button,
+  .alarm-badge-button {
     flex-shrink: 0; /* Prevent buttons from shrinking */
+  }
+  
+  .theme-toggle-button,
+  .logout-button {
     min-width: 36px; /* Ensure minimum touch target */
   }
 }
@@ -342,57 +493,5 @@
   .theme-toggle-button,
   .logout-button {
     min-width: 32px;
-  }
-}
-
-
-.mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--nav-text);
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-}
-
-.mobile-menu-toggle:hover {
-  background-color: var(--nav-hover-bg);
-}
-
-.hamburger-icon {
-  width: 24px;
-  height: 18px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.hamburger-icon span {
-  display: block;
-  height: 2px;
-  width: 100%;
-  background-color: var(--nav-text);
-  transition: all 0.3s ease;
-  transform-origin: center;
-}
-
-.hamburger-icon.open span:first-child {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-
-.hamburger-icon.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger-icon.open span:last-child {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
-@media (max-width: 768px) {
-  .mobile-menu-toggle {
-    display: block;
   }
 }
