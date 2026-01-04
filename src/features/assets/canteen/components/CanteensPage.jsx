@@ -1,125 +1,3 @@
-
-
-// import React, { useState } from "react";
-// import {
-//   LineChart,
-//   Line,
-//   CartesianGrid,
-//   XAxis,
-//   YAxis,
-//   Tooltip,
-//   ResponsiveContainer,
-// } from "recharts";
-// import "./CanteensPage.css";
-
-// // Mock data for each canteen
-// const mockData = {
-//   "Rajabojun Canteen": {
-//     chart: [
-//       { time: "10:00", Voltage: 229, Current: 14, ActivePower: 3.1, ReactivePower: 1.0, ApparentPower: 3.3, PowerFactor: 0.95, Frequency: 50, TotalEnergy: 1200, TotalReactiveEnergy: 450 },
-//       { time: "11:00", Voltage: 231, Current: 15, ActivePower: 3.2, ReactivePower: 1.1, ApparentPower: 3.4, PowerFactor: 0.96, Frequency: 50.1, TotalEnergy: 1210, TotalReactiveEnergy: 455 },
-//       { time: "12:00", Voltage: 230, Current: 16, ActivePower: 3.3, ReactivePower: 1.2, ApparentPower: 3.5, PowerFactor: 0.95, Frequency: 50, TotalEnergy: 1220, TotalReactiveEnergy: 460 },
-//       { time: "13:00", Voltage: 228, Current: 14, ActivePower: 3.1, ReactivePower: 1.0, ApparentPower: 3.3, PowerFactor: 0.94, Frequency: 49.9, TotalEnergy: 1230, TotalReactiveEnergy: 465 },
-//     ],
-//   },
-//   "Fruit Juice Bar": {
-//     chart: [
-//       { time: "10:00", Voltage: 227, Current: 9, ActivePower: 2.0, ReactivePower: 0.8, ApparentPower: 2.2, PowerFactor: 0.92, Frequency: 50, TotalEnergy: 980, TotalReactiveEnergy: 380 },
-//       { time: "11:00", Voltage: 229, Current: 10, ActivePower: 2.1, ReactivePower: 0.8, ApparentPower: 2.3, PowerFactor: 0.92, Frequency: 50, TotalEnergy: 985, TotalReactiveEnergy: 382 },
-//       { time: "12:00", Voltage: 228, Current: 11, ActivePower: 2.2, ReactivePower: 0.9, ApparentPower: 2.4, PowerFactor: 0.93, Frequency: 50, TotalEnergy: 990, TotalReactiveEnergy: 384 },
-//       { time: "13:00", Voltage: 226, Current: 9, ActivePower: 2.0, ReactivePower: 0.8, ApparentPower: 2.2, PowerFactor: 0.91, Frequency: 49.9, TotalEnergy: 995, TotalReactiveEnergy: 386 },
-//     ],
-//   },
-//   "1st Floor": {
-//     chart: [
-//       { time: "10:00", Voltage: 231, Current: 17, ActivePower: 4.4, ReactivePower: 1.5, ApparentPower: 4.7, PowerFactor: 0.93, Frequency: 50, TotalEnergy: 1500, TotalReactiveEnergy: 500 },
-//       { time: "11:00", Voltage: 233, Current: 18, ActivePower: 4.5, ReactivePower: 1.6, ApparentPower: 4.8, PowerFactor: 0.94, Frequency: 50, TotalEnergy: 1505, TotalReactiveEnergy: 505 },
-//       { time: "12:00", Voltage: 232, Current: 19, ActivePower: 4.6, ReactivePower: 1.7, ApparentPower: 4.9, PowerFactor: 0.94, Frequency: 50.1, TotalEnergy: 1510, TotalReactiveEnergy: 510 },
-//       { time: "13:00", Voltage: 230, Current: 18, ActivePower: 4.5, ReactivePower: 1.6, ApparentPower: 4.8, PowerFactor: 0.93, Frequency: 50, TotalEnergy: 1515, TotalReactiveEnergy: 515 },
-//     ],
-//   },
-//   "2nd Floor": {
-//     chart: [
-//       { time: "10:00", Voltage: 228, Current: 11, ActivePower: 2.7, ReactivePower: 0.9, ApparentPower: 3.0, PowerFactor: 0.94, Frequency: 50, TotalEnergy: 1100, TotalReactiveEnergy: 420 },
-//       { time: "11:00", Voltage: 230, Current: 12, ActivePower: 2.8, ReactivePower: 0.9, ApparentPower: 3.1, PowerFactor: 0.94, Frequency: 50, TotalEnergy: 1105, TotalReactiveEnergy: 422 },
-//       { time: "12:00", Voltage: 229, Current: 13, ActivePower: 2.9, ReactivePower: 1.0, ApparentPower: 3.2, PowerFactor: 0.95, Frequency: 50.1, TotalEnergy: 1110, TotalReactiveEnergy: 424 },
-//       { time: "13:00", Voltage: 227, Current: 12, ActivePower: 2.8, ReactivePower: 0.9, ApparentPower: 3.0, PowerFactor: 0.94, Frequency: 50, TotalEnergy: 1115, TotalReactiveEnergy: 426 },
-//     ],
-//   },
-// };
-
-// // Chart card component
-// const ChartCard = ({ title, data, dataKey, color }) => (
-//   <div className="chart-card">
-//     <h4>{title}</h4>
-//     <ResponsiveContainer width="100%" height={150}>
-//       <LineChart data={data}>
-//         <CartesianGrid stroke="#333" strokeDasharray="3 3" />
-//         <XAxis dataKey="time" stroke="#aaa" />
-//         <YAxis stroke="#aaa" />
-//         <Tooltip />
-//         <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} dot={{ r: 3 }} />
-//       </LineChart>
-//     </ResponsiveContainer>
-//   </div>
-// );
-
-// const CanteensPage = () => {
-//   const [activeTab, setActiveTab] = useState("Rajabojun Canteen");
-//   const data = mockData[activeTab].chart;
-
-//   const parameters = [
-//     { key: "Voltage", color: "#00e676" },
-//     { key: "Current", color: "#ffd54f" },
-//     { key: "ActivePower", color: "#00bcd4" },
-//     { key: "ReactivePower", color: "#ff9800" },
-//     { key: "ApparentPower", color: "#9c27b0" },
-//     { key: "PowerFactor", color: "#ff5722" },
-//     { key: "Frequency", color: "#03a9f4" },
-//     { key: "TotalEnergy", color: "#cddc39" },
-//     { key: "TotalReactiveEnergy", color: "#e91e63" },
-//   ];
-
-//   return (
-//     <div className="dashboard-page">
-//       {/* Tabs */}
-//       <div className="tabs">
-//         {Object.keys(mockData).map((canteen) => (
-//           <button
-//             key={canteen}
-//             className={`tab-button ${activeTab === canteen ? "active-tab" : ""}`}
-//             onClick={() => setActiveTab(canteen)}
-//           >
-//             {canteen}
-//           </button>
-//         ))}
-//       </div>
-
-//       {/* Page Header */}
-//       <div className="page-header">
-//         <h1 className="page-title">{activeTab}</h1>
-//         <p className="page-subtitle">Monitoring key electrical parameters</p>
-//       </div>
-
-//       {/* Charts Grid */}
-//       <div className="charts-grid">
-//         {parameters.map((param) => (
-//           <ChartCard
-//             key={param.key}
-//             title={param.key}
-//             data={data}
-//             dataKey={param.key}
-//             color={param.color}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CanteensPage;
-
-
 import React, { useState, useEffect } from "react";
 import {
   LineChart,
@@ -131,101 +9,293 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./CanteensPage.css";
-import { MapPin, AlertTriangle, Zap, Activity } from 'lucide-react';
+import { MapPin, AlertTriangle, Zap, Activity, TrendingUp } from 'lucide-react';
 
+// Helper function to get the correct field value from data
+// PRIMARY KEY = V1 (Rajabojun, 1st Floor, 2nd Floor)
+// ALT KEY = V2 (Juice Bar ONLY)
+const getFieldValue = (dataPoint, primaryKey, altKey) => {
+  if (dataPoint[primaryKey] !== undefined && dataPoint[primaryKey] !== null) {
+    return dataPoint[primaryKey];
+  }
+  if (altKey && dataPoint[altKey] !== undefined && dataPoint[altKey] !== null) {
+    return dataPoint[altKey];
+  }
+  return null;
+};
 
-const ChartCard = ({ title, data, dataKey, color }) => (
-  <div className="chart-card">
-    <h4>{title}</h4>
-    <ResponsiveContainer width="100%" height={150}>
-      <LineChart data={data}>
-        <CartesianGrid stroke="#333" strokeDasharray="3 3" />
-        <XAxis dataKey="time" stroke="#aaa" />
-        <YAxis stroke="#aaa" />
-        <Tooltip />
-        <Line
-          type="monotone"
-          dataKey={dataKey}
-          stroke={color}
-          strokeWidth={2}
-          dot={{ r: 3 }}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  </div>
-);
+const ChartCard = ({ title, data, dataKey, altKey, color, unit }) => {
+  // Check if this parameter has any data
+  const hasData = data.some(point => getFieldValue(point, dataKey, altKey) !== null);
+  
+  if (!hasData) {
+    return null; // Don't render chart if no data available
+  }
+
+  // Transform data to use the correct field
+  const transformedData = data.map(point => ({
+    ...point,
+    value: getFieldValue(point, dataKey, altKey) || 0
+  }));
+
+  return (
+    <div className="chart-card">
+      <h4>{title}</h4>
+      <ResponsiveContainer width="100%" height={150}>
+        <LineChart data={transformedData}>
+          <CartesianGrid stroke="#333" strokeDasharray="3 3" />
+          <XAxis 
+            dataKey="time" 
+            stroke="#aaa"
+            tickFormatter={(time) => {
+              const date = new Date(time);
+              return `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+            }}
+          />
+          <YAxis stroke="#aaa" />
+          <Tooltip 
+            labelFormatter={(time) => new Date(time).toLocaleString()}
+            formatter={(value) => [`${value.toFixed(2)} ${unit || ''}`, title]}
+          />
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke={color}
+            strokeWidth={2}
+            dot={{ r: 3 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
 
 const CanteensPage = () => {
   const [canteensData, setCanteensData] = useState({});
   const [activeTab, setActiveTab] = useState("");
+  const [totals, setTotals] = useState({
+    totalCanteens: 0,
+    totalEnergy: 0,
+    totalReactiveEnergy: 0,
+    totalPower: 0,
+    totalApparentPower: 0,
+    totalReactivePower: 0
+  });
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Chart parameters with TWO SEPARATE naming conventions
   const parameters = [
-    { key: "Voltage", color: "#00e676" },
-    { key: "Current", color: "#ffd54f" },
-    { key: "ActivePower", color: "#00bcd4" },
-    { key: "ReactivePower", color: "#ff9800" },
-    { key: "ApparentPower", color: "#9c27b0" },
-    { key: "PowerFactor", color: "#ff5722" },
-    { key: "Frequency", color: "#03a9f4" },
-    { key: "TotalEnergy", color: "#cddc39" },
-    { key: "TotalReactiveEnergy", color: "#e91e63" },
+    // ===== POWER PARAMETERS =====
+    { key: "total_kw", altKey: "ActivePower", color: "#00bcd4", unit: "kW", label: "Active Power" },
+    { key: "total_kva", altKey: "Apparent_Power", color: "#9c27b0", unit: "kVA", label: "Apparent Power" },
+    { key: "Reactive_Power", altKey: "Reactive_Power", color: "#ff9800", unit: "kVAr", label: "Reactive Power" },
+    
+    // ===== CURRENT PARAMETERS =====
+    { key: "current_i1", altKey: "Current_", color: "#ffd54f", unit: "A", label: "Current Phase 1" },
+    { key: "current_i2", altKey: null, color: "#ffeb3b", unit: "A", label: "Current Phase 2" },
+    { key: "current_i3", altKey: null, color: "#ffc107", unit: "A", label: "Current Phase 3" },
+    
+    // ===== VOLTAGE PARAMETERS =====
+    { key: "average_voltage_ln", altKey: "Voltage_L_N", color: "#00e676", unit: "V", label: "Avg Voltage" },
+    { key: "voltage_v1n", altKey: null, color: "#4caf50", unit: "V", label: "Voltage Phase 1" },
+    { key: "voltage_v2n", altKey: null, color: "#8bc34a", unit: "V", label: "Voltage Phase 2" },
+    { key: "voltage_v3n", altKey: null, color: "#cddc39", unit: "V", label: "Voltage Phase 3" },
+    
+    // ===== POWER FACTOR =====
+    { key: "average_pf", altKey: "average_pf", color: "#ff5722", unit: "", label: "Power Factor" },
+    { key: "pf1", altKey: null, color: "#f44336", unit: "", label: "PF Phase 1" },
+    { key: "pf2", altKey: null, color: "#e91e63", unit: "", label: "PF Phase 2" },
+    { key: "pf3", altKey: null, color: "#9c27b0", unit: "", label: "PF Phase 3" },
+    
+    // ===== FREQUENCY =====
+    { key: "frequency", altKey: "Freequency_", color: "#03a9f4", unit: "Hz", label: "Frequency" },
+    
+    // ===== ENERGY PARAMETERS =====
+    { key: "total_net_kwh", altKey: "Total_KWh", color: "#cddc39", unit: "kWh", label: "Total Energy" },
+    { key: "total_net_kvah", altKey: "Total_Kvarh", color: "#e91e63", unit: "kvarh", label: "Total Reactive Energy" },
+    
+    // ===== PHASE-WISE POWER (V1 ONLY) =====
+    { key: "kw1", altKey: null, color: "#ff6f00", unit: "kW", label: "Phase 1 Active Power" },
+    { key: "kw2", altKey: null, color: "#d32f2f", unit: "kW", label: "Phase 2 Active Power" },
+    { key: "kw3", altKey: null, color: "#7b1fa2", unit: "kW", label: "Phase 3 Active Power" },
+    
+    { key: "kva1", altKey: null, color: "#ad1457", unit: "kVA", label: "Phase 1 Apparent Power" },
+    { key: "kva2", altKey: null, color: "#6a1b9a", unit: "kVA", label: "Phase 2 Apparent Power" },
+    { key: "kva3", altKey: null, color: "#4a148c", unit: "kVA", label: "Phase 3 Apparent Power" },
   ];
 
-  // Fetch data from FastAPI backend
+  // Fetch canteen data from backend - SMOOTH BACKGROUND UPDATES
   useEffect(() => {
     const fetchCanteens = async () => {
       try {
-        const response = await fetch("http://localhost:8000/canteens");
+        setError(null);
+
+        // Fetch all canteens data
+        const response = await fetch("http://localhost:8001/canteens");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
+        
+        // Check if we got data
+        if (Object.keys(data).length === 0) {
+          throw new Error("No canteen data available from database");
+        }
+        
+        console.log("Data updated silently");
+        
+        // Update data WITHOUT affecting UI
         setCanteensData(data);
-        const firstCanteen = Object.keys(data)[0];
-        setActiveTab(firstCanteen);
+        
+        // Only set active tab on very first load
+        if (!activeTab && Object.keys(data).length > 0) {
+          const firstCanteen = Object.keys(data)[0];
+          setActiveTab(firstCanteen);
+        }
+
+        // Fetch totals for overview cards
+        const totalsResponse = await fetch("http://localhost:8001/canteens/summary/totals");
+        if (totalsResponse.ok) {
+          const totalsData = await totalsResponse.json();
+          setTotals(totalsData);
+        }
+
+        // Turn off initial loading after first successful load
+        if (initialLoading) {
+          setInitialLoading(false);
+        }
+
       } catch (error) {
         console.error("Error fetching canteens:", error);
+        // Only show error screen on first load
+        if (initialLoading) {
+          setError(`Failed to load canteen data: ${error.message}`);
+          setInitialLoading(false);
+        }
       }
     };
 
     fetchCanteens();
+    
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(fetchCanteens, 30000);
+    return () => clearInterval(interval);
   }, []);
 
-  if (!activeTab || !canteensData[activeTab]) return <p>Loading...</p>;
+  // Helper function to get summary value with fallback
+  const getSummaryValue = (primary, alt, defaultVal = 0) => {
+    const summary = canteensData[activeTab]?.summary;
+    if (!summary) return defaultVal;
+    return summary[primary] ?? summary[alt] ?? defaultVal;
+  };
+
+  if (initialLoading) {
+    return (
+      <div className="dashboard-page">
+        <div className="page-header">
+          <h1 className="page-title">Loading Canteens Data...</h1>
+          <p className="page-subtitle">Connecting to database...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="dashboard-page">
+        <div className="page-header">
+          <h1 className="page-title">Error</h1>
+          <p className="page-subtitle" style={{color: '#ff5722'}}>{error}</p>
+          <p className="page-subtitle" style={{color: '#aaa', marginTop: '10px'}}>
+            Please check if the backend is running on http://localhost:8001
+          </p>
+          <button 
+            onClick={() => window.location.reload()}
+            style={{
+              marginTop: '20px',
+              padding: '12px 24px',
+              backgroundColor: '#2563eb',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '600'
+            }}
+          >
+            Retry Connection
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!activeTab || !canteensData[activeTab]) {
+    return (
+      <div className="dashboard-page">
+        <div className="page-header">
+          <h1 className="page-title">No Canteen Data Available</h1>
+          <p className="page-subtitle">Please check your InfluxDB measurements</p>
+          <p className="page-subtitle" style={{color: '#aaa', marginTop: '10px'}}>
+            Debug endpoint: <a href="http://localhost:8001/canteens/debug/all-canteen-fields" target="_blank" rel="noopener noreferrer" style={{color: '#00bcd4'}}>
+              View all fields
+            </a>
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const data = canteensData[activeTab].chart;
+  const currentSummary = canteensData[activeTab].summary;
 
   return (
     <div className="dashboard-page">
-
       {/* Header */}
       <div className="page-header">
         <h1 className="page-title">Canteens Dashboard</h1>
-        <p className="page-subtitle">Monitoring Electrical Power Data From Canteens</p>
+        <p className="page-subtitle">Real-time Electrical Power Monitoring</p>
       </div>
 
-            {/* Canteens Overview Summary */}
-      <div className="overview-grid mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {/* Canteens Overview Summary */}
+      <div className="overview-grid mb-8 grid grid-cols-1 sm:grid-cols-5 gap-4">
         <div className="overview-card">
-          <Zap size={24} className="text-blue-400" />
+          <MapPin size={24} className="text-blue-400" />
           <div>
             <h4>Total Canteens</h4>
-            <p>4</p> {/* Example static value */}
+            <p>{totals.totalCanteens}</p>
           </div>
         </div>
         <div className="overview-card">
           <Activity size={24} className="text-green-400" />
           <div>
             <h4>Total Energy</h4>
-            <p>12,450 kWh</p> {/* Example static value */}
+            <p>{(totals.totalEnergy || 0).toLocaleString()} kWh</p>
           </div>
         </div>
         <div className="overview-card">
-          <Activity size={24} className="text-green-400" />
+          <Activity size={24} className="text-yellow-400" />
           <div>
-            <h4>Total Reactive Energy</h4>
-            <p>3,210 kvarh</p> {/* Example static value */}
+            <h4>Reactive Energy</h4>
+            <p>{(totals.totalReactiveEnergy || 0).toLocaleString()} kvarh</p>
+          </div>
+        </div>
+        <div className="overview-card">
+          <Zap size={24} className="text-purple-400" />
+          <div>
+            <h4>Active Power</h4>
+            <p>{(totals.totalPower || 0).toLocaleString()} kW</p>
+          </div>
+        </div>
+        <div className="overview-card">
+          <Zap size={24} className="text-orange-400" />
+          <div>
+            <h4>Reactive Power</h4>
+            <p>{(totals.totalReactivePower || 0).toLocaleString()} kVAr</p>
           </div>
         </div>
       </div>
-
 
       {/* Tabs */}
       <div className="tabs">
@@ -240,20 +310,60 @@ const CanteensPage = () => {
         ))}
       </div>
 
-      {/* Page Header */}
+      {/* Page Header for Selected Canteen */}
       <div className="page-header">
         <h1 className="page-title">{activeTab}</h1>
+        <p className="page-subtitle">
+          Last updated: {new Date().toLocaleTimeString()} | 
+          Active Power: {getSummaryValue('total_kw', 'ActivePower').toFixed(2)} kW | 
+          Reactive Power: {getSummaryValue('Reactive_Power', 'Reactive_Power').toFixed(2)} kVAr | 
+          Power Factor: {getSummaryValue('average_pf', 'average_pf').toFixed(2)}
+        </p>
+      </div>
+
+      {/* Current Status Cards */}
+      <div className="overview-grid mb-8 grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div className="overview-card">
+          <TrendingUp size={20} className="text-cyan-400" />
+          <div>
+            <h4>Voltage</h4>
+            <p>{getSummaryValue('average_voltage_ln', 'Voltage_L_N').toFixed(1)} V</p>
+          </div>
+        </div>
+        <div className="overview-card">
+          <TrendingUp size={20} className="text-amber-400" />
+          <div>
+            <h4>Current</h4>
+            <p>{getSummaryValue('current_i1', 'Current_').toFixed(2)} A</p>
+          </div>
+        </div>
+        <div className="overview-card">
+          <TrendingUp size={20} className="text-blue-400" />
+          <div>
+            <h4>Frequency</h4>
+            <p>{getSummaryValue('frequency', 'Freequency_').toFixed(2)} Hz</p>
+          </div>
+        </div>
+        <div className="overview-card">
+          <TrendingUp size={20} className="text-purple-400" />
+          <div>
+            <h4>Apparent Power</h4>
+            <p>{getSummaryValue('total_kva', 'Apparent_Power').toFixed(2)} kVA</p>
+          </div>
+        </div>
       </div>
 
       {/* Charts Grid */}
       <div className="charts-grid">
         {parameters.map((param) => (
           <ChartCard
-            key={param.key}
-            title={param.key}
+            key={param.key || param.altKey}
+            title={param.label}
             data={data}
             dataKey={param.key}
+            altKey={param.altKey}
             color={param.color}
+            unit={param.unit}
           />
         ))}
       </div>

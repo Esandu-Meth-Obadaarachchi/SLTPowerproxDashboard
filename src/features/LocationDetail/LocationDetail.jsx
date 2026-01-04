@@ -1,37 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { 
-  Activity, 
-  CloudLightning, 
-  BarChart, 
-  Database, 
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import {
+  Activity,
+  CloudLightning,
+  BarChart,
+  Database,
   Calendar,
   Maximize2,
-  FileText
-} from 'lucide-react';
-import './LocationDetail.css';
+  FileText,
+} from "lucide-react";
+import "./LocationDetail.css";
 
 // Import tab components
-import LiveDataTab from './components/LiveDataTab';
-import TariffEmissionsTab from './components/TariffEmissionsTab';
-import OperationalMetricsTab from './components/OperationalMetricsTab';
+import LiveDataTab from "./components/LiveDataTab";
+import TariffEmissionsTab from "./components/TariffEmissionsTab";
+import OperationalMetricsTab from "./components/OperationalMetricsTab";
+import { exportYearlyReport } from "./utils/exportToExcel";
 
 // Import utility functions
-import { processApiData } from './utils/dataProcessing';
+import { processApiData } from "./utils/dataProcessing";
 
 // Import data service
-import DataService from './locationDetailAPI';
+import DataService from "./locationDetailAPI";
 
 // Import common components
-import FullScreenModal from './components/FullScreenModal';
+import FullScreenModal from "./components/FullScreenModal";
 
 const LocationDetail = () => {
   const { id } = useParams();
-  
+
   // State Management
-  const [activeTab, setActiveTab] = useState('LiveData');
-  const [timeframeFilter, setTimeframeFilter] = useState('Live'); // Default to Live
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]);
+  const [activeTab, setActiveTab] = useState("LiveData");
+  const [timeframeFilter, setTimeframeFilter] = useState("Live"); // Default to Live
+  const [currentDate, setCurrentDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [locationData, setLocationData] = useState(null);
   const [expandedSection, setExpandedSection] = useState(null);
   const [fullscreenChart, setFullscreenChart] = useState(null);
@@ -40,47 +43,47 @@ const LocationDetail = () => {
 
   // Tab Definitions
   const tabs = [
-    { 
-      id: 'LiveData', 
-      label: 'Live Data', 
-      icon: <Activity size={18} /> 
+    {
+      id: "LiveData",
+      label: "Live Data",
+      icon: <Activity size={18} />,
     },
-    { 
-      id: 'Tariff&Emissions', 
-      label: 'Tariff & Emissions', 
-      icon: <CloudLightning size={18} /> 
+    {
+      id: "Tariff&Emissions",
+      label: "Tariff & Emissions",
+      icon: <CloudLightning size={18} />,
     },
-    { 
-      id: 'OperationalMetrics', 
-      label: 'Operational Metrics', 
-      icon: <BarChart size={18} /> 
-    }
+    {
+      id: "OperationalMetrics",
+      label: "Operational Metrics",
+      icon: <BarChart size={18} />,
+    },
   ];
 
   // Hardcoded Data & Mappings
   const generatorData = {
-    'SLT-HQ': [
-      { id: 'Gen_HQb_1', status: 'Online', statusColor: '#8AE98A' },
-      { id: 'Gen_HQb_2', status: 'Standby', statusColor: '#5B7EC2' },
-      { id: 'Gen_HQb_3', status: 'Online', statusColor: '#8AE98A' }
+    "SLT-HQ": [
+      { id: "Gen_HQb_1", status: "Online", statusColor: "#8AE98A" },
+      { id: "Gen_HQb_2", status: "Standby", statusColor: "#5B7EC2" },
+      { id: "Gen_HQb_3", status: "Online", statusColor: "#8AE98A" },
     ],
-    'SLT-OTS': [
-      { id: 'Gen_OTS_1', status: 'Online', statusColor: '#8AE98A' },
-      { id: 'Gen_OTS_2', status: 'Standby', statusColor: '#5B7EC2' },
-      { id: 'Gen_OTS_3', status: 'Warning', statusColor: '#EDA566' }
-    ]
+    "SLT-OTS": [
+      { id: "Gen_OTS_1", status: "Online", statusColor: "#8AE98A" },
+      { id: "Gen_OTS_2", status: "Standby", statusColor: "#5B7EC2" },
+      { id: "Gen_OTS_3", status: "Warning", statusColor: "#EDA566" },
+    ],
   };
 
   const locationNames = {
-    'SLT-HQ': 'HQ - Data Center 3F',
-    'SLT-OTS': 'OTS Facility'
+    "SLT-HQ": "HQ - Data Center 3F",
+    "SLT-OTS": "OTS Facility",
   };
 
   const generatorStatusColors = {
-    'Online': '#8AE98A',
-    'Standby': '#5B7EC2',
-    'Warning': '#EDA566',
-    'Offline': '#FF6B6B'
+    Online: "#8AE98A",
+    Standby: "#5B7EC2",
+    Warning: "#EDA566",
+    Offline: "#FF6B6B",
   };
 
   // Data Fetching Logic
@@ -90,78 +93,89 @@ const LocationDetail = () => {
       if (!isBackgroundRefresh) {
         setIsLoading(true);
       }
-      
+
       setError(null);
-      
+
       try {
         // Basic location data
-        const timeframeData = await DataService.fetchTimeframeData(timeframeFilter);
-        
+        const timeframeData = await DataService.fetchTimeframeData(
+          timeframeFilter
+        );
+
         let energyDistribution = [];
         let carbonAndTariff = {};
-        
+
         // Always fetch energy distribution
         try {
-          const energyDistResponse = await DataService.fetchEnergyDistribution(timeframeFilter);
+          const energyDistResponse = await DataService.fetchEnergyDistribution(
+            timeframeFilter
+          );
           energyDistribution = energyDistResponse.energyDistribution || [];
         } catch (distError) {
           console.error("Error fetching energy distribution:", distError);
           energyDistribution = [
             { name: "IT Load", value: 50 },
             { name: "AC Load", value: 30 },
-            { name: "Other Systems", value: 20 }
+            { name: "Other Systems", value: 20 },
           ];
         }
-        
+
         // Fetch carbon and tariff data
-        if (activeTab === 'Tariff&Emissions' || activeTab === 'LiveData') {
-          carbonAndTariff = await DataService.fetchCarbonAndTariff(timeframeFilter);
+        if (activeTab === "Tariff&Emissions" || activeTab === "LiveData") {
+          carbonAndTariff = await DataService.fetchCarbonAndTariff(
+            timeframeFilter
+          );
         }
-        
+
         // ✅ CORRECTED LINE: declared once, passing timeframeFilter for date formatting
-        const processedData = processApiData(timeframeData.data, timeframeFilter);
-        
+        const processedData = processApiData(
+          timeframeData.data,
+          timeframeFilter
+        );
+
         setLocationData({
-          name: locationNames[id] || 'HQ - Data Center 3F',
-          generators: generatorData[id] || generatorData['SLT-HQ'],
+          name: locationNames[id] || "HQ - Data Center 3F",
+          generators: generatorData[id] || generatorData["SLT-HQ"],
           ...processedData,
           charts: {
             ...processedData.charts,
             ...carbonAndTariff,
-            energyDistribution: energyDistribution
-          }
+            energyDistribution: energyDistribution,
+          },
         });
       } catch (err) {
         console.error(`Error fetching data:`, err);
-        
+
         // Only show error prominently on initial load
         if (!isBackgroundRefresh) {
-          setError(`Failed to fetch data. Please check your connection or try again later.`);
+          setError(
+            `Failed to fetch data. Please check your connection or try again later.`
+          );
           // Fallback data structure
           setLocationData({
-            name: locationNames[id] || 'HQ - Data Center 3F',
-            generators: generatorData[id] || generatorData['SLT-HQ'],
-            metrics: { 
-              pue: '0.00', 
-              carbonEmission: '0.00 MT/Year', 
-              electricalCost: '0.00 LKR/Year', 
-              itLoad: '0.00 KW', 
-              acLoad: '0.00 KW', 
-              totalLoad: '0.00 KW' 
+            name: locationNames[id] || "HQ - Data Center 3F",
+            generators: generatorData[id] || generatorData["SLT-HQ"],
+            metrics: {
+              pue: "0.00",
+              carbonEmission: "0.00 MT/Year",
+              electricalCost: "0.00 LKR/Year",
+              itLoad: "0.00 KW",
+              acLoad: "0.00 KW",
+              totalLoad: "0.00 KW",
             },
-            charts: { 
-              pue: [], 
-              totalLoad: [], 
-              carbonEmission: [], 
-              electricityTariff: [], 
-              tariff: [], 
-              energyConsumption: [], 
-              energyDistribution: [] 
-            }
+            charts: {
+              pue: [],
+              totalLoad: [],
+              carbonEmission: [],
+              electricityTariff: [],
+              tariff: [],
+              energyConsumption: [],
+              energyDistribution: [],
+            },
           });
         } else {
           // Silent error handling for background refresh
-          console.warn('Background refresh failed - keeping existing data');
+          console.warn("Background refresh failed - keeping existing data");
         }
       } finally {
         // Only turn off loading on initial load
@@ -170,39 +184,62 @@ const LocationDetail = () => {
         }
       }
     };
-    
+
     // Initial fetch (with loading screen)
     fetchData(false);
-    
+
     // Live data refresh interval
     let refreshInterval;
-    if (timeframeFilter === 'Live') {
+    if (timeframeFilter === "Live") {
       refreshInterval = setInterval(() => {
         // Background refresh (without loading screen)
         fetchData(true);
       }, 30000); // 30 seconds
     }
-    
+
     return () => {
       if (refreshInterval) clearInterval(refreshInterval);
     };
   }, [id, timeframeFilter, activeTab]);
 
   // Event Handlers
-  const toggleExpand = (section) => setExpandedSection(expandedSection === section ? null : section);
+  const toggleExpand = (section) =>
+    setExpandedSection(expandedSection === section ? null : section);
   const handleFullscreenChart = (chartData) => setFullscreenChart(chartData);
   const closeFullscreenChart = () => setFullscreenChart(null);
   const handleDateChange = (date) => setCurrentDate(date);
-  
-  const handleExportYearly = () => {
-    console.log("Downloading Yearly Excel Report...");
-    // TODO: Implement Excel export logic here
+
+  const handleExportYearly = async () => {
+    try {
+      let exportType = "live";
+
+      if (activeTab === "OperationalMetrics") {
+        exportType = "operational";
+      }
+
+      if (activeTab === "Tariff&Emissions") {
+        exportType = "tariff";
+      }
+
+      const response = await DataService.fetchYearlyExport(
+        exportType,
+        locationNames[id]
+      );
+
+      exportYearlyReport({
+        type: exportType,
+        locationName: locationNames[id] || "HQ_Data_Center_3F",
+        data: response.data,
+      });
+    } catch (err) {
+      console.error("Yearly export failed:", err);
+      alert("Failed to export yearly report");
+    }
   };
 
   return (
     <div className="location-detail-container">
       <div className="location-detail-header">
-        
         {/* Row 1: Title */}
         <h1 className="overview-title">
           <div className="overview-title-icon">
@@ -214,9 +251,9 @@ const LocationDetail = () => {
         {/* Row 2: Modern Navigation Tabs */}
         <div className="tabs-container">
           {tabs.map((tab) => (
-            <button 
+            <button
               key={tab.id}
-              className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+              className={`tab-button ${activeTab === tab.id ? "active" : ""}`}
               onClick={() => setActiveTab(tab.id)}
             >
               <span className="tab-button-icon">{tab.icon}</span>
@@ -229,12 +266,12 @@ const LocationDetail = () => {
         <div className="header-controls-row">
           <div className="left-controls">
             {/* CONDITIONAL: Hide filters if we are on Live Data tab */}
-            {activeTab !== 'LiveData' && (
+            {activeTab !== "LiveData" && (
               <div className="timeframe-filter">
-                {['Live', 'Hourly', 'Monthly'].map(filter => (
-                  <span 
+                {["Live", "Hourly", "Monthly"].map((filter) => (
+                  <span
                     key={filter}
-                    className={timeframeFilter === filter ? 'active' : ''} 
+                    className={timeframeFilter === filter ? "active" : ""}
                     onClick={() => setTimeframeFilter(filter)}
                   >
                     {filter}
@@ -242,8 +279,8 @@ const LocationDetail = () => {
                 ))}
               </div>
             )}
-            
-            <button 
+
+            <button
               className="export-yearly-button"
               onClick={handleExportYearly}
               title="Export Yearly Report"
@@ -252,12 +289,12 @@ const LocationDetail = () => {
               <span>Yearly Report</span>
             </button>
           </div>
-          
+
           <div className="right-controls">
             <div className="date-picker">
               <Calendar size={16} />
-              <input 
-                type="date" 
+              <input
+                type="date"
                 value={currentDate}
                 onChange={(e) => handleDateChange(e.target.value)}
               />
@@ -271,8 +308,8 @@ const LocationDetail = () => {
 
       <div className="location-detail-content">
         {/* Pass isLoading to all tab components */}
-        {activeTab === 'LiveData' && (
-          <LiveDataTab 
+        {activeTab === "LiveData" && (
+          <LiveDataTab
             locationData={locationData}
             expandedSection={expandedSection}
             toggleExpand={toggleExpand}
@@ -282,16 +319,16 @@ const LocationDetail = () => {
             loading={isLoading}
           />
         )}
-        {activeTab === 'Tariff&Emissions' && (
-          <TariffEmissionsTab 
+        {activeTab === "Tariff&Emissions" && (
+          <TariffEmissionsTab
             locationData={locationData}
             setFullscreenChart={handleFullscreenChart}
             timeframeFilter={timeframeFilter}
             loading={isLoading}
           />
         )}
-        {activeTab === 'OperationalMetrics' && (
-          <OperationalMetricsTab 
+        {activeTab === "OperationalMetrics" && (
+          <OperationalMetricsTab
             locationData={locationData}
             expandedSection={expandedSection}
             toggleExpand={toggleExpand}
@@ -301,11 +338,11 @@ const LocationDetail = () => {
           />
         )}
       </div>
-      
+
       {error && <div className="error-banner">{error}</div>}
 
       {fullscreenChart && (
-        <FullScreenModal 
+        <FullScreenModal
           chartData={fullscreenChart}
           onClose={closeFullscreenChart}
         />

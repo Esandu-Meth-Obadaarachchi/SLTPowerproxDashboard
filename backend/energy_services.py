@@ -4,6 +4,8 @@ from fastapi import APIRouter, HTTPException
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.exceptions import InfluxDBError
 import logging
+from datetime import datetime, timedelta
+
 
 # Set up logging for better debugging
 logging.basicConfig(level=logging.INFO)
@@ -180,6 +182,47 @@ async def get_carbon_tariff_data(timeframe, measurement):
         logger.error(f"Error querying Carbon/Tariff: {str(e)}")
         return {"carbonEmission": [], "tariff": [], "energyConsumption": []}
 
+
+# Yearly Report Data Fetching
+
+async def get_yearly_export_data(measurement, export_type):
+    """
+    Export last 365 days, DAILY resolution
+    export_type: operational | tariff | live
+    """
+    db_client = get_influxdb_client()
+    start_date = (datetime.utcnow() - timedelta(days=365)).isoformat() + "Z"
+
+    if export_type == "operational":
+        fields = '"pue" or r["_field"] == "Total_load"'
+    elif export_type == "tariff":
+        fields = '"tariff" or r["_field"] == "Total_load"'
+    else:  # live
+        fields = '"IT_load" or r["_field"] == "AC_load" or r["_field"] == "Total_load"'
+
+    flux_query = f"""
+    from(bucket: "{INFLUXDB_BUCKET}")
+        |> range(start: time(v: "{start_date}"))
+        |> filter(fn: (r) => r["_measurement"] == "{measurement}")
+        |> filter(fn: (r) => r["_field"] == {fields})
+        |> aggregateWindow(every: 1d, fn: mean, createEmpty: false)
+    """
+
+    result = db_client.query_api().query(org=INFLUXDB_ORG, query=flux_query)
+
+    daily = {}
+
+    for table in result:
+        for record in table.records:
+            date = record.get_time().date().isoformat()
+            if date not in daily:
+                daily[date] = {"date": date}
+
+            daily[date][record.get_field()] = round(record.get_value() or 0, 2)
+
+    return sorted(daily.values(), key=lambda x: x["date"])
+
+
 # --------------------------------------------------
 # API Routes (Endpoints)
 # --------------------------------------------------
@@ -274,3 +317,18 @@ async def health_check():
         return {"status": "healthy", "influxdb": health.status}
     except Exception as e:
         return {"status": "unhealthy", "error": str(e)} 
+
+@router.get("/export/yearly/{export_type}")
+async def export_yearly(
+    export_type: str,
+    measurement: str = "HQ-HQ-A-3-Data Center 3F"
+):
+    """
+    export_type:
+    - operational
+    - tariff
+    - live
+    """
+    return {
+        "data": await get_yearly_export_data(measurement, export_type)
+    }
