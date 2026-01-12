@@ -24,8 +24,6 @@
   z-index: 2;
 }
 
-/* Stat Card */
-
 
 
 
@@ -38,11 +36,7 @@
   color: var(--primary-color);
 }
 
-.stat-value {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--text-color);
-}
+
 
 /* ===========================
    CAROUSEL
@@ -272,9 +266,7 @@
     height: 36px;
   }
 
-  .stat-value {
-    font-size: 1.4rem;
-  }
+
 
   .slideshow-container {
     height: 22vh;
@@ -307,10 +299,7 @@
     margin-bottom: 0.1rem;
   }
 
-  .stat-value {
-    font-size: 1.2rem;
-  }
-
+  
   .slideshow-container {
     height: 20vh;
   }

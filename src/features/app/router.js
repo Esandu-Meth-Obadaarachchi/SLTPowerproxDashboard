@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import RoleProtectedRoute from "./ProtectedRoute";
 
 // Authentication Pages
 import Login from "../Auth/Login";
@@ -12,193 +13,80 @@ import Overview from "../OverviewPage/Overview";
 import Location from "../MapLocationPage/MapLocation";
 import LocationDetail from "../LocationDetail/LocationDetail";
 import LocationSelector from "../LocationSelector/LocationSelector";
-
 import EnergyTrack from "../reportsAndAnalytics/EnergyTrackPage";
 import ACUnits from "../assets/acunit/ACUnits.jsx";
 import GeneratorDashboard from "../assets/generator/components/Generator";
 import RectifierDetails from "../assets/rectifier/rectifierDetails/RectifierDetails";
 import UPSDetails from "../assets/ups/upsDetails/UPSDetails";
-import AlarmPage from "../Alarms/Alarms";
-
 import UPSSystem from "../assets/ups/UPSsystem.jsx";
 import FaultManagementSystem from "../FaultManagementSystem/FaultManagement";
 import UserManagement from "../UserManagement/usermanagement";
 import Rectifier from "../assets/rectifier/Rectifier";
 import RoomAccessControl from "../RoomAccessControl/RoomAccessControl";
 import TemperatureMonitoring from "../TemparatureMonitoring/temperatureMonitoring";
+import Layout from "../shared/components/Layout/Layout";
 import TransformersPage from '../assets/TransformerMonitoring/TransformersPage';
 import CanteensPage from "../assets/canteen/components/CanteensPage";
 
-// Protected route component
-const ProtectedRoute = ({ children, redirectTo = "/login" }) => {
+const Alarms = () => <div>Alarms Page (Placeholder)</div>;
+
+// Cleaned up ProtectedRoute
+const ProtectedRoute = ({ children }) => {
   const userString = localStorage.getItem("user") || sessionStorage.getItem("user");
   const isAuthenticated = userString ? JSON.parse(userString).isAuthenticated : false;
-  
-  if (!isAuthenticated) {
-    return <Navigate to={redirectTo} replace />;
-  }
-  
-  return children;
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
-const AppRouter = ({ isAuthenticated }) => {
+const AppRouter = () => {
   return (
     <Routes>
-      {/* Public Auth Routes */}
-      <Route 
-        path="/login" 
-        element={isAuthenticated ? <Navigate to="/app/landing" replace /> : <Login />} 
-      />
-      <Route 
-        path="/signup" 
-        element={isAuthenticated ? <Navigate to="/app/landing" replace /> : <Signup />} 
-      />
-      <Route 
-        path="/forgot-password" 
-        element={isAuthenticated ? <Navigate to="/app/landing" replace /> : <ForgotPassword />} 
-      />
+      {/* Auth Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       
-      {/* Protected App Routes - NO LAYOUT WRAPPER */}
-      <Route path="/app">
-        {/* Default redirect to landing page */}
-        <Route index element={
+      {/* Main App with Shared Layout */}
+      <Route 
+        path="/app" 
+        element={
           <ProtectedRoute>
-            <Navigate to="/app/landing" replace />
+            <Layout />
           </ProtectedRoute>
-        } />
+        }
+      >
+        <Route index element={<Navigate to="landing" replace />} />
+        <Route path="landing" element={<LandingPage />} />
+        <Route path="overview" element={<Overview />} />
+        <Route path="locations" element={<Location />} />
+        <Route path="location/:id" element={<LocationDetail />} />
+        <Route path="generator" element={<LocationSelector />} />
         
-        {/* Main App Routes */}
-        <Route path="landing" element={
-          <ProtectedRoute>
-            <LandingPage />
-          </ProtectedRoute>
-        } />
+        {/* Use relative paths for nested routes */}
+        <Route path="dashboard/:genId" element={<GeneratorDashboard />} />
+        <Route path="dashboard" element={<GeneratorDashboard />} />
         
-        <Route path="overview" element={
-          <ProtectedRoute>
-            <Overview />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="locations" element={
-          <ProtectedRoute>
-            <Location />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="location" element={
-          <ProtectedRoute>
-            <Location />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="location/:id" element={
-          <ProtectedRoute>
-            <LocationDetail />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="generator" element={
-          <ProtectedRoute>
-            <LocationSelector />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="alarms" element={
-          <ProtectedRoute>
-            <AlarmPage />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="dashboard/:genId" element={
-          <ProtectedRoute>
-            <GeneratorDashboard />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="dashboard" element={
-          <ProtectedRoute>
-            <GeneratorDashboard />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="energytrack" element={
-          <ProtectedRoute>
-            <EnergyTrack />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="rac" element={
-          <ProtectedRoute>
-            <RoomAccessControl />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="acUnits" element={
-          <ProtectedRoute>
-            <ACUnits />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="fms" element={
-          <ProtectedRoute>
-            <FaultManagementSystem />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="upsSystem" element={
-          <ProtectedRoute>
-            <UPSSystem />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="ups/:upsId" element={
-          <ProtectedRoute>
-            <UPSDetails />
-          </ProtectedRoute>
-        } />
+        <Route path="alarms" element={<Alarms />} />
+        <Route path="energytrack" element={<EnergyTrack />} />
+        <Route path="rac" element={<RoomAccessControl />} />
+        <Route path="acUnits" element={<ACUnits />} />
+        <Route path="fms" element={<FaultManagementSystem />} />
+        <Route path="upsSystem" element={<UPSSystem />} />
+        <Route path="ups/:upsId" element={<UPSDetails />} />
         
         <Route path="userManagement" element={
-          <ProtectedRoute>
+          <RoleProtectedRoute minLevel={12}>
             <UserManagement />
-          </ProtectedRoute>
+          </RoleProtectedRoute>
         } />
         
-        <Route path="transformers" element={
-          <ProtectedRoute>
-            <TransformersPage />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="rectifier" element={
-          <ProtectedRoute>
-            <Rectifier />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="rectifier/:rectifierId" element={
-          <ProtectedRoute>
-            <RectifierDetails />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="temperature" element={
-          <ProtectedRoute>
-            <TemperatureMonitoring />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="canteens" element={
-          <ProtectedRoute>
-            <CanteensPage />
-          </ProtectedRoute>
-        } />
+        <Route path="transformers" element={<TransformersPage />} />
+        <Route path="rectifier" element={<Rectifier />} />
+        <Route path="rectifier/:rectifierId" element={<RectifierDetails />} />
+        <Route path="temperature" element={<TemperatureMonitoring />} />
+        <Route path="canteens" element={<CanteensPage />} />
       </Route>
       
-      {/* Root redirect */}
       <Route path="/" element={<Navigate to="/app/landing" replace />} />
-      
-      {/* Catch-all route */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );

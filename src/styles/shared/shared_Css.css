@@ -1,10 +1,9 @@
 /* ===== CONSOLIDATED THEME VARIABLES - DARK MODE (DEFAULT) ===== */
 :root {
-
   /* Background Image */
-  --bg-image: url('../../../assets/DarkThemeBackground.png');
+  --bg-image: url('../../assets/DarkThemeBackground.png');
 
-  /* Layout Constants */
+  /* Layout Constants (Sidebar Root) */
   --navbar-h: 64px;
   --sidebar-w: 250px;
   --sidebar-w-collapsed: 60px;
@@ -74,7 +73,7 @@
   --nav-active: #3498db;
   --logout-icon: #ff7675;
   
-  /* Sidebar */
+  /* Sidebar Variables (Dark) */
   --sidebar-bg: #000000;
   --sidebar-border: #34495e;
   --sidebar-text: #ecf0f1;
@@ -96,9 +95,9 @@
 
 /* ===== LIGHT THEME ===== */
 [data-theme="light"] {
-
   /* Background Image */
-  --bg-image: url('../../../assets/LightThemeBackground.png');
+  --bg-image: url('../../assets/LightThemeBackground.png');
+
   /* Global Colors */
   --bg-color: #ffffff;
   --text-color: #1e293b;
@@ -113,13 +112,6 @@
   --success-color: #16a34a;
   --warning-color: #ca8a04;
   --error-color: #dc2626;
-  --status-online: #10b981;
-  --status-standby: #3b82f6;
-  --status-fault: #ef4444;
-  --status-warning: #f59e0b;
-  --status-total: #6366f1;
-  --trend-up: #10b981;
-  --trend-down: #ef4444;
   
   /* Background Variants */
   --bg-primary: #f8fafc;
@@ -164,7 +156,7 @@
   --nav-active: #3498db;
   --logout-icon: #e74c3c;
   
-  /* Sidebar */
+  /* Sidebar Variables (Light) */
   --sidebar-bg: #ffffff;
   --sidebar-border: #dcdcdc;
   --sidebar-text: #1e1e1e;

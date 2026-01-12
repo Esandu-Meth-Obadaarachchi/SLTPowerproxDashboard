@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../firebase";
-import "./navbar.css";
+import "../../../../styles/Components/navbar.css";
 import logo from "../../images/logo.png"; 
 import ThemeToggleButton from "../theme/ThemeToggleButton";
 import HamburgerMenu from "./hamburger";
 import Logo from "../../../../assets/Logo.png";
 
 const Navbar = ({ alarmCount, onMenuClick, isMobile }) => {
+  console.log("🔴 NAVBAR RENDERING");
   const navigate = useNavigate();
   const location = useLocation();
   

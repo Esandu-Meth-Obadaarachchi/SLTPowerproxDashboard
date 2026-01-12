@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import './LandingPage.css';
+import '../../styles/Pages/landingPage/LandingPage.css';
 import StatCard from './../shared/components/StatCard/StatCard'; 
 
 // Import images

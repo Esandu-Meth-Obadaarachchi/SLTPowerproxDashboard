@@ -439,12 +439,7 @@
   font-weight: 500;
 }
 
-.stat-value {
-  display: block;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #ffffff;
-}
+
 
 /* Status Bar */
 .status-bar {
@@ -739,11 +734,8 @@
   min-width: 120px;
 }
 
-/* For stat values in generator cards */
-.stat-value .metric-skeleton {
-  height: 1.4rem;
-  min-width: 60px;
-}
+
+
 
 @keyframes skeleton-pulse {
   0% {

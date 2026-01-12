@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BatteryCharging, AlertTriangle, Zap, Cpu } from 'lucide-react';
-import '../../shared/CSS/shared_Css.css';
+import '../../../styles/shared/shared_Css.css';
+
 
 import RectifierOverviewTab from './rectifier_components/RectifierOverviewTab';
 import RectifierAnalyticsTab from './rectifier_components/RectifierAnalyticsTab';
 import RectifierModulesTab from './rectifier_components/RectifierModulesTab';
 import RectifierAlarmsTab from './rectifier_components/RectifierAlarmsTab';
-import StatusCard from './rectifier_components/StatusCard'; // You can reuse this
+import StatusCard from '../../shared/components/StatCard/StatCard'; // You can reuse this
 import RectifierList from './rectifier_components/RectifierList';
 import RoutineInspection from './rectifier_components/RectifierRoutineInspection';
 
-import './Rectifier.css';
+import '../../../styles/assets/rectifier/Rectifier.css';
 
 const Rectifier = () => {
   const [activeTab, setActiveTab] = useState(0);

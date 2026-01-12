@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Overview.css';
+import '../../styles/Pages/OverviewPage/Overview.css';
 import StatCard from '../shared/components/StatCard/StatCard';
 import { Bolt, MapPin, AlertCircle, Battery, Activity, Clock } from 'lucide-react';
 

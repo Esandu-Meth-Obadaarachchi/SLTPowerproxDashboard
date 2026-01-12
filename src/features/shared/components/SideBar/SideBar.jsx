@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./SideBar.css";
+import "../../../../styles/Components/SideBar.css";
 
 const Sidebar = ({
   isCollapsed,

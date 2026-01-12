@@ -23,7 +23,7 @@ import UPSInfoTab from "./tabs/UPSInfoTab";
 import AlarmsTab from "./tabs/AlarmsTab";
 import MaintenanceTab from "./tabs/MaintenanceTab";
 import StatusCard from "./upsDetailComponent/StatusCard";
-import "./UPSDetails.css";
+import "../../../../styles/assets/ups/UPSDetails.css";
 
 const UPSDetails = () => {
   const [activeTab, setActiveTab] = useState("ACINPUT");

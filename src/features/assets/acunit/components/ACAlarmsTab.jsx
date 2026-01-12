@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../shared/CSS/shared_Css.css';
+
 import { AlertTriangle, Snowflake } from 'lucide-react';
 
 const ACAlarmsTab = () => (

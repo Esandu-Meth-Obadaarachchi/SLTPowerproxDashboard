@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Snowflake, AlertTriangle, Thermometer, Zap } from 'lucide-react';
 
 // Import components
-import '../../shared/CSS/shared_Css.css';
+
 import StatusCard from './components/StatusCard';
 import ACOverviewTab from './components/ACOverviewTab';
 import ACCoolingTab from './components/ACCoolingTab';

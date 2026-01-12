@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './FaultManagement.css';
+import '../../styles/Pages/faultManagment/FaultManagement.css';
 import { faultData } from './FmsMockData';
 
 // Import icons (you can use any icon library or create SVGs)

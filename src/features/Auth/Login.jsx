@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup,OAuthProvider } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, OAuthProvider } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { app } from "./../../firebase";
-import "./Login.css";
-import logoimage from "../shared/images/logo.png"; // Adjust the path to your logo image
+import "../../styles/Pages/auth/Login.css";
+import logoimage from "../shared/images/logo.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,6 +16,56 @@ const Login = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Function to fetch user data from API
+  const getUserByUUID = async (uuid) => {
+    try {
+      const response = await fetch('https://powerprox.sltidc.lk/UserLevel.php');
+      const users = await response.json();
+      
+      // Find user with matching UUID
+      const user = users.find(user => user.UUID === uuid);
+      
+      if (user) {
+        console.log('User found:', user);
+        return user;
+      } else {
+        console.log('User not found in database');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      return null;
+    }
+  };
+
+  // Helper function to save user data after successful authentication
+  const saveUserData = async (firebaseUser, storage) => {
+    try {
+      // Fetch user data from your API using Firebase UUID
+      const apiUserData = await getUserByUUID(firebaseUser.uid);
+      
+      // Combine Firebase user data with API user data
+      const userData = {
+        uuid: firebaseUser.uid,
+        username: firebaseUser.displayName || email.split("@")[0],
+        email: firebaseUser.email,
+        role: apiUserData?.role || determineUserRole(firebaseUser.email),
+        isAuthenticated: true,
+        // Add any additional fields from your API
+        ...(apiUserData && {
+          apiData: apiUserData // Store the complete API user data
+        })
+      };
+      
+      storage.setItem("user", JSON.stringify(userData));
+      
+      return userData;
+    } catch (error) {
+      console.error('Error saving user data:', error);
+      throw error;
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -26,14 +76,9 @@ const Login = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       
-      // Save user info based on rememberMe
+      // Save user info including UUID based on rememberMe
       const storage = rememberMe ? localStorage : sessionStorage;
-      storage.setItem("user", JSON.stringify({
-        username: user.displayName || email.split("@")[0],
-        email: user.email,
-        role: determineUserRole(user.email),
-        isAuthenticated: true
-      }));
+      await saveUserData(user, storage);
       
       // Redirect to dashboard
       navigate("/overview");
@@ -68,14 +113,9 @@ const Login = () => {
       // The signed-in user info
       const user = result.user;
       
-      // Save user info based on rememberMe
+      // Save user info including UUID based on rememberMe
       const storage = rememberMe ? localStorage : sessionStorage;
-      storage.setItem("user", JSON.stringify({
-        username: user.displayName,
-        email: user.email,
-        role: determineUserRole(user.email),
-        isAuthenticated: true
-      }));
+      await saveUserData(user, storage);
       
       // Redirect to dashboard
       navigate("/overview");
@@ -102,28 +142,18 @@ const Login = () => {
       // Set custom parameters for Microsoft login
       provider.setCustomParameters({
         prompt: 'consent',
-        tenant: 'common' // Use 'common' for any Microsoft account or your tenant ID for specific organization
+        tenant: 'common'
       });
       
       // Sign in with popup
       const result = await signInWithPopup(auth, provider);
       
-      // Get OAuth access token and ID token
-      //const credential = OAuthProvider.credentialFromResult(result);
-      // const accessToken = credential.accessToken;
-      // const idToken = credential.idToken;
-      
       // Get user info
       const user = result.user;
       
-      // Save user info based on rememberMe
+      // Save user info including UUID based on rememberMe
       const storage = rememberMe ? localStorage : sessionStorage;
-      storage.setItem("user", JSON.stringify({
-        username: user.displayName,
-        email: user.email,
-        role: determineUserRole(user.email),
-        isAuthenticated: true
-      }));
+      await saveUserData(user, storage);
       
       // Store the "remember me" preference
       localStorage.setItem("rememberMe", rememberMe.toString());
@@ -230,6 +260,17 @@ const Login = () => {
             </div>
           </div>
           
+          <div className="form-group">
+            <label className="remember-me">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              Remember me
+            </label>
+          </div>
+          
           <div className="social-login">
             <button 
               type="button" 
@@ -243,16 +284,16 @@ const Login = () => {
               Login with Google
             </button>
             
-            
+            <button 
+              type="button"
+              onClick={handleMicrosoftLogin} 
+              className="social-button microsoft"
+              disabled={isLoading}
+            >
+              <img src="microsoft-icon.png" alt="" className="social-icon" />
+              Login with Microsoft
+            </button>
           </div>
-          <button 
-            onClick={handleMicrosoftLogin} 
-            className="social-button microsoft"
-            disabled={isLoading}
-          >
-            <img src="microsoft-icon.png" alt="" className="social-icon" />
-            Login with Microsoft
-          </button>
           
           <button 
             type="submit" 

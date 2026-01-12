@@ -9,7 +9,7 @@ import {
   Maximize2,
   FileText,
 } from "lucide-react";
-import "./LocationDetail.css";
+import "../../styles/Pages/locationDetail/LocationDetail.css";
 
 // Import tab components
 import LiveDataTab from "./components/LiveDataTab";

@@ -525,12 +525,6 @@ tbody tr td:nth-child(5):contains("Denied") {
 
 
 
-.stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent-color);
-  margin-bottom: 0.5rem;
-}
 
 .stat-label {
   font-size: 0.85rem;

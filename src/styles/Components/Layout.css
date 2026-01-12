@@ -27,11 +27,11 @@
 }
 
 .main-content {
-  margin-left: 250px; /* Default sidebar width */
+  
   transition: margin-left 0.3s ease;
 
-  padding-top: 5%;
-  background-image: url('../../../../assets/DarkThemeBackground.png');
+  padding-top: 10px;
+  background-image: url('../../assets/DarkThemeBackground.png');
   background-size:cover;
   background-position: center ;
   background-repeat: no-repeat;
@@ -261,9 +261,7 @@
 
 /* Tablet (768px to 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
-  .main-content {
-    margin-left: 200px; /* Slightly smaller sidebar for tablets */
-  }
+  
   
   .main-content.sidebar-collapsed {
     margin-left: 50px;

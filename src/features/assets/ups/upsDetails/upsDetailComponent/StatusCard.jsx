@@ -1,5 +1,6 @@
 import React from "react";
-import "./StatusCard.css";
+import "../../../../../styles/Components/StatCard.css"
+
 
 const StatusCard = ({
   icon: Icon,

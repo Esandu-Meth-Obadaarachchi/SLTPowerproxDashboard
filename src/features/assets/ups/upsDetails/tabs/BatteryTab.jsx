@@ -11,7 +11,7 @@ import {
   Heart,
   Hash,
 } from "lucide-react";
-import "../UPSDetails.css";
+import "../../../../../styles/assets/ups/UPSDetails.css";
 
 const BatteryTab = ({ upsData }) => {
   // Generate realistic Battery data based on UPS status

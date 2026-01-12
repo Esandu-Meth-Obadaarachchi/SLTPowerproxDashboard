@@ -1,8 +1,8 @@
 import React from "react";
-import StatusCard from "../rectifierDetailComponent/StatusCard";
+import StatusCard from "../../../../shared/components/StatCard/StatCard.jsx";
 import PhaseChart from "../rectifierDetailComponent/PhaseChart";
 import { Battery, Zap } from "lucide-react";
-import "../RectifierDetails.css";
+import "../../../../../styles/assets/rectifier/RectifierDetails.css";
 
 const DCOutputTab = () => {
   // DC Voltage raw data

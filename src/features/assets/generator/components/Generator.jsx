@@ -394,7 +394,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Home, AlertTriangle, Zap, Activity, Settings, Power, Fuel, Battery, Thermometer } from 'lucide-react';
-import '../../../shared/CSS/shared_Css.css';
+
 import './GeneratorDashboard.css';
 
 import image from "../../../../assets/generator.png";
