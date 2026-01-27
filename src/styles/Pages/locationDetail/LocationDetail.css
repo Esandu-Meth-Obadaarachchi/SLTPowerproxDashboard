@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-
+  overflow-x: hidden;
   color: #e0e0e0;
   overflow: hidden;
 }
@@ -44,51 +44,46 @@
 /* Row 2: Modern Tabs Navigation */
 .tabs-container {
   display: flex;
-  gap: 2.5rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0;
+  align-items: center;
 }
 
 .tab-button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  background: transparent;
-  border: none;
-  padding: 0.75rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 0.3px;
-}
-
-.tab-button::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #00f7ff, #0077ff);
-  transform: scaleX(0);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tab-button:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .tab-button.active {
   color: #ffffff;
   font-weight: 600;
-}
-
-.tab-button.active::after {
-  transform: scaleX(1);
+  background: linear-gradient(135deg, rgba(0, 119, 255, 0.3) 0%, rgba(0, 247, 255, 0.2) 100%);
+  border-color: rgba(0, 247, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
 }
 
 .tab-button-icon {
@@ -103,7 +98,7 @@
 }
 
 .tab-button:hover .tab-button-icon {
-  transform: translateY(-2px);
+  transform: scale(1.1);
 }
 
 /* Row 3: Controls Container */
@@ -306,6 +301,64 @@
   font-size: 1rem;
   color: white;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Floor Selector Dropdown */
+.floor-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.floor-selector-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+ .floor-selector {
+  /* Keep your existing styles */
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  
+  /* Icon Setup - Locked Position */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.5rem;
+
+  /* FIX: Specify exactly what to animate. Do NOT use 'all' or 'background' */
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.floor-selector:hover {
+  /* FIX: Only change the background-color, not the full background shorthand */
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.floor-selector:active {
+  transform: translateY(0);
+}
+
+.floor-selector option {
+  background: #1a1a2e;
+  color: white;
+  padding: 0.5rem;
 }
 
 /* Enhanced Generators Grid */
@@ -809,14 +862,14 @@
   }
 
   .tabs-container {
-    gap: 1.5rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
   }
 
   .tab-button {
-    font-size: 0.9rem;
-    white-space: nowrap;
+    width: 100%;
+    justify-content: center;
   }
 
   .left-controls,

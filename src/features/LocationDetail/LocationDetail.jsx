@@ -32,6 +32,7 @@ const LocationDetail = () => {
   // State Management
   const [activeTab, setActiveTab] = useState("LiveData");
   const [timeframeFilter, setTimeframeFilter] = useState("Live"); // Default to Live
+  const [selectedFloor, setSelectedFloor] = useState("3rd Floor"); // Floor selection state
   const [currentDate, setCurrentDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -202,6 +203,13 @@ const LocationDetail = () => {
     };
   }, [id, timeframeFilter, activeTab]);
 
+  // Floor Change Detection - Prepares for backend integration
+  useEffect(() => {
+    console.log(`Switching data context to ${selectedFloor}`);
+    // TODO: In the future, this will trigger an API call to fetch floor-specific data
+    // Example: DataService.fetchFloorData(id, selectedFloor)
+  }, [selectedFloor]);
+
   // Event Handlers
   const toggleExpand = (section) =>
     setExpandedSection(expandedSection === section ? null : section);
@@ -317,6 +325,8 @@ const LocationDetail = () => {
             error={error}
             timeframeFilter={timeframeFilter}
             loading={isLoading}
+            selectedFloor={selectedFloor}
+            setSelectedFloor={setSelectedFloor}
           />
         )}
         {activeTab === "Tariff&Emissions" && (

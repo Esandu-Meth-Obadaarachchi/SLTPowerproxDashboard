@@ -129,32 +129,8 @@
 }
 
 /* Tabs */
-.tabs-container {
-  background: var(--card-background);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  width: 100%;
-}
 
-.tabs-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, 
-    transparent 0%, 
-    rgba(0, 247, 255, 0.05) 25%, 
-    transparent 50%,
-    rgba(0, 119, 255, 0.05) 75%,
-    transparent 100%);
-  opacity: 0.3;
-  z-index: 0;
-}
+
 
 .tabs-header {
   display: flex;

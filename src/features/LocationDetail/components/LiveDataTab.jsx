@@ -1,6 +1,31 @@
 import React from 'react';
 import { Activity, Zap } from 'lucide-react';
 
+// Available floors for the dropdown (easily configurable)
+const AVAILABLE_FLOORS = ["1st Floor", "2nd Floor", "3rd Floor", "4th Floor", "5th Floor"];
+
+// Mock function to modify metrics based on floor
+const getFloorModifiedMetrics = (baseMetrics, selectedFloor) => {
+  if (!baseMetrics) return baseMetrics;
+  
+  // Extract floor number from string (e.g., "3rd Floor" -> 3)
+  const floorNumber = parseInt(selectedFloor.match(/\d+/)[0]);
+  
+  // Apply a multiplier based on floor (higher floors have slightly different loads)
+  const floorMultiplier = 1 + (floorNumber - 3) * 0.1; // 3rd floor is baseline
+  
+  const parseValue = (str) => {
+    const num = parseFloat(str);
+    return isNaN(num) ? 0 : num;
+  };
+  
+  return {
+    itLoad: `${(parseValue(baseMetrics.itLoad) * floorMultiplier).toFixed(2)} KW`,
+    acLoad: `${(parseValue(baseMetrics.acLoad) * floorMultiplier).toFixed(2)} KW`,
+    totalLoad: `${(parseValue(baseMetrics.totalLoad) * floorMultiplier).toFixed(2)} KW`
+  };
+};
+
 // MetricValue Helper Component
 const MetricValue = ({ value, loading }) => {
   if (loading) {
@@ -13,7 +38,9 @@ const LiveDataTab = ({
   locationData, 
   generatorStatusColors, 
   error, 
-  loading = false
+  loading = false,
+  selectedFloor = "3rd Floor",
+  setSelectedFloor
 }) => {
   // Guard clause: Show loading state if data is not yet available
   if (!locationData) {
@@ -29,11 +56,15 @@ const LiveDataTab = ({
 
   // Ensure all required nested properties exist with safe defaults
   const generators = locationData.generators || [];
-  const metrics = locationData.metrics || {
+  const baseMetrics = locationData.metrics || {
     itLoad: '0.00 KW',
     acLoad: '0.00 KW',
     totalLoad: '0.00 KW'
   };
+  
+  // Apply floor-based modifications to metrics
+  const metrics = getFloorModifiedMetrics(baseMetrics, selectedFloor);
+  
   const locationName = locationData.name || 'Unknown Location';
 
   return (
@@ -43,10 +74,22 @@ const LiveDataTab = ({
         <div className="section-header">
           <div className="section-title-wrapper">
             <Zap className="section-icon" size={28} />
-            <h2 className="section-title-main">Generator Status Monitor</h2>
+            <h2 className="section-title-main">Floor Overview</h2>
           </div>
-          <div className="facility-badge">
-            {locationName}
+          {/* Floor Selector Dropdown with Label */}
+          <div className="floor-selector-wrapper">
+            <span className="floor-selector-label">Floor:</span>
+            <select 
+              className="floor-selector"
+              value={selectedFloor}
+              onChange={(e) => setSelectedFloor(e.target.value)}
+            >
+              {AVAILABLE_FLOORS.map((floor) => (
+                <option key={floor} value={floor}>
+                  {floor}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         {/* Facility Metrics Overview */}
