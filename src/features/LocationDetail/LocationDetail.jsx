@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // 1. Added useNavigate
 import {
   Activity,
   CloudLightning,
@@ -8,6 +8,7 @@ import {
   Calendar,
   Maximize2,
   FileText,
+  ArrowLeft, // 2. Added ArrowLeft icon
 } from "lucide-react";
 import "../../styles/Pages/locationDetail/LocationDetail.css";
 
@@ -28,6 +29,7 @@ import FullScreenModal from "./components/FullScreenModal";
 
 const LocationDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // 3. Initialize navigation
 
   // State Management
   const [activeTab, setActiveTab] = useState("LiveData");
@@ -160,9 +162,9 @@ const LocationDetail = () => {
               pue: "0.00",
               carbonEmission: "0.00 MT/Year",
               electricalCost: "0.00 LKR/Year",
-              itLoad: "0.00 KW",
-              acLoad: "0.00 KW",
-              totalLoad: "0.00 KW",
+              itLoad: "0.00 kW",
+              acLoad: "0.00 kW",
+              totalLoad: "0.00 kW",
             },
             charts: {
               pue: [],
@@ -248,6 +250,28 @@ const LocationDetail = () => {
   return (
     <div className="location-detail-container">
       <div className="location-detail-header">
+        
+        {/* Row 0: Back Button */}
+        <div style={{ display: 'flex', marginBottom: '10px' }}>
+          <button 
+            onClick={() => navigate(-1)}
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px', 
+              background: 'none', 
+              border: 'none', 
+              color: 'var(--text-secondary, #666)', 
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '500'
+            }}
+          >
+            <ArrowLeft size={20} />
+            Back to Dashboard
+          </button>
+        </div>
+
         {/* Row 1: Title */}
         <h1 className="overview-title">
           <div className="overview-title-icon">

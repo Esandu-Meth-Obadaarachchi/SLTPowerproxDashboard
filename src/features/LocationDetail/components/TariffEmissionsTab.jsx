@@ -91,25 +91,6 @@ const TariffEmissionsTab = ({
         </ChartCard>
 
         <ChartCard
-          title="Electricity Tariff"
-          icon={CloudLightning}
-          onExport={handleExportTariff}
-          onFullscreen={() => setFullscreenChart({
-            type: 'bar', 
-            data: locationData.charts.electricityTariff || locationData.charts.tariff, 
-            color: '#ff6b6b',
-            yAxisLabel: 'LKR'
-          })}
-        >
-          <BarChart 
-            data={locationData.charts.electricityTariff || locationData.charts.tariff} 
-            color="#ff6b6b" 
-            yAxisLabel="LKR" 
-            loading={loading}
-          />
-        </ChartCard>
-
-        <ChartCard
           title="Energy Consumption"
           icon={TrendingUp}
           onExport={handleExportEnergyConsumption}

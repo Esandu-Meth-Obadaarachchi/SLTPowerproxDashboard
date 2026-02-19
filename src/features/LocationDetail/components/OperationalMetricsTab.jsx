@@ -54,7 +54,7 @@ const OperationalMetricsTab = ({
             <BarChart 
               data={locationData.charts.totalLoad} 
               color="#8AE98A" 
-              yAxisLabel="KW" 
+              yAxisLabel="kW" 
               loading={loading}
             />
           </div>

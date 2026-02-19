@@ -31,7 +31,7 @@ const PieChart = ({ data, loading = false }) => {
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value) => [`${value} KW`, 'Value']}
+            formatter={(value) => [`${value} ksW`, 'Value']}
           />
           <Legend />
         </RechartsPC>

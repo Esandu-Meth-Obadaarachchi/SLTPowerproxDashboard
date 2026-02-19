@@ -113,7 +113,7 @@ const CanteensPage = () => {
     
     // ===== ENERGY PARAMETERS =====
     { key: "total_net_kwh", altKey: "Total_KWh", color: "#cddc39", unit: "kWh", label: "Total Energy" },
-    { key: "total_net_kvah", altKey: "Total_Kvarh", color: "#e91e63", unit: "kvarh", label: "Total Reactive Energy" },
+    { key: "total_net_kvah", altKey: "Total_kVARh", color: "#e91e63", unit: "kVARh", label: "Total Reactive Energy" },
     
     // ===== PHASE-WISE POWER (V1 ONLY) =====
     { key: "kw1", altKey: null, color: "#ff6f00", unit: "kW", label: "Phase 1 Active Power" },
@@ -278,7 +278,7 @@ const CanteensPage = () => {
           <Activity size={24} className="text-yellow-400" />
           <div>
             <h4>Reactive Energy</h4>
-            <p>{(totals.totalReactiveEnergy || 0).toLocaleString()} kvarh</p>
+            <p>{(totals.totalReactiveEnergy || 0).toLocaleString()} kVARh</p>
           </div>
         </div>
         <div className="overview-card">

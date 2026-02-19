@@ -1,7 +1,16 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* =============================================
+   CONTAINER
+   ============================================= */
 .energy-dashboard-container {
   padding: 1.5rem;
   color: var(--dashboard-text);
-  
   min-height: 100vh;
   overflow-y: auto;
   width: 100%;
@@ -14,12 +23,14 @@
   margin-bottom: 1.5rem;
 }
 
+/* =============================================
+   SUMMARY / STICKY HEADER
+   ============================================= */
 .energy-dashboard-summary {
   margin-bottom: 2rem;
   position: sticky;
   top: 0;
   z-index: 10;
- 
   padding-bottom: 1rem;
 }
 
@@ -37,9 +48,6 @@
   flex: 1;
 }
 
-
-
-
 .energy-generator-status {
   background: var(--all-cardbg);
   border-radius: 12px;
@@ -48,7 +56,6 @@
   border: 1px solid var(--dashboard-border);
   min-width: 300px;
   color: var(--dashboard-text);
-
 }
 
 .energy-generator-status h2 {
@@ -73,39 +80,16 @@
   text-align: center;
 }
 
-.energy-status-label {
-  font-size: 0.75rem;
-  margin-bottom: 0.25rem;
-}
+.energy-status-label  { font-size: 0.75rem; margin-bottom: 0.25rem; }
+.energy-status-value  { font-size: 1.25rem; font-weight: 600; }
 
-.energy-status-value {
-  font-size: 1.25rem;
-  font-weight: 600;
-}
+.energy-status-item.online  { background-color: var(--status-online); }
+.energy-status-item.standby { background-color: var(--status-standby); }
+.energy-status-item.fault   { background-color: var(--status-fault); }
+.energy-status-item.warning { background-color: var(--status-warning); }
+.energy-status-item.total   { background-color: var(--status-total); }
 
-.energy-status-item.online {
-  background-color: var(--status-online);
-}
-
-.energy-status-item.standby {
-  background-color: var(--status-standby);
-}
-
-.energy-status-item.fault {
-  background-color: var(--status-fault);
-}
-
-.energy-status-item.warning {
-  background-color: var(--status-warning);
-}
-
-.energy-status-item.total {
-  background-color: var(--status-total);
-}
-
-.energy-dashboard-metrics {
-  margin-bottom: 2rem;
-}
+.energy-dashboard-metrics { margin-bottom: 2rem; }
 
 .energy-metric-cards {
   display: flex;
@@ -113,107 +97,214 @@
   flex-wrap: wrap;
 }
 
+/* =============================================
+   GRID — fixed 3-column layout
+   Each cell is a stable "slot". Cards inside
+   are absolutely positioned so they can expand
+   freely without disturbing sibling slots.
+   ============================================= */
 .energy-locations-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  /* Rows are fixed height — the slot never grows */
+  grid-auto-rows: 80px;
 }
 
+/* =============================================
+   SLOT — the stable, never-resizing grid cell
+   ============================================= */
+.energy-card-slot {
+  position: relative;   /* Card is absolute inside this */
+  height: 80px;         /* Matches grid-auto-rows */
+  z-index: 1;
+}
+
+/* Hovered slot rises above everything */
+.energy-card-slot:hover {
+  z-index: 1000;
+}
+
+/* =============================================
+   CARD — absolutely fills its slot by default,
+   then expands on hover
+   ============================================= */
 .energy-location-card {
-  background: #070a194d;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Height grows to wrap content when expanded */
+  width: 100%;
 
+  background: #0d1228cc;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   border: 1px solid var(--dashboard-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+
+  /* Smooth expansion in both axes */
+  transition:
+    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
 }
 
+/* On hover: widen to 150% of the slot and reveal details */
+.energy-location-card:hover {
+  width: 150%;             /* Expands right into neighbouring column space */
+  border-color: var(--status-online);
+  background: #0d1228f5;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* =============================================
+   HEADER — always visible, compact
+   ============================================= */
 .energy-location-header {
-  padding: 1rem;
+  padding: 0 1rem;
+  height: 78px;            /* Exactly fills the slot */
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--dashboard-border);
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.energy-location-card:hover .energy-location-header {
+  border-bottom-color: var(--dashboard-border);
+}
+
+.energy-location-title {
+  flex: 1;
+  min-width: 0;
 }
 
 .energy-location-title h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--dashboard-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .energy-location-title p {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--dashboard-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .energy-location-stats {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  flex-shrink: 0;
 }
 
 .energy-consumption {
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dashboard-text);
 }
 
 .energy-efficiency {
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   color: var(--status-online);
 }
 
+.energy-location-alerts { flex-shrink: 0; }
+
 .energy-location-alerts .energy-alert-count {
-  padding: 0.25rem 0.5rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-/* Updated alert styling with conditional colors */
-.energy-location-alerts .energy-alert-count.has-alerts {
+.energy-alert-count.has-alerts {
   background-color: var(--status-fault);
   color: white;
 }
 
-.energy-location-alerts .energy-alert-count.no-alerts {
+.energy-alert-count.no-alerts {
   background-color: #0077ff;
   color: white;
 }
 
+/* =============================================
+   DETAILS — hidden by default, revealed on hover.
+   Uses max-height for smooth vertical expansion.
+   ============================================= */
 .energy-location-details {
-  padding: 1rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  transition:
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease,
+    padding 0.3s ease;
 }
 
+.energy-location-card:hover .energy-location-details {
+  max-height: 500px;
+  opacity: 1;
+  padding: 0.85rem 1rem 1rem;
+}
+
+/* =============================================
+   DETAILS CONTENT
+   ============================================= */
 .energy-room-count {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.6rem;
   color: var(--dashboard-muted);
+}
+
+.energy-areas-section {
+  display: flex;
+  flex-direction: column;
 }
 
 .energy-areas-section h4 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.8rem;
   color: var(--dashboard-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .energy-areas-list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .energy-area-item {
   display: grid;
   grid-template-columns: 1fr auto auto auto;
   align-items: center;
-  padding: 0.5rem;
-  background-color: var(--dashboard-border);
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid var(--dashboard-border);
   border-radius: 6px;
 }
 
@@ -221,34 +312,28 @@
 .energy-area-consumption,
 .energy-total-label,
 .energy-total-value {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--dashboard-text);
 }
 
 .energy-area-efficiency,
 .energy-total-efficiency {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--status-online);
   text-align: right;
-  padding-right: 0.5rem;
 }
 
 .energy-trend-indicator {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
 }
 
-.energy-trend-indicator.up {
-  color: var(--trend-up);
-}
-
-.energy-trend-indicator.down {
-  color: var(--trend-down);
-}
+.energy-trend-indicator.up   { color: var(--trend-up); }
+.energy-trend-indicator.down { color: var(--trend-down); }
 
 .energy-location-totals {
-  margin-top: 1rem;
-  padding-top: 1rem;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
   border-top: 1px solid var(--dashboard-border);
 }
 
@@ -256,63 +341,66 @@
   display: grid;
   grid-template-columns: 1fr auto auto auto;
   align-items: center;
-  padding: 0.5rem;
-  background-color: var(--dashboard-border);
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background-color: rgba(255,255,255,0.07);
+  border: 1px solid var(--dashboard-border);
   border-radius: 6px;
 }
 
-/* Responsive styles (same as before) */
+/* =============================================
+   RESPONSIVE
+   ============================================= */
 @media (max-width: 1280px) {
-  .energy-stats-container {
-    flex-direction: column;
-  }
-
-  .energy-summary-stats {
-    justify-content: flex-start;
-  }
-
-  .energy-generator-status {
-    min-width: 0;
-  }
+  .energy-stats-container { flex-direction: column; }
+  .energy-summary-stats   { justify-content: flex-start; }
+  .energy-generator-status { min-width: 0; }
 
   .energy-locations-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* On narrower screens expand rightward less aggressively */
+  .energy-location-card:hover {
+    width: 160%;
   }
 }
 
 @media (max-width: 768px) {
-  .energy-summary-stats {
-    justify-content: center;
-  }
-
-  .energy-status-indicators {
-    justify-content: center;
-  }
-
-  .energy-metric-cards {
-    justify-content: center;
-  }
-
-  .energy-location-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .energy-location-stats {
-    width: 100%;
-    justify-content: space-between;
-  }
+  .energy-summary-stats     { justify-content: center; }
+  .energy-status-indicators { justify-content: center; }
+  .energy-metric-cards      { justify-content: center; }
 
   .energy-locations-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 90px;
+  }
+
+  .energy-card-slot { height: 90px; }
+
+  .energy-location-header { height: 88px; }
+
+  /* On mobile just expand downward, not sideways */
+  .energy-location-card:hover {
+    width: 100%;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 540px) {
+  .energy-locations-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 80px;
+  }
+
+  .energy-card-slot         { height: 80px; }
+  .energy-location-header   { height: 78px; }
+
+  .energy-location-card:hover { width: 100%; }
+
   .energy-area-item,
   .energy-total-row {
     grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .energy-area-efficiency,
@@ -327,11 +415,4 @@
     grid-column: 1;
     text-align: left;
   }
-}
-
-body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
 }

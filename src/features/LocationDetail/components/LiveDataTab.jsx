@@ -20,9 +20,9 @@ const getFloorModifiedMetrics = (baseMetrics, selectedFloor) => {
   };
   
   return {
-    itLoad: `${(parseValue(baseMetrics.itLoad) * floorMultiplier).toFixed(2)} KW`,
-    acLoad: `${(parseValue(baseMetrics.acLoad) * floorMultiplier).toFixed(2)} KW`,
-    totalLoad: `${(parseValue(baseMetrics.totalLoad) * floorMultiplier).toFixed(2)} KW`
+    itLoad: `${(parseValue(baseMetrics.itLoad) * floorMultiplier).toFixed(2)} kW`,
+    acLoad: `${(parseValue(baseMetrics.acLoad) * floorMultiplier).toFixed(2)} kW`,
+    totalLoad: `${(parseValue(baseMetrics.totalLoad) * floorMultiplier).toFixed(2)} kW`
   };
 };
 
@@ -57,9 +57,9 @@ const LiveDataTab = ({
   // Ensure all required nested properties exist with safe defaults
   const generators = locationData.generators || [];
   const baseMetrics = locationData.metrics || {
-    itLoad: '0.00 KW',
-    acLoad: '0.00 KW',
-    totalLoad: '0.00 KW'
+    itLoad: '0.00 kW',
+    acLoad: '0.00 kW',
+    totalLoad: '0.00 kW'
   };
   
   // Apply floor-based modifications to metrics
