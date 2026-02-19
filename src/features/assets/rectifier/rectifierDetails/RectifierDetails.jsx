@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import rectifiers from "../rectifier_components/rectifiersdetailsdoc.js";
-import "./RectifierDetails.css"; // Dark glassy style
+import "../../../../styles/assets/rectifier/RectifierDetails.css";
 import ACInputTab from "./tabs/ACInputTab";
 import DCOutputTab from "./tabs/DCOutputTab";
 import BatteryTab from "./tabs/BatteryTab";
 import BarkersTab from "./tabs/BarkersTab";
-import StatusCard from "./rectifierDetailComponent/StatusCard";
+import StatusCard from "../../../shared/components/StatCard/StatCard.jsx";
 import MetricCard from "./rectifierDetailComponent/MetricCard";
 
 import {

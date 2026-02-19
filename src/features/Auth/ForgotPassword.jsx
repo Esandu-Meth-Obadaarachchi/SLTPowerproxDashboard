@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../firebase";
-import "./Login.css";
+import "../../styles/Pages/auth/Login.css";
 import logoimage from "../shared/images/logo.png"; // Adjust the path as necessary
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

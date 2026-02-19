@@ -1,18 +1,4 @@
-/* ACUnits.css - Enhanced with LandingPage design patterns */
 
-/* CSS Variables */
-/* :root {
-  --card-background: #1a2235;
-  --text-color: #ffffff;
-  --text-secondary: #94a3b8;
-  --primary-color: #0077ff;
-  --accent-color: #00f7ff;
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --error-color: #ef4444;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --hover-color: rgba(255, 255, 255, 0.05);
-} */
 
 /* Main Page Container */
 .ac-units-page {
@@ -173,38 +159,8 @@
   z-index: 2;
 }
 
-.tabs-container {
-  background: var(--all-cardbg);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  width: 100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 
-}
 
-/* Subtle glow effect for tabs container */
-.tabs-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    transparent 0%, 
-    rgba(0, 247, 255, 0.05) 25%, 
-    transparent 50%,
-    rgba(0, 119, 255, 0.05) 75%,
-    transparent 100%);
-  opacity: 0.3;
-  z-index: 0;
-}
 
 /* Tabs Header */
 .tabs-header {
@@ -649,10 +605,7 @@
   .status-card-value {
     font-size: 1.5rem;
   }
-  
-  .tabs-container {
-    padding: 1rem;
-  }
+
   
   .tabs-header {
     gap: 0;
@@ -703,9 +656,7 @@
     font-size: 0.85rem;
   }
   
-  .tabs-container {
-    padding: 0.75rem;
-  }
+
   
   .chart-section {
     padding: 0.75rem;

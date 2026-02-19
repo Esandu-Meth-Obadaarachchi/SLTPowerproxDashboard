@@ -1,5 +1,5 @@
 import React from "react";
-import StatusCard from "../rectifierDetailComponent/StatusCard";
+import StatusCard from "../../../../shared/components/StatCard/StatCard";
 import {
   Zap,
   Power,
@@ -11,7 +11,7 @@ import {
   Settings,
   Gauge,
 } from "lucide-react";
-import "../RectifierDetails.css";
+import "../../../../../styles/assets/rectifier/RectifierDetails.css";
 
 const BarkersTab = () => {
   // Sample breaker data - in real app, this would come from API

@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile, OAuthProvider  } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { app } from "./../../firebase";
-import "./Login.css";
+import "../../styles/Pages/auth/Login.css";
 import logoimage from "../shared/images/logo.png"; // Adjust the path as necessary
 const Signup = () => {
   const navigate = useNavigate();

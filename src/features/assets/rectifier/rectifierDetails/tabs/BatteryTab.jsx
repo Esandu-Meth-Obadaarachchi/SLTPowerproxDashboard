@@ -1,5 +1,5 @@
 import React from "react";
-import StatusCard from "../rectifierDetailComponent/StatusCard";
+import StatusCard from "../../../../shared/components/StatCard/StatCard";
 import PhaseChart from "../rectifierDetailComponent/PhaseChart";
 import {
   Battery,
@@ -11,7 +11,7 @@ import {
   Settings,
   Wrench,
 } from "lucide-react";
-import "../RectifierDetails.css";
+import "../../../../../styles/assets/rectifier/RectifierDetails.css";
 
 const BatteryTab = () => {
   // Battery System data

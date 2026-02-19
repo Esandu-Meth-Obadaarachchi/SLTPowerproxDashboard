@@ -1,0 +1,219 @@
+/* ========= Variables ========= */
+#root, .app, .app-shell, .page-wrapper {
+  transform: none !important;
+  filter: none !important;
+  perspective: none !important;
+  backdrop-filter: none !important;
+}
+
+
+
+/* ========= Core sidebar ========= */
+
+.sidebar {
+  position: fixed !important;
+  top: var(--navbar-h);
+  left: 0;
+  height: calc(100vh - var(--navbar-h));
+  width: var(--sidebar-w);
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  z-index: 900;
+  
+  /* CRITICAL: No transform on desktop */
+  transform: none !important;
+  will-change: auto !important;
+  
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.25s ease;
+}
+
+/* Desktop and tablet: sidebar is always visible */
+@media (min-width: 769px) {
+  .sidebar {
+    transform: none !important;
+  }
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-w-collapsed);
+}
+
+/* content structure */
+.sidebar-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* header */
+.sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--sidebar-border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 60px;
+  color: var(--sidebar-text);
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: var(--sidebar-text);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-toggle:hover {
+  background-color: var(--sidebar-hover-bg);
+  color: var(--sidebar-hover-text);
+}
+
+.sidebar-toggle svg { width: 20px; height: 20px; }
+
+.sidebar-title {
+  color: var(--sidebar-text);
+  font-weight: 600;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+/* nav */
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0;
+  overflow-y: auto;    /* inner scroll area */
+}
+
+.nav-list { list-style: none; padding: 0; margin: 0; }
+.nav-list li { margin-bottom: 0.25rem; }
+
+.nav-button {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--sidebar-text);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: left;
+  font-size: 0.95rem;
+  position: relative;
+}
+
+.nav-button:hover {
+  background-color: var(--sidebar-hover-bg);
+  color: var(--sidebar-hover-text);
+}
+
+.nav-button.active {
+  background-color: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text);
+  font-weight: 500;
+}
+
+.nav-button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0; bottom: 0;
+  width: 4px;
+  background-color: var(--sidebar-active-border);
+}
+
+.nav-icon {
+  min-width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon svg { width: 20px; height: 20px; color: var(--sidebar-icon); }
+
+.nav-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: inherit; }
+
+/* footer */
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--sidebar-border);
+  margin-top: auto;
+}
+
+.sidebar-info { text-align: center; }
+.app-version { color: var(--sidebar-version-text); font-size: 0.8rem; margin: 0; }
+
+/* ========= Page layout spacing (so content doesn't hide behind the fixed sidebar) ========= */
+/* If your main area has this class, it will auto-adjust */
+.main-content {
+  margin-left: var(--sidebar-w);
+  transition: margin-left 0.25s ease;
+}
+
+/* If sidebar and main-content are siblings, this keeps spacing in sync when collapsed */
+.sidebar.collapsed ~ .main-content {
+  margin-left: var(--sidebar-w-collapsed);
+}
+
+/* ========= Mobile behavior ========= */
+@media (max-width: 768px) {
+  .sidebar {
+    /* Hide by default on mobile, slide in when open */
+    width: var(--sidebar-w);
+    transform: translateX(-100%) !important;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    z-index: 950;
+  }
+  
+  .sidebar.mobile-sidebar {
+    /* Ensure mobile-specific behavior */
+    position: fixed;
+    top: var(--navbar-h);
+    left: 0;
+    height: calc(100vh - var(--navbar-h));
+    width: var(--sidebar-w);
+  }
+  
+  .sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+  
+  .sidebar.collapsed {
+    width: var(--sidebar-w); /* Full width when open on mobile */
+  }
+  
+  .main-content {
+    margin-left: 0 !important; /* Content spans full width on mobile */
+  }
+  
+  .main-content.authenticated {
+    margin-left: 0 !important;
+  }
+}
+
+/* ========= Large screens (optional tweaks) ========= */
+@media (min-width: 1200px) {
+  .sidebar { width: 280px; }
+  .sidebar.collapsed { width: 70px; }
+  .main-content { margin-left: 280px; }
+  .sidebar.collapsed ~ .main-content { margin-left: 70px; }
+}
+
+/* ========= Accessibility & polish ========= */
+.sidebar-nav::-webkit-scrollbar { width: 4px; }
+.sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+.sidebar-nav::-webkit-scrollbar-thumb { background: var(--sidebar-border); border-radius: 2px; }
+.sidebar-nav::-webkit-scrollbar-thumb:hover { background: #4a5f7a; }
+
+.sidebar-item:focus { outline: 2px solid var(--sidebar-active-border); outline-offset: 2px; }

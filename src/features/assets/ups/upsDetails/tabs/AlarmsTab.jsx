@@ -14,7 +14,7 @@ import {
   Clock,
   AlertCircle,
 } from "lucide-react";
-import "../UPSDetails.css";
+import "../../../../../styles/assets/ups/UPSDetails.css";
 
 const AlarmsTab = ({ upsData }) => {
   // Generate alarm data based on UPS status

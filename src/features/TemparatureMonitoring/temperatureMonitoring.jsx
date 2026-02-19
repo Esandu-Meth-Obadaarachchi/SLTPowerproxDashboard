@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Thermometer, Droplets, Activity, Clock, MapPin, ArrowLeft } from 'lucide-react';
-import '../TemparatureMonitoring/temperatureMonitoring.css';
+import '../../styles/Pages/temperatureMonitoring/temperatureMonitoring.css';
 
 const TemperatureMonitoring = () => {
     const [filterStatus, setFilterStatus] = useState('all');

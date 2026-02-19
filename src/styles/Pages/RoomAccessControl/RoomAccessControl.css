@@ -1,0 +1,535 @@
+/* Room Access Control CSS - Modern Consistent Style */
+
+
+
+.room-access-container {
+  padding: 2rem;
+  color: var(--dashboard-text);
+  min-height: 100vh;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--dashboard-text);
+  letter-spacing: 0.5px;
+  padding-bottom: 20px;
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  color: var(--dashboard-muted);
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+/* Room Grid */
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Room Card */
+.room-card {
+  background: var(--all-cardbg);
+  border-radius: 12px;
+  border: 1px solid var(--dashboard-border);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.room-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.room-card > div {
+  padding: 1.5rem;
+}
+
+/* Room Title */
+.room-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--dashboard-text);
+  letter-spacing: 0.3px;
+}
+
+/* Room Status */
+.room-status {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--dashboard-muted);
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.status-badge.occupied {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: var(--status-online);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-badge.vacant {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--status-fault);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Room Subtitle */
+.room-subtitle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--dashboard-muted);
+}
+
+/* Room List */
+.room-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1rem 0;
+  color: var(--dashboard-text);
+}
+
+.room-list li {
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--dashboard-text);
+}
+
+.room-list li:before {
+  content: "•";
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+}
+
+/* Last Access & Location */
+.last-access,
+.room-location {
+  font-size: 0.8rem;
+  color: var(--dashboard-muted);
+  margin-top: 0.5rem;
+}
+
+.room-location {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+/* Access History Section */
+.access-history {
+  background: var(--all-cardbg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--dashboard-border);
+  margin-top: 2rem;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--accent-color);
+  letter-spacing: 0.3px;
+}
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Search Input */
+.search-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--dashboard-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--dashboard-text);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--dashboard-muted);
+}
+
+.search-input:focus {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(100, 255, 218, 0.3);
+}
+
+/* Location Filter */
+.location-filter {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--dashboard-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--dashboard-text);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  min-width: 180px;
+}
+
+.location-filter:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.location-filter:focus {
+  border-color: rgba(100, 255, 218, 0.3);
+}
+
+.location-filter option {
+  background: #1a1f2e;
+  color: var(--dashboard-text);
+}
+
+/* Scroll Area */
+.log-scroll-area {
+  max-height: 500px;
+  overflow-y: auto;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+thead {
+  background: rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+thead tr {
+  border-bottom: 2px solid var(--dashboard-border);
+}
+
+th {
+  padding: 1rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent-color);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 0.875rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--dashboard-text);
+}
+
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Custom Scrollbar */
+.log-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.log-scroll-area::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.log-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(100, 255, 218, 0.3);
+  border-radius: 3px;
+}
+
+.log-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 255, 218, 0.5);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--dashboard-muted);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state-text {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-subtext {
+  font-size: 0.85rem;
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: var(--accent-color);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .room-access-container {
+    padding: 1.5rem;
+  }
+
+  .room-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .room-access-container {
+    padding: 1rem;
+  }
+
+  .room-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input,
+  .location-filter {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .access-history {
+    padding: 1rem;
+  }
+
+  .log-scroll-area {
+    max-height: 400px;
+  }
+
+  /* Make table scrollable horizontally on mobile */
+  .log-scroll-area {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  th, td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .room-access-container {
+    padding: 0.75rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .room-card > div {
+    padding: 1.25rem;
+  }
+
+  .room-title {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+
+  th, td {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Accessibility - Focus States */
+.room-card:focus-within {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.search-input:focus,
+.location-filter:focus {
+  box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
+}
+
+/* Print Styles */
+@media print {
+  .room-access-container {
+    background: white;
+    color: black;
+  }
+
+  .room-card,
+  .access-history {
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: none;
+  }
+
+  .page-title,
+  .section-title {
+    color: black;
+  }
+
+  .filter-bar {
+    display: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .room-access-container {
+    background: #000000;
+  }
+
+  .room-card,
+  .access-history {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .status-badge {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .room-card:hover {
+    transform: none;
+  }
+}
+
+/* Status Indicators in Table */
+td:nth-child(5) {
+  font-weight: 500;
+}
+
+tbody tr td:nth-child(5):contains("Granted") {
+  color: var(--status-online);
+}
+
+tbody tr td:nth-child(5):contains("Denied") {
+  color: var(--status-fault);
+}
+
+/* Action Badges */
+.action-badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.action-badge.entry {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--status-online);
+}
+
+.action-badge.exit {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+/* Stats Summary (if needed) */
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+
+
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--dashboard-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+

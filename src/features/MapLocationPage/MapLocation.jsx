@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import './MapLocation.css';
+import '../../styles/Pages/mapLocationPage/MapLocation.css';
 
 const Location = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);

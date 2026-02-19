@@ -6,7 +6,7 @@
 class DataService {
   constructor() {
     // Update to port 8001 to match the FastAPI server port
-    this.apiBaseUrl = 'http://localhost:8001/energy';
+    this.apiBaseUrl = "http://localhost:8001/energy";
   }
 
   /**
@@ -15,24 +15,26 @@ class DataService {
    */
   async fetchTimeframeData(timeframe) {
     const endpoints = {
-      'Live': 'LiveData',
-      'Hourly': 'HourlyData',
-      'Daily': 'DailyData',
-      'Weekly': 'Weekly',
-      'Monthly': 'Monthly',
-      'Yearly': 'Yearly'
+      Live: "LiveData",
+      Hourly: "HourlyData",
+      Daily: "DailyData",
+      Weekly: "Weekly",
+      Monthly: "Monthly",
+      Yearly: "Yearly",
     };
 
     try {
-      const endpoint = endpoints[timeframe] || 'LiveData';
+      const endpoint = endpoints[timeframe] || "LiveData";
       console.log(`Fetching data from: ${this.apiBaseUrl}/${endpoint}`);
-      
+
       const response = await fetch(`${this.apiBaseUrl}/${endpoint}`);
-      
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch ${timeframe} data: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch ${timeframe} data: ${response.status} ${response.statusText}`
+        );
       }
-      
+
       const data = await response.json();
       console.log(`Received ${timeframe} data:`, data);
       return data;
@@ -49,15 +51,19 @@ class DataService {
    */
   async fetchChartData(timeframe, location = "HQ-HQ-A-3-Data Center 3F") {
     try {
-      const url = `${this.apiBaseUrl}/ChartData/${timeframe}?measurement=${encodeURIComponent(location)}`;
+      const url = `${
+        this.apiBaseUrl
+      }/ChartData/${timeframe}?measurement=${encodeURIComponent(location)}`;
       console.log(`Fetching chart data from: ${url}`);
-      
+
       const response = await fetch(url);
-      
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch chart data for ${timeframe}: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch chart data for ${timeframe}: ${response.status} ${response.statusText}`
+        );
       }
-      
+
       const data = await response.json();
       console.log(`Received chart data for ${timeframe}:`, data);
       return data;
@@ -74,15 +80,21 @@ class DataService {
    */
   async fetchCarbonAndTariff(timeframe, location = "HQ-HQ-A-3-Data Center 3F") {
     try {
-      const url = `${this.apiBaseUrl}/CarbonAndTariff/${timeframe}?measurement=${encodeURIComponent(location)}`;
+      const url = `${
+        this.apiBaseUrl
+      }/CarbonAndTariff/${timeframe}?measurement=${encodeURIComponent(
+        location
+      )}`;
       console.log(`Fetching carbon and tariff data from: ${url}`);
-      
+
       const response = await fetch(url);
-      
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch carbon and tariff data for ${timeframe}: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch carbon and tariff data for ${timeframe}: ${response.status} ${response.statusText}`
+        );
       }
-      
+
       const data = await response.json();
       console.log(`Received carbon and tariff data for ${timeframe}:`, data);
       return data;
@@ -97,17 +109,26 @@ class DataService {
    * @param {string} timeframe - Live, Hourly, Daily, Weekly, Monthly, or Yearly
    * @param {string} location - Location measurement name
    */
-  async fetchEnergyDistribution(timeframe, location = "HQ-HQ-A-3-Data Center 3F") {
+  async fetchEnergyDistribution(
+    timeframe,
+    location = "HQ-HQ-A-3-Data Center 3F"
+  ) {
     try {
-      const url = `${this.apiBaseUrl}/EnergyDistribution/${timeframe}?measurement=${encodeURIComponent(location)}`;
+      const url = `${
+        this.apiBaseUrl
+      }/EnergyDistribution/${timeframe}?measurement=${encodeURIComponent(
+        location
+      )}`;
       console.log(`Fetching energy distribution data from: ${url}`);
-      
+
       const response = await fetch(url);
-      
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch energy distribution data for ${timeframe}: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch energy distribution data for ${timeframe}: ${response.status} ${response.statusText}`
+        );
       }
-      
+
       const data = await response.json();
       console.log(`Received energy distribution data for ${timeframe}:`, data);
       return data;
@@ -116,21 +137,51 @@ class DataService {
       throw error;
     }
   }
-  
+
   /**
    * Check API health
    */
   async checkHealth() {
     try {
       const response = await fetch(`${this.apiBaseUrl}/health`);
-      
+
       if (!response.ok) {
-        throw new Error(`Health check failed: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Health check failed: ${response.status} ${response.statusText}`
+        );
       }
-      
+
       return await response.json();
     } catch (error) {
-      console.error('API health check failed:', error);
+      console.error("API health check failed:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Fetch yearly export data (last 365 days)
+   * @param {string} type - live | operational | tariff
+   * @param {string} location
+   */
+
+  async fetchYearlyExport(type, location = "HQ-HQ-A-3-Data Center 3F") {
+    try {
+      const url = `${
+        this.apiBaseUrl
+      }/export/yearly/${type}?measurement=${encodeURIComponent(location)}`;
+      console.log(`Fetching yearly export from: ${url}`);
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed yearly export: ${response.status} ${response.statusText}`
+        );
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching yearly export:", error);
       throw error;
     }
   }

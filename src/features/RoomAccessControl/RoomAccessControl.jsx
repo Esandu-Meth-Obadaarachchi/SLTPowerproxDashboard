@@ -4,7 +4,7 @@ import { Table } from './components/table';
 import { Input } from './components/input';
 import { Badge } from './components/badge';
 import { ScrollArea } from './components/scroll-area';
-import './RoomAccessControl.css';
+import '../../styles/Pages/RoomAccessControl/RoomAccessControl.css';
 
 // Predefined locations
 const predefinedLocations = [

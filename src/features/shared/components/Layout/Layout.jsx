@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Sidebar from '../SideBar/SideBar';
 import Navbar from '../navbar/Navbar';
-import './Layout.css';
+import '../../../../styles/Components/Layout.css';
 
 const Layout = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -56,7 +56,7 @@ const Layout = () => {
 
   return (
     <>
-      {/* Sidebar - rendered outside the scroll container */}
+      {/* Sidebar - rendered outside the scroll container 
       <Sidebar
         isCollapsed={sidebarCollapsed}
         isMobile={isMobile}
@@ -64,16 +64,16 @@ const Layout = () => {
         mobileMenuOpen={mobileMenuOpen}
         onToggle={handleSidebarToggle}
         onLinkClick={handleSidebarLinkClick}
-      />
+      />*/}
 
       {/* Main layout */}
       <div className="app-layout">
-        {/* Navbar */}
+        {/* Navbar *
         <Navbar 
           onSidebarToggle={handleSidebarToggle}
           isMobile={isMobile}
           mobileMenuOpen={mobileMenuOpen}
-        />
+        />*/}
 
         {/* Mobile overlay */}
         {isMobile && mobileMenuOpen && (

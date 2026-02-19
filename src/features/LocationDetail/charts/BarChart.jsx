@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   ResponsiveContainer, 
@@ -9,10 +10,15 @@ import {
   Tooltip 
 } from 'recharts';
 
-const BarChart = ({ data, color = '#00f7ff', yAxisLabel }) => {
+const BarChart = ({ data, color = '#00f7ff', yAxisLabel, loading = false }) => {
   return (
     <ResponsiveContainer width="100%" height={250}>
-      {data && data.length > 0 ? (
+      {loading ? (
+        <div className="chart-loader-container">
+          <div className="chart-spinner"></div>
+          <p className="chart-loading-text">Loading {yAxisLabel}...</p>
+        </div>
+      ) : data && data.length > 0 ? (
         <RechartsBarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis 

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import TransformerPanel from './components/Panel';
 import { MapPin, AlertTriangle, Zap, Activity } from 'lucide-react';
-import './TransformersPage.css';
+import '../../../styles/assets/transformer/TransformersPage.css';
 
 const transformerData = {
   'SLT HQ': ['Transformer 1', 'Transformer 2', 'Transformer 3'],

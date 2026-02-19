@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { AlertTriangle, Snowflake } from 'lucide-react';
 
 const ACAlarmsTab = () => (

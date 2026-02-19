@@ -1,0 +1,177 @@
+/* ===== CONSOLIDATED THEME VARIABLES - DARK MODE (DEFAULT) ===== */
+:root {
+  /* Background Image */
+  --bg-image: url('../../assets/DarkThemeBackground.png');
+
+  /* Layout Constants (Sidebar Root) */
+  --navbar-h: 64px;
+  --sidebar-w: 250px;
+  --sidebar-w-collapsed: 60px;
+
+  /* Global Colors */
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --primary-color: #0077ff;
+  --primary-dark: #0055cc;
+  --accent-color: #00f7ff;
+  --secondary-color: #6366f1;
+  
+  /* Status Colors */
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --status-online: #10b981;
+  --status-standby: #3b82f6;
+  --status-fault: #ef4444;
+  --status-warning: #f59e0b;
+  --status-total: #6366f1;
+  --trend-up: #10b981;
+  --trend-down: #ef4444;
+  
+  /* Background Variants */
+  --bg-primary: #0f172a63;
+  --bg-secondary: #070a194d;
+  --bg-tertiary: #334155;
+  --background-dark: #111827;
+  --card-background: #1a2235;
+  --all-cardbg: rgba(255, 255, 255, 0.08);
+  --input-background: #acacad;
+  --input-bg: rgba(255, 255, 255, 0.1);
+  --login-bg: #1a2235;
+  
+  /* Gradients */
+  --bg-card: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+  --bg-card-hover: linear-gradient(135deg, #334155 0%, #475569 100%);
+  
+  /* Glass Effect */
+  --glass-background: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+  
+  /* Borders & Shadows */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-primary: rgba(51, 65, 85, 0.8);
+  --border-secondary: rgba(51, 65, 85, 0.5);
+  --hover-color: rgba(255, 255, 255, 0.05);
+  --shadow-primary: rgba(0, 0, 0, 0.2);
+  --shadow-hover: rgba(0, 0, 0, 0.3);
+  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  
+  /* Text Accents */
+  --text-accent: #60A5FA;
+  
+  /* Tabs & Updates */
+  --tab-bg: rgba(51, 65, 85, 0.5);
+  --update-bg: rgba(30, 41, 59, 0.5);
+  
+  /* Nav Bar */
+  --nav-bg: #020516;
+  --nav-text: #f3f3f3;
+  --nav-hover-bg: rgba(255, 255, 255, 0.07);
+  --nav-active: #3498db;
+  --logout-icon: #ff7675;
+  
+  /* Sidebar Variables (Dark) */
+  --sidebar-bg: #000000;
+  --sidebar-border: #34495e;
+  --sidebar-text: #ecf0f1;
+  --sidebar-icon: #bdc3c7;
+  --sidebar-hover-bg: #34495e;
+  --sidebar-hover-text: #ecf0f1;
+  --sidebar-active-bg: #3498db;
+  --sidebar-active-text: #ffffff;
+  --sidebar-active-border: #2980b9;
+  --sidebar-version-text: #95a5a6;
+  
+  /* Dashboard/Overview */
+  --dashboard-bg: #000000;
+  --dashboard-text: #ffffff;
+  --dashboard-muted: #94a3b8;
+  --dashboard-card: #1a2235;
+  --dashboard-border: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== LIGHT THEME ===== */
+[data-theme="light"] {
+  /* Background Image */
+  --bg-image: url('../../assets/LightThemeBackground.png');
+
+  /* Global Colors */
+  --bg-color: #ffffff;
+  --text-color: #1e293b;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --accent-color: #22d3ee;
+  --secondary-color: #6366f1;
+  
+  /* Status Colors */
+  --success-color: #16a34a;
+  --warning-color: #ca8a04;
+  --error-color: #dc2626;
+  
+  /* Background Variants */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e2e8f0;
+  --background-dark: #f1f5f9;
+  --card-background: #ffffff;
+  --all-cardbg: #ffffff;
+  --input-background: #f1f5f9;
+  --input-bg: #f1f5f9;
+  --login-bg: #f8fafc;
+  
+  /* Gradients */
+  --bg-card: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  --bg-card-hover: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  
+  /* Glass Effect */
+  --glass-background: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.05);
+  
+  /* Borders & Shadows */
+  --border-color: rgba(30, 41, 59, 0.1);
+  --border-primary: rgba(226, 232, 240, 0.8);
+  --border-secondary: rgba(226, 232, 240, 0.5);
+  --hover-color: rgba(37, 99, 235, 0.1);
+  --shadow-primary: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  
+  /* Text Accents */
+  --text-accent: #3b82f6;
+  
+  /* Tabs & Updates */
+  --tab-bg: rgba(226, 232, 240, 0.5);
+  --update-bg: rgba(248, 250, 252, 0.8);
+  
+  /* Nav Bar */
+  --nav-bg: #ffffff;
+  --nav-text: #1e1e1e;
+  --nav-hover-bg: rgba(0, 0, 0, 0.05);
+  --nav-active: #3498db;
+  --logout-icon: #e74c3c;
+  
+  /* Sidebar Variables (Light) */
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #dcdcdc;
+  --sidebar-text: #1e1e1e;
+  --sidebar-icon: #5f6c7b;
+  --sidebar-hover-bg: #e5e7eb;
+  --sidebar-hover-text: #111827;
+  --sidebar-active-bg: #3498db;
+  --sidebar-active-text: #ffffff;
+  --sidebar-active-border: #2980b9;
+  --sidebar-version-text: #7f8c8d;
+  
+  /* Dashboard/Overview */
+  --dashboard-bg: #ffffff;
+  --dashboard-text: #1e293b;
+  --dashboard-muted: #64748b;
+  --dashboard-card: #f8fafc;
+  --dashboard-border: #e2e8f0;
+}

@@ -1,8 +1,8 @@
 import React from "react";
-import StatusCard from "../rectifierDetailComponent/StatusCard";
+import StatusCard from "../../../../shared/components/StatCard/StatCard";
 import PhaseChart from "../rectifierDetailComponent/PhaseChart";
 import { Battery, Cable } from "lucide-react";
-import "../RectifierDetails.css";
+import "../../../../../styles/assets/rectifier/RectifierDetails.css";
 
 const ACInputTab = () => {
   // Voltage raw data

@@ -1,0 +1,151 @@
+.location-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #070a194d;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+  color: white;
+}
+
+.location-container h1 {
+  color: var(--text-color);
+}
+
+/* Diagonal elements for background styling */
+
+
+.location-container::before {
+  top: 25%;
+}
+
+.location-container::after {
+  bottom: 30%;
+}
+
+.location-top-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  z-index: 2;
+  position: relative;
+  align-items: center;
+}
+
+.location-selector {
+  flex-shrink: 0;
+  width: 300px;
+}
+
+.location-selector select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+}
+
+.address-container, .generators-container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.address-container {
+  flex: 1;
+  min-width: 0; /* This prevents flex items from overflowing */
+}
+
+.address-container h3, .generators-container h3 {
+  color: #4b7bec;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.address-container p {
+  margin: 0;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fa-map-marker {
+  color: #4b7bec;
+  margin-right: 5px;
+}
+
+.address-name {
+  color: black;
+  font-weight: bold;
+}
+
+.generators-container {
+  flex-shrink: 0;
+  width: auto;
+  min-width: 240px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.generators-container h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #4b7bec;
+  white-space: nowrap;
+}
+
+.generator-count {
+  background-color: #e5efff;
+  min-width: 60px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #4b7bec;
+  border-radius: 8px;
+  margin-left: 1rem;
+  padding: 0 1rem;
+}
+
+.map-container {
+  width: 100%;
+  height: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .location-top-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .location-selector {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .address-container, .generators-container {
+    width: 100%;
+  }
+  
+  .generators-container {
+    margin-top: 1rem;
+  }
+}

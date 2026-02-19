@@ -1,7 +1,7 @@
 import React from "react";
 import StatusCard from "../upsDetailComponent/StatusCard";
 import { Zap, Activity, Gauge, Power } from "lucide-react";
-import "../UPSDetails.css";
+import "../../../../../styles/assets/ups/UPSDetails.css";
 
 const ACInputTab = ({ upsData }) => {
   const generateInputData = () => {

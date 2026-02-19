@@ -3,38 +3,39 @@ import { PieChart as RechartsPC, Pie, Cell, Tooltip, Legend, ResponsiveContainer
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A569BD', '#5DADE2'];
 
-const PieChart = ({ data }) => {
-  // Check if data exists and is an array
-  if (!data || !Array.isArray(data) || data.length === 0) {
-    return <div className="empty-chart">No data available for energy distribution</div>;
-  }
-  
-  // Log the data for debugging
-  console.log("Pie Chart Data:", data);
-
+const PieChart = ({ data, loading = false }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <RechartsPC>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          labelLine={true}
-          outerRadius={80}
-          fill="#8884d8"
-          dataKey="value"
-          nameKey="name"
-          label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip 
-          formatter={(value) => [`${value} KW`, 'Value']}
-        />
-        <Legend />
-      </RechartsPC>
+      {loading ? (
+        <div className="chart-loader-container">
+          <div className="chart-spinner"></div>
+          <p className="chart-loading-text">Loading Energy Distribution...</p>
+        </div>
+      ) : !data || !Array.isArray(data) || data.length === 0 ? (
+        <div className="empty-chart">No data available for energy distribution</div>
+      ) : (
+        <RechartsPC>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={true}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+            nameKey="name"
+            label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip 
+            formatter={(value) => [`${value} ksW`, 'Value']}
+          />
+          <Legend />
+        </RechartsPC>
+      )}
     </ResponsiveContainer>
   );
 };

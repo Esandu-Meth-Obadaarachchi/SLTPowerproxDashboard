@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import "./LocationSelector.css";
+import "../../styles/Pages/locationSelector/LocationSelector.css";
 import { useNavigate } from "react-router-dom";
 import {ReactComponent as GeneratorIcon} from "../../features/shared/images/generator6.svg"; // Import your generator icon
 

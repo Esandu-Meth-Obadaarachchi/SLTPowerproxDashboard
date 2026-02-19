@@ -1,138 +1,148 @@
 import React from 'react';
-import { Activity } from 'lucide-react';
+import { Activity, Zap } from 'lucide-react';
+
+// Available floors for the dropdown (easily configurable)
+const AVAILABLE_FLOORS = ["1st Floor", "2nd Floor", "3rd Floor", "4th Floor", "5th Floor"];
+
+// Mock function to modify metrics based on floor
+const getFloorModifiedMetrics = (baseMetrics, selectedFloor) => {
+  if (!baseMetrics) return baseMetrics;
+  
+  // Extract floor number from string (e.g., "3rd Floor" -> 3)
+  const floorNumber = parseInt(selectedFloor.match(/\d+/)[0]);
+  
+  // Apply a multiplier based on floor (higher floors have slightly different loads)
+  const floorMultiplier = 1 + (floorNumber - 3) * 0.1; // 3rd floor is baseline
+  
+  const parseValue = (str) => {
+    const num = parseFloat(str);
+    return isNaN(num) ? 0 : num;
+  };
+  
+  return {
+    itLoad: `${(parseValue(baseMetrics.itLoad) * floorMultiplier).toFixed(2)} kW`,
+    acLoad: `${(parseValue(baseMetrics.acLoad) * floorMultiplier).toFixed(2)} kW`,
+    totalLoad: `${(parseValue(baseMetrics.totalLoad) * floorMultiplier).toFixed(2)} kW`
+  };
+};
+
+// MetricValue Helper Component
+const MetricValue = ({ value, loading }) => {
+  if (loading) {
+    return <div className="metric-skeleton"></div>;
+  }
+  return <>{value}</>;
+};
 
 const LiveDataTab = ({ 
   locationData, 
-  expandedSection, 
-  toggleExpand, 
   generatorStatusColors, 
-  error 
+  error, 
+  loading = false,
+  selectedFloor = "3rd Floor",
+  setSelectedFloor
 }) => {
+  // Guard clause: Show loading state if data is not yet available
+  if (!locationData) {
+    return (
+      <div className="loading-container">
+        <div className="chart-loader-container">
+          <div className="chart-spinner"></div>
+          <p className="chart-loading-text">Loading location data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Ensure all required nested properties exist with safe defaults
+  const generators = locationData.generators || [];
+  const baseMetrics = locationData.metrics || {
+    itLoad: '0.00 kW',
+    acLoad: '0.00 kW',
+    totalLoad: '0.00 kW'
+  };
+  
+  // Apply floor-based modifications to metrics
+  const metrics = getFloorModifiedMetrics(baseMetrics, selectedFloor);
+  
+  const locationName = locationData.name || 'Unknown Location';
+
   return (
-    <>
-      <div className="generators-section">
-        <h2 className="section-title">Generators Status</h2>
-        <div className="generators-grid">
-          {locationData.generators.map((generator) => (
-            <div 
-              key={generator.id} 
-              className="generator-card" 
-              style={{ 
-                backgroundColor: generatorStatusColors[generator.status] + '20',
-                borderLeft: `4px solid ${generatorStatusColors[generator.status]}`
-              }}
+    <div className="live-data-container">
+      {/* Enhanced Generators Section */}
+      <div className="generators-section-enhanced">
+        <div className="section-header">
+          <div className="section-title-wrapper">
+            <Zap className="section-icon" size={28} />
+            <h2 className="section-title-main">Floor Overview</h2>
+          </div>
+          {/* Floor Selector Dropdown with Label */}
+          <div className="floor-selector-wrapper">
+            <span className="floor-selector-label">Floor:</span>
+            <select 
+              className="floor-selector"
+              value={selectedFloor}
+              onChange={(e) => setSelectedFloor(e.target.value)}
             >
-              <div className="generator-info">
-                <div style={{
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  marginBottom: '0.5rem'
-                }}>
-                  <span 
-                    className="generator-status-indicator" 
-                    style={{ 
-                      backgroundColor: generatorStatusColors[generator.status] 
-                    }}
-                  ></span>
-                  <span className="generator-id">{generator.id}</span>
-                </div>
-                <span className="generator-status">{generator.status}</span>
-              </div>
-              <button className="view-button">Details</button>
-            </div>
-          ))}
+              {AVAILABLE_FLOORS.map((floor) => (
+                <option key={floor} value={floor}>
+                  {floor}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
+        {/* Facility Metrics Overview */}
+        <div className="facility-metrics-card">
+          <h3 className="metrics-title">Facility Load Overview</h3>
+          <div className="load-circles-enhanced">
+            <div className="load-circle-enhanced it-load">
+              <div className="load-icon-wrapper">
+                <Activity size={24} />
+              </div>
+              <div className="load-value-large">
+                <MetricValue 
+                  value={metrics.itLoad}
+                  loading={loading}
+                />
+              </div>
+              <div className="load-label-enhanced">IT Load</div>
+            </div>
+            <div className="load-circle-enhanced ac-load">
+              <div className="load-icon-wrapper">
+                <Zap size={24} />
+              </div>
+              <div className="load-value-large">
+                <MetricValue 
+                  value={metrics.acLoad}
+                  loading={loading}
+                />
+              </div>
+              <div className="load-label-enhanced">AC Load</div>
+            </div>
+            <div className="load-circle-enhanced total-load">
+              <div className="load-icon-wrapper">
+                <Activity size={24} />
+              </div>
+              <div className="load-value-large">
+                <MetricValue 
+                  value={metrics.totalLoad}
+                  loading={loading}
+                />
+              </div>
+              <div className="load-label-enhanced">Total Load</div>
+            </div>
+          </div>
+        </div>
 
-      <div className="metrics-section">
-        <div className={`metrics-card ${expandedSection === 'facility' ? 'expanded' : ''}`}>
-          <div className="metrics-card-header">
-            <h2>{locationData.name}</h2>
-            <button className="expand-button" onClick={() => toggleExpand('facility')}>
-              <i className="fa fa-expand"></i>
-            </button>
+        {error && (
+          <div className="error-message-enhanced">
+            <span className="error-icon">⚠️</span>
+            {error}
           </div>
-          <div className="load-circles">
-            <div className="load-circle it-load">
-              <div className="load-value">{locationData.metrics.itLoad}</div>
-              <div className="load-label">IT Load</div>
-            </div>
-            <div className="load-circle ac-load">
-              <div className="load-value">{locationData.metrics.acLoad}</div>
-              <div className="load-label">AC Load</div>
-            </div>
-            <div className="load-circle total-load">
-              <div className="load-value">{locationData.metrics.totalLoad}</div>
-              <div className="load-label">Total Load</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="load-tables-section">
-          <div className="load-tables-container">
-            <div className="load-table-card">
-              <div className="load-table-header">
-                <h3>IT Load Table</h3>
-                <button className="load-button">Load Details</button>
-              </div>
-              <div className="load-table-content">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Rack</th>
-                      <th>Load (KW)</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Rack A1</td>
-                      <td>0.00</td>
-                      <td>Unknown</td>
-                    </tr>
-                    <tr>
-                      <td>Rack B2</td>
-                      <td>0.00</td>
-                      <td>Unknown</td>
-                    </tr>
-                  </tbody>
-                </table>
-                {error && <div className="error-message">{error}</div>}
-              </div>
-            </div>
-            <div className="load-table-card">
-              <div className="load-table-header">
-                <h3>AC Load Table</h3>
-                <button className="load-button">Load Details</button>
-              </div>
-              <div className="load-table-content">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Unit</th>
-                      <th>Load (KW)</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>AC Unit 1</td>
-                      <td>0.00</td>
-                      <td>Unknown</td>
-                    </tr>
-                    <tr>
-                      <td>AC Unit 2</td>
-                      <td>0.00</td>
-                      <td>Unknown</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

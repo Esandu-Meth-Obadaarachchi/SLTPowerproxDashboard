@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
-import './RectifierRoutineInspection.css';
+import '../../../../styles/assets/rectifier/RectifierRoutineInspection.css';
 
 const StatusBadge = ({ status }) => {
   const color =

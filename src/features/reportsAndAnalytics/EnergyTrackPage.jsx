@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './EnergytrackPage.css';
+import '../../styles/Pages/reportsAndAnalytics/EnergytrackPage.css';
 import { powerData, efficiencyData, maintenanceData, alarmsData, statCardsData } from './EnergyTrackData';
 import PowerUsageSection from './PowerUsageSection';
 import EfficiencySection from './EfficiencySection';

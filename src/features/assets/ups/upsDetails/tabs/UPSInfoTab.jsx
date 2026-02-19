@@ -10,7 +10,7 @@ import {
   User,
   Clock,
 } from "lucide-react";
-import "../UPSDetails.css";
+import "../../../../../styles/assets/ups/UPSDetails.css";
 
 const UPSInfoTab = () => {
   return (

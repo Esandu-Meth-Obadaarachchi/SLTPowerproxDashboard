@@ -12,7 +12,7 @@ import {
   Tool,
   History,
 } from "lucide-react";
-import "../UPSDetails.css";
+import "../../../../../styles/assets/ups/UPSDetails.css";
 
 const MaintenanceTab = ({ upsData }) => {
   console.log("MaintenanceTab rendered with upsData:", upsData);

@@ -9,7 +9,7 @@ import StatusCard from './ups_components/StatusCard';
 import UPSSystemsList from './ups_components/UPSSystemsList';
 import UPSMaintenanceTab from './ups_components/UPSMaintenance';
 
-import "./UPSsystem.css";
+import "../../../styles/assets/ups/UPSsystem.css";
 
 const UPSSystem = () => {
   const [activeTab, setActiveTab] = useState(0);
